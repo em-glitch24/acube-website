@@ -66,11 +66,11 @@
       <section class="hero">
         <div class="hero__video-wrap" aria-hidden="true">
           <video class="hero__video" autoplay muted playsinline preload="auto">
-            <source src="assets/images/herobgvid2.mp4" type="video/mp4" />
+            <source src="assets/images/herobgvid.mp4" type="video/mp4" />
           </video>
 
           <video class="hero__video" muted playsinline preload="auto">
-            <source src="assets/images/herobgvid2.mp4" type="video/mp4" />
+            <source src="assets/images/herobgvid.mp4" type="video/mp4" />
           </video>
         </div>
 
@@ -81,8 +81,18 @@
               Internal IT &amp; Development Division
             </p>
 
-            <h1 class="hero__title">
-              Turning Ideas Into Powerful Digital Solutions
+            <h1
+              class="hero__title"
+              aria-label="Building Digital Systems Behind Better Business"
+            >
+              <span class="hero__title-placeholder" aria-hidden="true">
+                Building Digital Systems Behind Better Business
+              </span>
+
+              <span class="hero__typing">
+                <span class="hero__title-text"></span
+                ><span class="hero__cursor" aria-hidden="true"></span>
+              </span>
             </h1>
 
             <p class="hero__lede">
@@ -100,10 +110,12 @@
           </div>
 
           <div class="hero__visual">
-            <img
-              src="assets/images/hero4.png"
-              alt="Diagram of Integritech's core systems and how they connect"
-            />
+            <div class="hero__visual-float">
+              <img
+                src="assets/images/hero4.png"
+                alt="Diagram of Integritech's core systems and how they connect"
+              />
+            </div>
           </div>
         </div>
       </section>

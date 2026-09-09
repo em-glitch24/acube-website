@@ -1,6 +1,54 @@
 // Integritech Solutions Inc. — main.js
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Hero typing animation
+  const hero = document.querySelector(".hero");
+  const title = document.querySelector(".hero__title");
+  const titleText = document.querySelector(".hero__title-text");
+
+  if (hero && title && titleText) {
+    const text = title.getAttribute("aria-label") || "";
+
+    let index = 0;
+
+    const TYPE_SPEED = 55;
+
+    const typeTitle = () => {
+      if (index < text.length) {
+        titleText.textContent += text.charAt(index);
+        index++;
+
+        setTimeout(typeTitle, TYPE_SPEED);
+      }
+    };
+
+    // Start typing after the title's entrance animation
+    setTimeout(typeTitle, 450);
+  }
+
+  // Hero exit animation
+  if (hero) {
+    const updateHeroExit = () => {
+      const heroRect = hero.getBoundingClientRect();
+      const heroHeight = hero.offsetHeight;
+
+      // Start the exit animation when approximately 50%
+      // of the hero has been scrolled past.
+      const triggerPoint = heroHeight * 0.5;
+
+      if (heroRect.top <= -triggerPoint) {
+        hero.classList.add("is-exiting");
+      } else {
+        hero.classList.remove("is-exiting");
+      }
+    };
+
+    window.addEventListener("scroll", updateHeroExit, {
+      passive: true,
+    });
+
+    updateHeroExit();
+  }
   // Hero background video crossfade
   // Hero background video crossfade
   const heroVideos = document.querySelectorAll(".hero__video");

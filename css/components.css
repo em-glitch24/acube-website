@@ -238,6 +238,9 @@
   color: var(--paper-000);
   max-width: 16ch;
   letter-spacing: -0.01em;
+
+  /* Reserve the full title height immediately */
+  min-height: 2.2em;
 }
 
 .hero__lede {
@@ -256,28 +259,196 @@
   flex-wrap: wrap;
 }
 
+.hero__title {
+  position: relative;
+}
+
+.hero__title-placeholder {
+  visibility: hidden;
+  display: block;
+}
+
+.hero__typing {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+}
+
+.hero__title-text {
+  display: inline;
+}
+
+.hero__cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  margin-left: 5px;
+  background: var(--accent-blue-bright);
+  vertical-align: -0.08em;
+  animation: cursor-blink 0.8s steps(1) infinite;
+}
 /* Opening reveal — one orchestrated moment, not per-element */
+/* ==========================================================================
+   Hero animations
+   ========================================================================== */
+
 .hero__eyebrow,
 .hero__title,
 .hero__lede,
 .hero__actions,
 .hero__visual {
-  animation: hero-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  opacity: 0;
 }
+
+/* Eyebrow */
 .hero__eyebrow {
-  animation-delay: 0s;
+  transform: translateY(20px);
+  animation: hero-enter-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
 }
+
+/* Title */
 .hero__title {
-  animation-delay: 0.08s;
+  transform: translateY(20px);
+  animation: hero-title-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
 }
+
+/* Description */
 .hero__lede {
-  animation-delay: 0.16s;
+  transform: translateY(20px);
+  animation: hero-enter-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.8s forwards;
 }
+
+/* Buttons */
 .hero__actions {
-  animation-delay: 0.24s;
+  transform: translateY(20px);
+  animation: hero-enter-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 2s forwards;
 }
+
+/* Right-side visual */
 .hero__visual {
-  animation-delay: 0.3s;
+  transform: translateX(35px);
+  animation:
+    hero-visual-enter 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards,
+    hero-float 3s ease-in-out 1.4s infinite;
+}
+
+/* -----------------------------
+   Entrance animations
+   ----------------------------- */
+
+@keyframes hero-enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-title-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-visual-enter {
+  from {
+    opacity: 0;
+    transform: translateX(35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* -----------------------------
+   Typing cursor
+   ----------------------------- */
+
+.hero__cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  margin-left: 5px;
+  background: var(--accent-blue-bright);
+  vertical-align: -0.08em;
+  animation: cursor-blink 0.8s steps(1) infinite;
+}
+
+@keyframes cursor-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* -----------------------------
+   Exit animations
+   ----------------------------- */
+
+/* -----------------------------
+   Scroll exit animation
+   ----------------------------- */
+
+.hero__eyebrow,
+.hero__title,
+.hero__lede,
+.hero__actions,
+.hero__visual {
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.7, 0, 0.84, 1);
+}
+
+/* Exit keyframes — "from" matches the settled entrance state exactly,
+   so the handoff looks continuous instead of jumping */
+@keyframes hero-exit-slide {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-48px);
+  }
+}
+
+@keyframes hero-visual-exit-slide {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-48px);
+  }
+}
+
+.hero.is-exiting .hero__eyebrow,
+.hero.is-exiting .hero__title,
+.hero.is-exiting .hero__lede,
+.hero.is-exiting .hero__actions {
+  animation: hero-exit-slide 0.6s cubic-bezier(0.7, 0, 0.84, 1) forwards;
+}
+
+.hero.is-exiting .hero__visual {
+  animation: hero-visual-exit-slide 0.6s cubic-bezier(0.7, 0, 0.84, 1) forwards;
 }
 
 @keyframes hero-rise {
@@ -298,6 +469,17 @@
   .hero__actions,
   .hero__visual {
     animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero__visual-float {
+    animation: none;
+  }
+
+  .hero__cursor {
+    animation: none;
+    opacity: 1;
   }
 }
 
@@ -337,8 +519,8 @@
   border: none;
   background: transparent;
 }
-.hero__visual {
-  animation: hero-float 3s ease-in-out infinite;
+.hero__visual-float {
+  animation: hero-float 3s ease-in-out 1.4s infinite;
 }
 
 @keyframes hero-float {
