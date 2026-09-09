@@ -1,6 +1,76 @@
 // Integritech Solutions Inc. — main.js
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Hero background video crossfade
+  // Hero background video crossfade
+  const heroVideos = document.querySelectorAll(".hero__video");
+
+  if (heroVideos.length === 2) {
+    const [videoA, videoB] = heroVideos;
+
+    let activeVideo = videoA;
+    let nextVideo = videoB;
+    let isTransitioning = false;
+
+    const CROSSFADE_DURATION = 2;
+
+    const crossfade = () => {
+      if (isTransitioning) return;
+
+      isTransitioning = true;
+
+      // Make sure the next video starts from the beginning
+      nextVideo.currentTime = 0;
+
+      const playPromise = nextVideo.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          isTransitioning = false;
+        });
+      }
+
+      // Crossfade
+      nextVideo.style.transition = `opacity ${CROSSFADE_DURATION}s ease`;
+      activeVideo.style.transition = `opacity ${CROSSFADE_DURATION}s ease`;
+
+      nextVideo.style.opacity = "1";
+      activeVideo.style.opacity = "0";
+
+      setTimeout(() => {
+        activeVideo.pause();
+
+        // Swap the videos
+        const oldActive = activeVideo;
+        activeVideo = nextVideo;
+        nextVideo = oldActive;
+
+        // Reset the inactive video
+        nextVideo.currentTime = 0;
+        nextVideo.style.transition = "none";
+        nextVideo.style.opacity = "0";
+
+        isTransitioning = false;
+      }, CROSSFADE_DURATION * 1000);
+    };
+
+    const checkVideoTime = () => {
+      if (
+        !isTransitioning &&
+        activeVideo.duration &&
+        activeVideo.currentTime >= activeVideo.duration - CROSSFADE_DURATION
+      ) {
+        crossfade();
+      }
+    };
+
+    videoA.addEventListener("timeupdate", checkVideoTime);
+    videoB.addEventListener("timeupdate", checkVideoTime);
+
+    // Start the first video
+    videoA.play().catch(() => {});
+  }
+
   const toggle = document.querySelector(".nav__toggle");
   const linksWrap = document.querySelector(".nav__links-wrap");
 

@@ -64,18 +64,15 @@
 
     <main id="top">
       <section class="hero">
-        <video
-          class="hero__video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          poster="assets/images/footerbg.jpg"
-          aria-hidden="true"
-        >
-          <source src="assets/images/herobgvid1.mp4" type="video/mp4" />
-        </video>
+        <div class="hero__video-wrap" aria-hidden="true">
+          <video class="hero__video" autoplay muted playsinline preload="auto">
+            <source src="assets/images/herobgvid2.mp4" type="video/mp4" />
+          </video>
+
+          <video class="hero__video" muted playsinline preload="auto">
+            <source src="assets/images/herobgvid2.mp4" type="video/mp4" />
+          </video>
+        </div>
 
         <div class="container hero__grid">
           <div class="hero__content">
