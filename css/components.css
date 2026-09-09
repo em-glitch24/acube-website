@@ -137,9 +137,25 @@
   padding-bottom: clamp(2.5rem, 6vw, 2rem);
   position: relative;
   overflow: hidden;
+
+  /* Fallback before video loads / if video can't play */
   background-image: url("../assets/images/footerbg.jpg");
   background-size: cover;
   background-position: center;
+}
+
+.hero__video {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  z-index: 0;
+  pointer-events: none;
 }
 
 .hero__grid {
