@@ -129,49 +129,188 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Services: clickable accordion list + prev/next arrows, kept in sync.
-  // Exactly one dropdown is open at a time; service 1 is open by default
-  // on every load (no saved state), so the list height stays predictable.
-  const serviceTabs = document.querySelectorAll(".services__tab");
-  const serviceDropdowns = document.querySelectorAll(".services__dropdown");
-  const servicePanels = document.querySelectorAll(".services__panel-item");
-  const servicePrev = document.querySelector(".services__nav-btn--prev");
-  const serviceNext = document.querySelector(".services__nav-btn--next");
+  // Services: card grid → detail view, data-driven like the Work section.
+  const servicesGrid = document.querySelector("#servicesGrid");
+  const servicesStage = document.querySelector("#servicesStage");
+  const servicesDetail = document.querySelector("#servicesDetail");
+  const servicesBack = document.querySelector("#servicesBack");
 
-  if (serviceTabs.length && servicePanels.length) {
-    let currentIndex = 0;
-
-    const setActiveService = (index) => {
-      currentIndex = (index + serviceTabs.length) % serviceTabs.length;
-
-      serviceTabs.forEach((tab, i) => {
-        const isActive = i === currentIndex;
-        tab.classList.toggle("is-active", isActive);
-        tab.setAttribute("aria-expanded", String(isActive));
-      });
-
-      serviceDropdowns.forEach((dropdown, i) => {
-        dropdown.classList.toggle("is-open", i === currentIndex);
-      });
-
-      servicePanels.forEach((panel, i) => {
-        panel.classList.toggle("is-active", i === currentIndex);
-      });
+  if (servicesGrid && servicesDetail) {
+    const ICONS = {
+      code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+      globe:
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20a15 15 0 0 1 0-20"/></svg>',
+      cpu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="6" width="12" height="12" rx="1"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>',
+      bot: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="9" width="16" height="11" rx="2"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/><path d="M12 9V5M9 5h6"/></svg>',
+      factory:
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V10l6 4v-4l6 4V7l6 4v10H3z"/></svg>',
+      drone:
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="6" height="6" rx="1"/><circle cx="4" cy="4" r="2"/><circle cx="20" cy="4" r="2"/><circle cx="4" cy="20" r="2"/><circle cx="20" cy="20" r="2"/><path d="M9 9L5.5 5.5M15 9l3.5-3.5M9 15l-3.5 3.5M15 15l3.5 3.5"/></svg>',
     };
 
-    serviceTabs.forEach((tab, i) => {
-      tab.addEventListener("click", () => setActiveService(i));
+    const servicesData = [
+      {
+        icon: "code",
+        title: "Custom Software & ERP Systems",
+        short: "Business software built around how you actually operate.",
+        desc: "From internal tools to full ERP systems, we build software that keeps every department on the same page — inventory, payroll, sales, and accounting, all connected.",
+        image: "assets/images/ui.jpg",
+        features: [
+          "Inventory & operations management systems",
+          "Employee & workflow tools",
+          "Reporting and analytics dashboards",
+          "Legacy system modernization",
+        ],
+      },
+      {
+        icon: "globe",
+        title: "Website & Web Applications",
+        short: "Custom-built sites and apps, designed around your workflow.",
+        desc: "Ecommerce platforms, client portals, booking systems, and admin dashboards — built to fit how your business runs, not squeezed into a template.",
+        image: "assets/images/ui2.png",
+        features: [
+          "Ecommerce platforms",
+          "Client & customer portals",
+          "Booking and scheduling systems",
+          "Admin dashboards",
+        ],
+      },
+      {
+        icon: "cpu",
+        title: "IoT Training & Solutions",
+        short: "Hands-on IoT education, from bootcamps to lab setups.",
+        desc: "Monthly bootcamps, institutional training programs, and consulting services — paired with modular learning kits and dashboards that bring real IoT experience into the classroom or the workplace.",
+        image: "assets/images/iot-training.jpg",
+        features: [
+          "Monthly IoT bootcamps for students & professionals",
+          "Custom institutional IoT training programs",
+          "IoT lab setup & consulting services",
+          "Modular IoT learning kits & dashboards",
+        ],
+      },
+      {
+        icon: "bot",
+        title: "AI & Robotics Training & Solutions",
+        short: "Practical robotics and AI training, in-person or online.",
+        desc: "From in-person bootcamps to fully online simulation courses, backed by SMORPHI robotics kits and AI Online License subscriptions for schools building out a curriculum.",
+        image: "assets/images/ai-robotics.jpg",
+        features: [
+          "AI & robotics bootcamps: programming, robotics, ML",
+          "Fully online AI robotics simulation courses",
+          "AI Academy: Machine Learning, AI apps, LLMs",
+          "SMORPHI educational & advanced robotics kits",
+        ],
+      },
+      {
+        icon: "factory",
+        title: "Industrial IoT & AI Automation",
+        short: "Industrial-grade IoT and AI automation for real operations.",
+        desc: "SentriCORE monitoring systems, agentic AI workflows, RAG chatbots, and predictive maintenance models built around your operations, not a generic template.",
+        image: "assets/images/industrial-iot.jpg",
+        features: [
+          "SentriCORE IoT solutions for industrial monitoring",
+          "Agentic AI automation for tasks & workflows",
+          "RAG chatbots & predictive maintenance models",
+          "Real-time AI dashboards for operational visibility",
+        ],
+      },
+      {
+        icon: "drone",
+        title: "Robotics & AI Hardware",
+        short: "Purpose-built hardware for learning and R&D.",
+        desc: "From entry-level Arduino kits to the AIDrone and the BANTAI quadruped robot, for classrooms, competitions, and advanced robotics applications.",
+        image: "assets/images/robotics-hardware.jpg",
+        features: [
+          "Arduino learning kits: miniAuto & miniArm",
+          "AIDrone — educational drone with AI vision",
+          "BANTAI — quadruped robot for research & inspection",
+          "Custom hardware builds for classrooms & R&D",
+        ],
+      },
+    ];
+
+    servicesGrid.innerHTML = servicesData
+      .map(
+        (s, i) => `
+          <article class="services__card" role="listitem" data-index="${i}" tabindex="0">
+            <span class="services__card-icon">${ICONS[s.icon]}</span>
+            <h3 class="services__card-title">${s.title}</h3>
+            <p class="services__card-desc">${s.short}</p>
+            <span class="services__card-link">Learn more <span aria-hidden="true">→</span></span>
+          </article>
+        `,
+      )
+      .join("");
+
+    const cards = servicesGrid.querySelectorAll(".services__card");
+    const detailImg = document.querySelector("#servicesDetailImg");
+    const detailIcon = document.querySelector("#servicesDetailIcon");
+    const detailTitle = document.querySelector("#servicesDetailTitle");
+    const detailDesc = document.querySelector("#servicesDetailDesc");
+    const detailList = document.querySelector("#servicesDetailList");
+
+    const openDetail = (index) => {
+      const s = servicesData[index];
+      detailImg.src = s.image;
+      detailImg.alt = `${s.title} illustration`;
+      detailIcon.innerHTML = ICONS[s.icon];
+      detailTitle.textContent = s.title;
+      detailDesc.textContent = s.desc;
+      detailList.innerHTML = s.features.map((f) => `<li>${f}</li>`).join("");
+
+      servicesStage.classList.add("is-detail");
+      servicesDetail.setAttribute("aria-hidden", "false");
+      servicesDetail.scrollTo(0, 0);
+    };
+
+    const closeDetail = () => {
+      servicesStage.classList.remove("is-detail");
+      servicesDetail.setAttribute("aria-hidden", "true");
+    };
+
+    cards.forEach((card) => {
+      card.addEventListener("click", () =>
+        openDetail(Number(card.dataset.index)),
+      );
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openDetail(Number(card.dataset.index));
+        }
+      });
     });
 
-    if (servicePrev) {
-      servicePrev.addEventListener("click", () =>
-        setActiveService(currentIndex - 1),
-      );
+    if (servicesBack) {
+      servicesBack.addEventListener("click", closeDetail);
     }
-    if (serviceNext) {
-      serviceNext.addEventListener("click", () =>
-        setActiveService(currentIndex + 1),
+
+    // Tilt effect — pointer devices only
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      const MAX_TILT = 8;
+
+      servicesGrid.addEventListener("mousemove", (e) => {
+        const card = e.target.closest(".services__card");
+        if (!card) return;
+        const rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        const py = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(700px) rotateX(${(-py * MAX_TILT).toFixed(2)}deg) rotateY(${(px * MAX_TILT).toFixed(2)}deg) translateY(-4px)`;
+      });
+
+      servicesGrid.addEventListener(
+        "mouseleave",
+        () => {
+          cards.forEach((card) => (card.style.transform = ""));
+        },
+        true,
       );
+
+      servicesGrid.addEventListener("mouseout", (e) => {
+        const card = e.target.closest(".services__card");
+        if (card && !card.contains(e.relatedTarget)) {
+          card.style.transform = "";
+        }
+      });
     }
   }
 

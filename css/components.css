@@ -25,7 +25,7 @@
 }
 
 .brand__mark {
-  color: var(--accent-green-bright);
+  color: var(--paper-100);
 }
 /* Center column: primary links */
 .nav__links-wrap {
@@ -92,8 +92,9 @@
 
 .btn--primary {
   background: transparent;
-  border: 1px solid var(--accent-blue);
-  color: var(--paper-000);
+  border: 1px solid var(--ink-700);
+  color: var(--paper-100);
+  background: var(--ink-700);
 }
 
 .btn--primary:hover {
@@ -101,27 +102,26 @@
 }
 
 .btn--ghost-dark {
-  border-color: var(--accent-blue);
+  border-color: var(--accent-purple);
   color: var(--text-on-dark);
-  background-color: var(--accent-blue);
+  background-color: var(--accent-purple);
 }
 
 .btn--ghost-dark:hover {
-  border-color: var(--accent-blue-bright);
-  background: var(--accent-blue);
+  background: var(--ink-700);
   color: var(--text-on-dark);
 }
 
 .btn--text {
   color: var(--text-on-dark);
-  border-bottom: 1px solid var(--accent-blue);
+  border-bottom: 1px solid var(--accent-purple);
   border-radius: 0;
   padding: 0.25rem 0;
 }
 
 .btn--text:hover {
-  border-color: var(--accent-blue-bright);
-  color: var(--accent-blue-bright);
+  border-color: var(--ink-700);
+  color: var(--accent-purple);
 }
 
 /* ==========================================================================
@@ -229,7 +229,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent-green-bright);
+  background: var(--ink-600);
   flex-shrink: 0;
 }
 
@@ -601,15 +601,12 @@
 
 .services {
   position: relative;
-  background-image: url("../assets/images/servicebg2.jpg");
+  background-image: url("../assets/images/workbg.jpg");
   background-size: cover;
   background-position: center;
   background-color: var(--paper-100);
 }
 
-/* Light tint over the background image — same mechanism as the hero's
-   dark tint, just inverted. Adjust strength via --services-tint (0 = no
-   tint / full image showing through, 1 = solid paper color). */
 .services::before {
   content: "";
   position: absolute;
@@ -646,13 +643,14 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent-green-dark);
+  background: var(--ink-700);
   flex-shrink: 0;
 }
 
 .services__title {
-  font-size: clamp(1.75rem, 3.5vw, var(--step-3));
-  color: var(--accent-green);
+  font-size: 40px;
+  color: var(--ink-700);
+  font-weight: 800;
 }
 
 .services__desc {
@@ -660,113 +658,200 @@
   color: var(--ink-900);
 }
 
-/* Two independent columns — generous gap + a divider line does the
-   separating; no shared card / background wrapping them together. */
-.services__panel {
+/* Stage: holds either the grid or the detail view */
+.services__stage {
+  position: relative;
+}
+
+/* ---- Card grid ---- */
+.services__grid {
   display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: clamp(2.5rem, 6vw, 5rem);
-  align-items: stretch;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    visibility 0.35s;
 }
 
-.services__list {
-  display: flex;
-  flex-direction: column;
+.services__card {
+  position: relative;
+  background: var(--paper-000);
+  border: 1px solid var(--border-on-light);
+  border-radius: var(--radius-sm1);
+  padding: 1.75rem;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
-.services__item {
-  border-bottom: 1px solid var(--border-on-light);
+.services__card:hover,
+.services__card:focus-visible {
+  border-color: var(--accent-purple, var(--ink-700));
+  box-shadow: 0 18px 40px rgba(11, 21, 38, 0.12);
 }
 
-.services__item:first-child {
-  border-top: 1px solid var(--border-on-light);
-}
-
-.services__tab {
-  width: 100%;
+.services__card-icon {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
-  text-align: left;
-  padding: 1.1rem 0.25rem;
-  background: transparent;
-  border: none;
-  border-left: 3px solid transparent;
-  cursor: pointer;
-  transition: border-color 0.15s ease;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--ink-900);
+  color: var(--paper-000);
+  margin-bottom: 1.25rem;
 }
 
-.services__tab.is-active {
-  border-left-color: var(--accent-blue);
+.services__card-icon svg {
+  width: 22px;
+  height: 22px;
 }
 
-.services__tab-index {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+.services__card-title {
+  font-size: var(--step-0);
+  color: var(--ink-900);
+  margin-bottom: 0.5rem;
+}
+
+.services__card-desc {
   color: var(--text-muted);
-  flex-shrink: 0;
+  font-size: var(--step--1);
+  line-height: 1.5;
 }
 
-.services__tab.is-active .services__tab-index {
-  color: var(--accent-blue);
-}
-
-.services__tab-name {
-  flex: 1;
+.services__card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
   font-size: var(--step--1);
   font-weight: 500;
-  color: var(--text-body);
+  color: var(--ink-700);
 }
 
-.services__tab.is-active .services__tab-name {
-  color: var(--ink-900);
-  font-weight: 600;
-}
-
-.services__tab-caret {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  transition: transform 0.2s ease;
-  flex-shrink: 0;
-}
-
-.services__tab.is-active .services__tab-caret {
-  color: var(--accent-blue);
-  transform: rotate(180deg);
-}
-
-/* Accordion: collapsed by default, opened via max-height so it animates */
-.services__dropdown {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
+/* ---- Detail view ---- */
+.services__grid {
+  position: relative;
   transition:
-    max-height 0.3s ease,
-    opacity 0.2s ease;
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    visibility 0.35s;
 }
 
-.services__dropdown.is-open {
-  max-height: 300px;
+.services__detail {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease,
+    visibility 0.4s;
+  pointer-events: none;
+}
+
+/* When showing detail: pull the grid OUT of flow (absolute + hidden),
+   and put the detail INTO flow (relative) so it's the one that
+   determines the stage's height. Only one is ever "in flow". */
+.services__stage.is-detail .services__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(-12px) scale(0.98);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.services__stage.is-detail .services__detail {
+  position: relative;
   opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
-.services__dropdown .services__content-list {
-  padding: 0.25rem 0.25rem 1.1rem 2.1rem;
+.services__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-700);
+  margin-bottom: 1.5rem;
 }
 
-.services__content-list {
+.services__back:hover {
+  color: var(--ink-900);
+}
+
+.services__detail-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.services__detail-image {
+  padding: 2px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--ink-700), var(--ink-900));
+}
+
+.services__detail-image img {
+  width: 100%;
+  border-radius: 6px;
+  background: var(--paper-000);
+}
+
+.services__detail-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--ink-900);
+  color: var(--paper-000);
+  margin-bottom: 1rem;
+}
+
+.services__detail-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.services__detail-body h3 {
+  font-size: var(--step-2);
+  color: var(--ink-900);
+  margin-bottom: 0.75rem;
+}
+
+.services__detail-body p {
+  color: var(--ink-900);
+  margin-bottom: 1.25rem;
+}
+
+.services__detail-list {
   display: grid;
   gap: 0.6rem;
 }
 
-.services__content-list li {
+.services__detail-list li {
   position: relative;
   padding-left: 1.4rem;
   color: var(--text-body);
   font-size: var(--step--1);
 }
 
-.services__content-list li::before {
+.services__detail-list li::before {
   content: "";
   position: absolute;
   left: 0;
@@ -774,119 +859,21 @@
   width: 8px;
   height: 8px;
   border-radius: 2px;
-  background: var(--accent-blue);
+  background: var(--ink-700);
 }
 
-/* Right column: separated from the list with a divider line + its own
-   inset, rather than touching it directly */
-.services__display {
-  padding-left: clamp(2rem, 5vw, 3.5rem);
-}
-
-.services__panel-item {
-  display: none;
-}
-
-.services__panel-item.is-active {
-  display: block;
-  animation: hero-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.services__content-title {
-  font-size: var(--step-2);
-  color: var(--ink-900);
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-}
-
-.services__content-title::before {
-  content: "";
-  width: 30px;
-  height: 2px;
-  flex-shrink: 0;
-  background: var(--accent-blue);
-  margin-right: 1rem;
-}
-
-.services__content-desc {
-  color: var(--ink-900);
-}
-
-.services__image {
-  position: relative;
-  width: fit-content;
-  max-width: 100%;
-  margin-top: 1.5rem;
-  padding: 2px;
-  border-radius: 8px;
-
-  background: linear-gradient(
-    135deg,
-    var(--accent-blue),
-    var(--accent-blue-bright),
-    var(--accent-green)
-  );
-
-  box-shadow:
-    0 12px 35px rgba(11, 21, 38, 0.1),
-    0 0 18px rgba(44, 123, 192, 0.1);
-}
-
-.services__image img {
-  display: block;
-
-  width: auto;
-  height: auto;
-
-  max-width: 100%;
-  max-height: 350px;
-
-  border-radius: 6px;
-  border: none;
-  background: var(--paper-000);
-}
-
-.services__nav {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-}
-
-.services__nav-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--border-on-light);
-  background: var(--paper-000);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  line-height: 1;
-  color: var(--ink-900);
-  transition:
-    border-color 0.15s ease,
-    color 0.15s ease;
-}
-
-.services__nav-btn:hover {
-  border-color: var(--accent-blue);
-  color: var(--accent-blue);
-}
-
-/* Tablet and down: list stacks above the display, divider becomes
-   horizontal instead of vertical */
-@media (max-width: 860px) {
-  .services__panel {
+@media (max-width: 960px) {
+  .services__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .services__detail-inner {
     grid-template-columns: 1fr;
   }
-  .services__display {
-    border-left: none;
-    border-top: 1px solid var(--border-on-light);
-    padding-left: 0;
-    padding-top: clamp(2rem, 5vw, 3rem);
+}
+
+@media (max-width: 600px) {
+  .services__grid {
+    grid-template-columns: 1fr;
   }
 }
 

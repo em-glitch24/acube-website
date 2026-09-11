@@ -5,12 +5,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Integritech Solutions Inc. — IT &amp; Development</title>
-    <link rel="icon" type="image/png" href="assets/images/logo1.png" />
-    <link rel="apple-touch-icon" href="assets/images/logo1.png" />
+    <title>Acube Technologies Inc. . — IT &amp; Development</title>
+    <link rel="icon" type="image/png" href="assets/images/acube.jpg" />
+    <link rel="apple-touch-icon" href="assets/images/acube.jpg" />
     <meta
       name="description"
-      content="The internal IT and development team behind Integritech Solutions Inc.'s systems, tools, and infrastructure."
+      content="The internal IT and development team behind Acube Technologies Inc.'s systems, tools, and infrastructure."
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,12 +30,12 @@
       <div class="container site-header__bar">
         <a href="#top" class="brand">
           <img
-            src="assets/images/logo1.png"
+            src="assets/images/acube.jpg"
             alt="Integritech Solutions logo"
             class="brand__logo"
           />
           <span class="brand__name"
-            >Integritech <span class="brand__mark">Solutions</span></span
+            >Acube <span class="brand__mark">Technologies Inc.</span></span
           >
         </a>
 
@@ -66,11 +66,11 @@
       <section class="hero">
         <div class="hero__video-wrap" aria-hidden="true">
           <video class="hero__video" autoplay muted playsinline preload="auto">
-            <source src="assets/images/herobgvid.mp4" type="video/mp4" />
+            <source src="assets/images/herobgvid4.mp4" type="video/mp4" />
           </video>
 
           <video class="hero__video" muted playsinline preload="auto">
-            <source src="assets/images/herobgvid.mp4" type="video/mp4" />
+            <source src="assets/images/herobgvid4.mp4" type="video/mp4" />
           </video>
         </div>
 
@@ -112,7 +112,7 @@
           <div class="hero__visual">
             <div class="hero__visual-float">
               <img
-                src="assets/images/hero4.png"
+                src="assets/images/hero3.png"
                 alt="Diagram of Integritech's core systems and how they connect"
               />
             </div>
@@ -129,308 +129,38 @@
             </p>
             <h2 class="services__title">Our Services</h2>
             <p class="services__desc">
-              From custom software to the everyday IT that keeps an office
-              running — here's where we help.
+              From custom software to IoT and AI robotics education — here's
+              where we help.
             </p>
           </div>
 
-          <div class="services__panel">
+          <div class="services__stage" id="servicesStage">
+            <div class="services__grid" id="servicesGrid" role="list"></div>
+
             <div
-              class="services__list"
-              role="tablist"
-              aria-label="Our services"
-              aria-orientation="vertical"
+              class="services__detail"
+              id="servicesDetail"
+              aria-hidden="true"
             >
-              <div class="services__item">
-                <button
-                  class="services__tab is-active"
-                  role="tab"
-                  aria-expanded="true"
-                  aria-controls="service-drop-0"
-                  id="service-tab-0"
-                  data-index="0"
-                >
-                  <span class="services__tab-index">01</span>
-                  <span class="services__tab-name"
-                    >Custom Software &amp; ERP Systems</span
-                  >
-                  <span class="services__tab-caret" aria-hidden="true">⌄</span>
-                </button>
-                <div
-                  class="services__dropdown is-open"
-                  id="service-drop-0"
-                  role="region"
-                  aria-labelledby="service-tab-0"
-                >
-                  <ul class="services__content-list">
-                    <li>Inventory &amp; operations management systems</li>
-                    <li>Employee &amp; workflow tools</li>
-                    <li>Reporting and analytics dashboards</li>
-                    <li>Legacy system modernization</li>
-                  </ul>
+              <button class="services__back" id="servicesBack">
+                <span aria-hidden="true">←</span> All services
+              </button>
+              <div class="services__detail-inner">
+                <div class="services__detail-image">
+                  <img id="servicesDetailImg" src="" alt="" />
                 </div>
-              </div>
-
-              <div class="services__item">
-                <button
-                  class="services__tab"
-                  role="tab"
-                  aria-expanded="false"
-                  aria-controls="service-drop-1"
-                  id="service-tab-1"
-                  data-index="1"
-                >
-                  <span class="services__tab-index">02</span>
-                  <span class="services__tab-name"
-                    >Website/Web Applications</span
-                  >
-                  <span class="services__tab-caret" aria-hidden="true">⌄</span>
-                </button>
-                <div
-                  class="services__dropdown"
-                  id="service-drop-1"
-                  role="region"
-                  aria-labelledby="service-tab-1"
-                >
-                  <ul class="services__content-list">
-                    <li>Ecommerce platforms</li>
-                    <li>Client &amp; customer portals</li>
-                    <li>Booking and scheduling systems</li>
-                    <li>Admin dashboards</li>
-                    <li>Commercial and Portfolio</li>
-                  </ul>
+                <div class="services__detail-body">
+                  <span
+                    class="services__detail-icon"
+                    id="servicesDetailIcon"
+                  ></span>
+                  <h3 id="servicesDetailTitle"></h3>
+                  <p id="servicesDetailDesc"></p>
+                  <ul
+                    class="services__detail-list"
+                    id="servicesDetailList"
+                  ></ul>
                 </div>
-              </div>
-
-              <div class="services__item">
-                <button
-                  class="services__tab"
-                  role="tab"
-                  aria-expanded="false"
-                  aria-controls="service-drop-2"
-                  id="service-tab-2"
-                  data-index="2"
-                >
-                  <span class="services__tab-index">03</span>
-                  <span class="services__tab-name"
-                    >Systems Integration &amp; Automation</span
-                  >
-                  <span class="services__tab-caret" aria-hidden="true">⌄</span>
-                </button>
-                <div
-                  class="services__dropdown"
-                  id="service-drop-2"
-                  role="region"
-                  aria-labelledby="service-tab-2"
-                >
-                  <ul class="services__content-list">
-                    <li>API integrations between existing systems</li>
-                    <li>Automated data syncing &amp; reporting</li>
-                    <li>Workflow automation</li>
-                    <li>Third-party service connections</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="services__item">
-                <button
-                  class="services__tab"
-                  role="tab"
-                  aria-expanded="false"
-                  aria-controls="service-drop-3"
-                  id="service-tab-3"
-                  data-index="3"
-                >
-                  <span class="services__tab-index">04</span>
-                  <span class="services__tab-name"
-                    >Cloud Hosting &amp; Deployment</span
-                  >
-                  <span class="services__tab-caret" aria-hidden="true">⌄</span>
-                </button>
-                <div
-                  class="services__dropdown"
-                  id="service-drop-3"
-                  role="region"
-                  aria-labelledby="service-tab-3"
-                >
-                  <ul class="services__content-list">
-                    <li>Cloud server setup &amp; configuration</li>
-                    <li>CI/CD deployment pipelines</li>
-                    <li>Uptime monitoring</li>
-                    <li>Backup &amp; recovery planning</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="services__item">
-                <button
-                  class="services__tab"
-                  role="tab"
-                  aria-expanded="false"
-                  aria-controls="service-drop-4"
-                  id="service-tab-4"
-                  data-index="4"
-                >
-                  <span class="services__tab-index">05</span>
-                  <span class="services__tab-name">Office IT Setup</span>
-                  <span class="services__tab-caret" aria-hidden="true">⌄</span>
-                </button>
-                <div
-                  class="services__dropdown"
-                  id="service-drop-4"
-                  role="region"
-                  aria-labelledby="service-tab-4"
-                >
-                  <ul class="services__content-list">
-                    <li>Workstation setup &amp; configuration</li>
-                    <li>LAN setup and configuration</li>
-                    <li>Printer &amp; peripheral integration</li>
-                    <li>Basic office network troubleshooting</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="services__item">
-                <button
-                  class="services__tab"
-                  role="tab"
-                  aria-expanded="false"
-                  aria-controls="service-drop-5"
-                  id="service-tab-5"
-                  data-index="5"
-                >
-                  <span class="services__tab-index">06</span>
-                  <span class="services__tab-name"
-                    >IT Support &amp; Maintenance</span
-                  >
-                  <span class="services__tab-caret" aria-hidden="true">⌄</span>
-                </button>
-                <div
-                  class="services__dropdown"
-                  id="service-drop-5"
-                  role="region"
-                  aria-labelledby="service-tab-5"
-                >
-                  <ul class="services__content-list">
-                    <li>Ongoing troubleshooting &amp; bug fixes</li>
-                    <li>System updates &amp; patching</li>
-                    <li>Performance monitoring</li>
-                    <li>Priority support for critical issues</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="services__display">
-              <div class="services__panels">
-                <article
-                  class="services__panel-item is-active"
-                  id="service-panel-0"
-                >
-                  <h3 class="services__content-title">
-                    Custom Software &amp; ERP Systems
-                  </h3>
-                  <p class="services__content-desc">
-                    Business software built around how you actually operate —
-                    from internal tools to full ERP systems that keep every
-                    department on the same page.
-                  </p>
-                  <div class="services__image">
-                    <img
-                      src="assets/images/ui.jpg"
-                      alt="Custom software and ERP system screenshot"
-                    />
-                  </div>
-                </article>
-
-                <article class="services__panel-item" id="service-panel-1">
-                  <h3 class="services__content-title">Web Applications</h3>
-                  <p class="services__content-desc">
-                    Custom-built websites and web apps — from ecommerce
-                    platforms to internal portals — designed around your
-                    workflow, not a template.
-                  </p>
-                  <div class="services__image">
-                    <img
-                      src="assets/images/ui2.png"
-                      alt="Web application screenshot"
-                    />
-                  </div>
-                </article>
-
-                <article class="services__panel-item" id="service-panel-2">
-                  <h3 class="services__content-title">
-                    Systems Integration &amp; Automation
-                  </h3>
-                  <p class="services__content-desc">
-                    We connect the tools you already use and automate the manual
-                    work in between, so data moves on its own.
-                  </p>
-                  <div class="services__image">
-                    <img
-                      src="assets/images/sysauto1.png"
-                      alt="Systems integration diagram"
-                    />
-                  </div>
-                </article>
-
-                <article class="services__panel-item" id="service-panel-3">
-                  <h3 class="services__content-title">
-                    Cloud Hosting &amp; Deployment
-                  </h3>
-                  <p class="services__content-desc">
-                    We don't just build the software — we deploy it, host it,
-                    and keep it running in production.
-                  </p>
-                  <div class="services__image">
-                    <img
-                      src="assets/images/cloud.png"
-                      alt="Cloud hosting and deployment dashboard"
-                    />
-                  </div>
-                </article>
-
-                <article class="services__panel-item" id="service-panel-4">
-                  <h3 class="services__content-title">Office IT Setup</h3>
-                  <p class="services__content-desc">
-                    Getting your office connected and running — computers, local
-                    networks, and the everyday hardware your team relies on.
-                  </p>
-                  <div class="services__image">
-                    <img src="assets/images/office.jpg" alt="Office IT setup" />
-                  </div>
-                </article>
-
-                <article class="services__panel-item" id="service-panel-5">
-                  <h3 class="services__content-title">
-                    IT Support &amp; Maintenance
-                  </h3>
-                  <p class="services__content-desc">
-                    Ongoing support for the systems we build — and the ones you
-                    already have — so small issues don't become downtime.
-                  </p>
-                  <div class="services__image">
-                    <img
-                      src="assets/images/it supp.jpg"
-                      alt="IT support and maintenance"
-                    />
-                  </div>
-                </article>
-              </div>
-
-              <div class="services__nav">
-                <button
-                  class="services__nav-btn services__nav-btn--prev"
-                  aria-label="Previous service"
-                >
-                  ‹
-                </button>
-                <button
-                  class="services__nav-btn services__nav-btn--next"
-                  aria-label="Next service"
-                >
-                  ›
-                </button>
               </div>
             </div>
           </div>
@@ -582,12 +312,12 @@
         <div class="container site-footer__bar">
           <a href="#top" class="brand">
             <img
-              src="assets/images/logo1.png"
+              src="assets/images/acube.jpg"
               alt="Integritech Solutions logo"
               class="brand__logo"
             />
             <span class="brand__name"
-              >Integritech <span class="brand__mark">Solutions</span></span
+              >Acube <span class="brand__mark">Technologies</span></span
             >
           </a>
 

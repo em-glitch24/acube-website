@@ -9,6 +9,7 @@
   --ink-900: #0b1526;
   --ink-800: #14263f;
   --ink-700: #1c3352;
+  --ink-600: #562553;
   --paper-100: #f1f2f4;
   --paper-000: #ffffff;
   --text-body: #2b3542;
@@ -25,6 +26,7 @@
   --border-on-dark: rgba(233, 236, 241, 0.14);
   --border-on-light: rgba(11, 21, 38, 0.12);
   --transparent-blue: #0c2b4e82;
+  --accent-purple: #774caf;
 
   /* Hero background tint — adjust --hero-tint (0–1) to taste */
   --hero-tint-rgb: 11, 21, 26;
