@@ -658,9 +658,17 @@
   color: var(--ink-900);
 }
 
-/* Stage: holds either the grid or the detail view */
+/* Stage: grid + detail share the same grid cell, so the stage auto-sizes
+   to whichever is taller — no JS height measurement needed. */
 .services__stage {
   position: relative;
+  display: grid;
+}
+
+.services__grid,
+.services__detail {
+  grid-column: 1;
+  grid-row: 1;
 }
 
 /* ---- Card grid ---- */
@@ -735,17 +743,7 @@
 }
 
 /* ---- Detail view ---- */
-.services__grid {
-  position: relative;
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s ease,
-    visibility 0.35s;
-}
-
 .services__detail {
-  position: absolute;
-  inset: 0;
   opacity: 0;
   visibility: hidden;
   transform: translateY(16px);
@@ -754,14 +752,10 @@
     transform 0.4s ease,
     visibility 0.4s;
   pointer-events: none;
+  align-self: start;
 }
 
-/* When showing detail: pull the grid OUT of flow (absolute + hidden),
-   and put the detail INTO flow (relative) so it's the one that
-   determines the stage's height. Only one is ever "in flow". */
 .services__stage.is-detail .services__grid {
-  position: absolute;
-  inset: 0;
   opacity: 0;
   transform: translateY(-12px) scale(0.98);
   visibility: hidden;
@@ -769,7 +763,6 @@
 }
 
 .services__stage.is-detail .services__detail {
-  position: relative;
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
