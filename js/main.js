@@ -129,13 +129,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Services: card grid → detail view, data-driven like the Work section.
+    // Services: category tabs → card grid → detail view, all data-driven.
   const servicesGrid = document.querySelector("#servicesGrid");
+  const servicesTabs = document.querySelector("#servicesTabs");
   const servicesStage = document.querySelector("#servicesStage");
   const servicesDetail = document.querySelector("#servicesDetail");
   const servicesBack = document.querySelector("#servicesBack");
 
-  if (servicesGrid && servicesDetail) {
+  if (servicesGrid && servicesTabs && servicesDetail) {
     const ICONS = {
       code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
       globe:
@@ -146,14 +147,156 @@ document.addEventListener("DOMContentLoaded", () => {
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V10l6 4v-4l6 4V7l6 4v10H3z"/></svg>',
       drone:
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="6" height="6" rx="1"/><circle cx="4" cy="4" r="2"/><circle cx="20" cy="4" r="2"/><circle cx="4" cy="20" r="2"/><circle cx="20" cy="20" r="2"/><path d="M9 9L5.5 5.5M15 9l3.5-3.5M9 15l-3.5 3.5M15 15l3.5 3.5"/></svg>',
+      book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+      box: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
+      zap: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>',
+      chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+      layout:
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>',
     };
 
+    const categories = [
+      { id: "training", label: "Training & Education" },
+      { id: "hardware", label: "Robotics & Hardware" },
+      { id: "industrial", label: "Industrial & AI Automation" },
+      { id: "software", label: "Software & Web" },
+    ];
+
+    // `action` cards don't open a detail view: "contact" opens the
+    // contact modal, "work" scrolls to the Work section.
     const servicesData = [
+      // ---- Training & Education ----
       {
+        cat: "training",
+        icon: "cpu",
+        title: "IoT Training & Solutions",
+        short: "Hands-on IoT education, from bootcamps to lab setups.",
+        desc: "Monthly bootcamps, institutional training programs, and consulting, paired with School of IoT Philippines learning kits and dashboards that bring real IoT experience into the classroom or workplace.",
+        image: "assets/images/training.png",
+        features: [
+          "Monthly 3-day IoT bootcamps for students & professionals",
+          "Custom institutional programs for schools and organizations",
+          "IoT lab setup, smart projects & pilot-system consulting",
+          "Modular learning kits plus IoT dashboards & tools",
+        ],
+      },
+      {
+        cat: "training",
+        icon: "bot",
+        title: "AI & Robotics Training",
+        short: "Practical robotics and AI training, in-person or online.",
+        desc: "From in-person bootcamps to fully online simulation courses that need no hardware, plus AI Academy programs and AI Online License subscriptions for schools building out a curriculum.",
+        image: "assets/images/ai.png",
+        features: [
+          "Bootcamps: robotics programming, AI applications, machine learning",
+          "Fully online AI robotics simulation course, available nationwide",
+          "AI Academy: Machine Learning, AI apps, and LLMs",
+          "AI Online License (SaaS) for schools, at scale",
+        ],
+      },
+      {
+        cat: "training",
+        icon: "book",
+        title: "Other Trainings",
+        short: "Coding and AI courses, delivered on request.",
+        desc: "Focused short courses for students, educators, and professionals, scheduled around your group's needs.",
+        image: "assets/images/other-training.png",
+        features: [
+          "Arduino coding",
+          "Python coding for robotics and AI applications",
+          "Machine Learning certification",
+          "Generative AI",
+          "API building",
+        ],
+      },
+
+      // ---- Robotics & Hardware ----
+      {
+        cat: "hardware",
+        icon: "box",
+        title: "Educational Robotics Kits",
+        short: "SMORPHI, miniAuto and miniArm kits for classrooms and labs.",
+        desc: "Modular kits for learning and competitions, from beginner Arduino-compatible builds to advanced robotics platforms for research and prototyping.",
+        image: "assets/images/automation.png",
+        features: [
+          "SMORPHI, SMORPHI 2 & SMORPHI Imaginary: educational and advanced robotics kits",
+          "miniAuto: entry-level AI vision robot car with mecanum wheels",
+          "miniArm: open-source robotic arm for beginners",
+          "Custom hardware builds for classrooms & R&D",
+        ],
+      },
+      {
+        cat: "hardware",
+        icon: "drone",
+        title: "AIDrone",
+        short: "An educational drone with AI vision you can program.",
+        desc: "A Raspberry Pi Zero 2 W drone you can fly with a transmitter or program with block-based coding, Scratch, and Python.",
+        image: "assets/images/aidrone.png",
+        features: [
+          "Face and object tracking with intelligent vision",
+          "Deep learning for real-time object detection",
+          "Available as Edu Drone and AI Drone versions",
+        ],
+      },
+      {
+        cat: "hardware",
+        icon: "bot",
+        title: "BANTAI Quadruped Robot",
+        short: "A first-of-its-kind quadruped for research and inspection.",
+        desc: "BANTAI (Bionic Adaptive Navigation & Tactical Assistant Intelligence) is an agile quadruped robot for both education and industry, and the first of its kind in the Philippine market.",
+        image: "assets/images/bantai.png",
+        features: [
+          "Agile mobility up to 2.5 m/s with a 7 kg payload",
+          "3D LiDAR and HD wide-angle camera",
+          "Built for research, automation, and inspection",
+        ],
+      },
+
+      // ---- Industrial & AI Automation ----
+      {
+        cat: "industrial",
+        icon: "factory",
+        title: "SentriCORE Industrial IoT",
+        short: "IoT monitoring built for industrial and commercial use.",
+        desc: "SentriCORE gives students, researchers, and industry partners a real-world test environment for monitoring, prototyping, and validating IoT systems.",
+        image: "assets/images/sentricore.png",
+        features: [
+          "Real-world test environment for students & researchers",
+          "Faster prototyping and validation for industry partners",
+          "Data sharing and benchmarking across academia & factories",
+          "Pricing based on project scope",
+        ],
+      },
+      {
+        cat: "industrial",
+        icon: "zap",
+        title: "AI Automation Solutions",
+        short: "AI agents, chatbots, and predictive maintenance.",
+        desc: "Agentic AI frameworks and Retrieval-Augmented Generation systems that take over repetitive work and give you clearer operational control.",
+        image: "assets/images/ai-automation.png",
+        features: [
+          "Agentic AI that manages tasks, processes, and workflows",
+          "RAG chatbots for accurate, context-aware answers",
+          "Predictive maintenance models that flag issues early",
+          "Smart workflow systems and real-time AI dashboards",
+        ],
+      },
+      {
+        cat: "industrial",
+        icon: "chat",
+        action: "contact",
+        title: "Need something custom?",
+        short: "Tell us the problem and we'll scope the solution.",
+        cta: "Contact us",
+      },
+
+      // ---- Software & Web ----
+      {
+        cat: "software",
         icon: "code",
         title: "Custom Software & ERP Systems",
         short: "Business software built around how you actually operate.",
-        desc: "From internal tools to full ERP systems, we build software that keeps every department on the same page — inventory, payroll, sales, and accounting, all connected.",
+        desc: "From internal tools to full ERP systems, we build software that keeps every department on the same page: inventory, payroll, sales, and accounting, all connected.",
         image: "assets/images/ui.jpg",
         features: [
           "Inventory & operations management systems",
@@ -163,10 +306,11 @@ document.addEventListener("DOMContentLoaded", () => {
         ],
       },
       {
+        cat: "software",
         icon: "globe",
         title: "Website & Web Applications",
         short: "Custom-built sites and apps, designed around your workflow.",
-        desc: "Ecommerce platforms, client portals, booking systems, and admin dashboards — built to fit how your business runs, not squeezed into a template.",
+        desc: "Ecommerce platforms, client portals, booking systems, and admin dashboards, built to fit how your business runs rather than squeezed into a template.",
         image: "assets/images/ui2.png",
         features: [
           "Ecommerce platforms",
@@ -176,73 +320,43 @@ document.addEventListener("DOMContentLoaded", () => {
         ],
       },
       {
-        icon: "cpu",
-        title: "IoT Training & Solutions",
-        short: "Hands-on IoT education, from bootcamps to lab setups.",
-        desc: "Monthly bootcamps, institutional training programs, and consulting services — paired with modular learning kits and dashboards that bring real IoT experience into the classroom or the workplace.",
-        image: "assets/images/training.png",
-        features: [
-          "Monthly IoT bootcamps for students & professionals",
-          "Custom institutional IoT training programs",
-          "IoT lab setup & consulting services",
-          "Modular IoT learning kits & dashboards",
-        ],
-      },
-      {
-        icon: "bot",
-        title: "AI & Robotics Training & Solutions",
-        short: "Practical robotics and AI training, in-person or online.",
-        desc: "From in-person bootcamps to fully online simulation courses, backed by SMORPHI robotics kits and AI Online License subscriptions for schools building out a curriculum.",
-        image: "assets/images/ai.png",
-        features: [
-          "AI & robotics bootcamps: programming, robotics, ML",
-          "Fully online AI robotics simulation courses",
-          "AI Academy: Machine Learning, AI apps, LLMs",
-          "SMORPHI educational & advanced robotics kits",
-        ],
-      },
-      {
-        icon: "factory",
-        title: "Industrial IoT & AI Automation",
-        short: "Industrial-grade IoT and AI automation for real operations.",
-        desc: "SentriCORE monitoring systems, agentic AI workflows, RAG chatbots, and predictive maintenance models built around your operations, not a generic template.",
-        image: "assets/images/industrial.png",
-        features: [
-          "SentriCORE IoT solutions for industrial monitoring",
-          "Agentic AI automation for tasks & workflows",
-          "RAG chatbots & predictive maintenance models",
-          "Real-time AI dashboards for operational visibility",
-        ],
-      },
-      {
-        icon: "drone",
-        title: "Robotics & AI Hardware",
-        short: "Purpose-built hardware for learning and R&D.",
-        desc: "From entry-level Arduino kits to the AIDrone and the BANTAI quadruped robot, for classrooms, competitions, and advanced robotics applications.",
-        image: "assets/images/automation.png",
-        features: [
-          "Arduino learning kits: miniAuto & miniArm",
-          "AIDrone — educational drone with AI vision",
-          "BANTAI — quadruped robot for research & inspection",
-          "Custom hardware builds for classrooms & R&D",
-        ],
+        cat: "software",
+        icon: "layout",
+        action: "work",
+        title: "See what we've built",
+        short: "HRIS, CRM, accounting, and client websites in action.",
+        cta: "View our work",
       },
     ];
 
-    servicesGrid.innerHTML = servicesData
-      .map(
-        (s, i) => `
-          <article class="services__card" role="listitem" data-index="${i}" tabindex="0">
-            <span class="services__card-icon">${ICONS[s.icon]}</span>
-            <h3 class="services__card-title">${s.title}</h3>
-            <p class="services__card-desc">${s.short}</p>
-            <span class="services__card-link">Learn more <span aria-hidden="true">→</span></span>
-          </article>
-        `,
-      )
-      .join("");
+    let activeCat = categories[0].id;
 
-    const cards = servicesGrid.querySelectorAll(".services__card");
+    const renderTabs = () => {
+      servicesTabs.innerHTML = categories
+        .map((c) => {
+          const on = c.id === activeCat;
+          return `<button type="button" role="tab" class="services__tab${on ? " is-active" : ""}" data-cat="${c.id}" aria-selected="${on}" tabindex="${on ? 0 : -1}">${c.label}</button>`;
+        })
+        .join("");
+    };
+
+    const renderCards = () => {
+      servicesGrid.innerHTML = servicesData
+        .map((s, i) => ({ s, i }))
+        .filter(({ s }) => s.cat === activeCat)
+        .map(
+          ({ s, i }) => `
+            <article class="services__card${s.action ? " services__card--action" : ""}" role="listitem" data-index="${i}" tabindex="0">
+              <span class="services__card-icon">${ICONS[s.icon]}</span>
+              <h3 class="services__card-title">${s.title}</h3>
+              <p class="services__card-desc">${s.short}</p>
+              <span class="services__card-link">${s.cta || "Learn more"} <span aria-hidden="true">→</span></span>
+            </article>
+          `,
+        )
+        .join("");
+    };
+
     const detailImg = document.querySelector("#servicesDetailImg");
     const detailIcon = document.querySelector("#servicesDetailIcon");
     const detailTitle = document.querySelector("#servicesDetailTitle");
@@ -251,12 +365,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const openDetail = (index) => {
       const s = servicesData[index];
+      const cat = categories.find((c) => c.id === s.cat);
       detailImg.src = s.image;
       detailImg.alt = `${s.title} illustration`;
       detailIcon.innerHTML = ICONS[s.icon];
       detailTitle.textContent = s.title;
       detailDesc.textContent = s.desc;
       detailList.innerHTML = s.features.map((f) => `<li>${f}</li>`).join("");
+      servicesBack.innerHTML = `<span aria-hidden="true">←</span> Back to ${cat.label}`;
 
       servicesStage.classList.add("is-detail");
       servicesDetail.setAttribute("aria-hidden", "false");
@@ -268,23 +384,68 @@ document.addEventListener("DOMContentLoaded", () => {
       servicesDetail.setAttribute("aria-hidden", "true");
     };
 
-    cards.forEach((card) => {
-      card.addEventListener("click", () =>
-        openDetail(Number(card.dataset.index)),
-      );
-      card.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          openDetail(Number(card.dataset.index));
-        }
-      });
+    const activateCard = (index) => {
+      const s = servicesData[index];
+      if (s.action === "contact") {
+        const trigger = document.querySelector(".header__actions .js-contact-trigger");
+        if (trigger) trigger.click();
+      } else if (s.action === "work") {
+        const work = document.querySelector("#work");
+        if (work) work.scrollIntoView({ behavior: "smooth" });
+      } else {
+        openDetail(index);
+      }
+    };
+
+    const selectTab = (id, focusTab) => {
+      activeCat = id;
+      closeDetail();
+      renderTabs();
+      renderCards();
+      if (focusTab) servicesTabs.querySelector(`[data-cat="${id}"]`).focus();
+    };
+
+    // Tabs
+    servicesTabs.addEventListener("click", (e) => {
+      const tab = e.target.closest("[data-cat]");
+      if (!tab) return;
+      if (tab.dataset.cat === activeCat) closeDetail();
+      else selectTab(tab.dataset.cat);
     });
 
-    if (servicesBack) {
-      servicesBack.addEventListener("click", closeDetail);
-    }
+    servicesTabs.addEventListener("keydown", (e) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
+      e.preventDefault();
+      const last = categories.length - 1;
+      const i = categories.findIndex((c) => c.id === activeCat);
+      const next =
+        e.key === "ArrowRight" ? (i === last ? 0 : i + 1)
+        : e.key === "ArrowLeft" ? (i === 0 ? last : i - 1)
+        : e.key === "Home" ? 0
+        : last;
+      selectTab(categories[next].id, true);
+    });
 
-    // Tilt effect — pointer devices only
+    // Cards (delegated, since they're re-rendered on every tab change)
+    servicesGrid.addEventListener("click", (e) => {
+      const card = e.target.closest(".services__card");
+      if (card) activateCard(Number(card.dataset.index));
+    });
+
+    servicesGrid.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      const card = e.target.closest(".services__card");
+      if (!card) return;
+      e.preventDefault();
+      activateCard(Number(card.dataset.index));
+    });
+
+    if (servicesBack) servicesBack.addEventListener("click", closeDetail);
+
+    renderTabs();
+    renderCards();
+
+    // Tilt effect, pointer devices only
     if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
       const MAX_TILT = 8;
 
@@ -300,7 +461,9 @@ document.addEventListener("DOMContentLoaded", () => {
       servicesGrid.addEventListener(
         "mouseleave",
         () => {
-          cards.forEach((card) => (card.style.transform = ""));
+          servicesGrid
+            .querySelectorAll(".services__card")
+            .forEach((card) => (card.style.transform = ""));
         },
         true,
       );
@@ -313,7 +476,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-
   // Work: bento grid with a swappable flagship project. Clicking a
   // tile promotes that project into the large flagship slot — same
   // "one active, rest are triggers" idea as the services accordion,

@@ -64,75 +64,83 @@
 
     <main id="top">
       <section class="hero">
-        <div class="hero__video-wrap" aria-hidden="true">
-          <video class="hero__video" autoplay muted playsinline preload="auto">
-            <source src="assets/images/herobgvid3.mp4" type="video/mp4" />
-          </video>
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <p class="hero__eyebrow">
+        <span class="hero__eyebrow-dot" aria-hidden="true"></span>
+        IoT · AI · Robotics · Software
+      </p>
 
-          <video class="hero__video" muted playsinline preload="auto">
-            <source src="assets/images/herobgvid3.mp4" type="video/mp4" />
-          </video>
-        </div>
+      <h1
+        class="hero__title"
+        aria-label="Empowering Education Through Innovation"
+      >
+        <span class="hero__title-placeholder" aria-hidden="true">
+          Empowering Education Through Innovation
+        </span>
+        <span class="hero__typing">
+          <span class="hero__title-text"></span
+          ><span class="hero__cursor" aria-hidden="true"></span>
+        </span>
+      </h1>
 
-        <div class="container hero__grid">
-          <div class="hero__content">
-            <p class="hero__eyebrow">
-              <span class="hero__eyebrow-dot" aria-hidden="true"></span>
-              Internal IT &amp; Development Division
-            </p>
+      <p class="hero__lede">
+        Acube Technologies bridges education and innovation with hands-on IoT,
+        AI, and robotics training, industry automation solutions, and custom
+        software built for real-world impact.
+      </p>
 
-            <h1
-              class="hero__title"
-              aria-label="Building Digital Systems Behind Better Business"
-            >
-              <span class="hero__title-placeholder" aria-hidden="true">
-                Building Digital Systems Behind Better Business
-              </span>
+      <div class="hero__actions">
+        <a href="#services" class="btn btn--primary">Explore our services</a>
+        <a href="#" class="btn btn--outline js-contact-trigger">Start a project</a>
+      </div>
 
-              <span class="hero__typing">
-                <span class="hero__title-text"></span
-                ><span class="hero__cursor" aria-hidden="true"></span>
-              </span>
-            </h1>
+      <ul class="hero__stats">
+        <li><strong>₱1,500</strong><span>Bootcamps start from</span></li>
+        <li><strong>Monthly</strong><span>Programs nationwide</span></li>
+        <li><strong>Trusted</strong><span>By schools &amp; agencies</span></li>
+      </ul>
+    </div>
 
-            <p class="hero__lede">
-              We develop modern software solutions designed to solve real
-              business challenges, optimize workflows, and improve everyday
-              operations.
-            </p>
-
-            <div class="hero__actions">
-              <a href="#" class="btn btn--ghost-dark js-contact-trigger"
-                >Start a project</a
-              >
-              <a href="#work" class="btn btn--text">See our Work</a>
-            </div>
-          </div>
-
-          <div class="hero__visual">
-            <div class="hero__visual-float">
-              <img
-                src="assets/images/hero3.png"
-                alt="Diagram of Integritech's core systems and how they connect"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+    <div class="hero__visual">
+      <figure class="hero__portrait">
+        <img
+          src="assets/images/engr. jasper.jpg"
+          alt="Engr. Jasper Meynard P. Araña, Founder and CEO of Acube Technologies Inc."
+        />
+        <figcaption class="hero__caption">
+          <strong>Engr. Jasper Meynard P. Araña</strong>
+          <span>Founder &amp; CEO, Acube Technologies Inc.</span>
+          <small>Faculty, Adamson University · WIPO-certified in Patents</small>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
 
       <section id="services" class="services">
         <div class="container">
           <div class="services__intro">
-            <p class="services__eyebrow">
-              <span class="services__eyebrow-dot" aria-hidden="true"></span>
-              What we do
-            </p>
-            <h2 class="services__title">Our Services</h2>
-            <p class="services__desc">
-              From custom software to IoT and AI robotics education — here's
-              where we help.
-            </p>
-          </div>
+  <p class="services__eyebrow">
+    <span class="services__eyebrow-dot" aria-hidden="true"></span>
+    What we do
+  </p>
+  <h2 class="services__title">Our Services</h2>
+  <p class="services__desc">
+    From IoT and AI robotics education to industrial automation and custom
+    software — here's where we help.
+  </p>
+</div>
+
+<div
+  class="services__tabs"
+  id="servicesTabs"
+  role="tablist"
+  aria-label="Service categories"
+></div>
+
+<div class="services__stage" id="servicesStage">
+  <!-- unchanged -->
 
           <div class="services__stage" id="servicesStage">
             <div class="services__grid" id="servicesGrid" role="list"></div>
