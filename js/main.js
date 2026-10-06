@@ -129,14 +129,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-    // Services: category tabs → card grid → detail view, all data-driven.
+  // Services: category tabs → card grid → detail view, all data-driven.
   const servicesGrid = document.querySelector("#servicesGrid");
   const servicesTabs = document.querySelector("#servicesTabs");
-  const servicesStage = document.querySelector("#servicesStage");
-  const servicesDetail = document.querySelector("#servicesDetail");
-  const servicesBack = document.querySelector("#servicesBack");
 
-  if (servicesGrid && servicesTabs && servicesDetail) {
+  if (servicesGrid && servicesTabs) {
     const ICONS = {
       code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
       globe:
@@ -172,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "IoT Training & Solutions",
         short: "Hands-on IoT education, from bootcamps to lab setups.",
         desc: "Monthly bootcamps, institutional training programs, and consulting, paired with School of IoT Philippines learning kits and dashboards that bring real IoT experience into the classroom or workplace.",
-        image: "assets/images/training.png",
+        image: "assets/images/iot1.png",
         features: [
           "Monthly 3-day IoT bootcamps for students & professionals",
           "Custom institutional programs for schools and organizations",
@@ -200,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "Other Trainings",
         short: "Coding and AI courses, delivered on request.",
         desc: "Focused short courses for students, educators, and professionals, scheduled around your group's needs.",
-        image: "assets/images/other-training.png",
+        image: "assets/images/others.jpg",
         features: [
           "Arduino coding",
           "Python coding for robotics and AI applications",
@@ -329,7 +326,159 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     ];
 
+    const BLURBS = {
+      "IoT Training & Solutions":
+        "Our monthly 3-day bootcamps teach students and professionals how to design, build, and deploy IoT systems. Schools and organizations can also commission custom programs, or have us help set up an IoT lab backed by modular learning kits and dashboards.",
+      "AI & Robotics Training":
+        "Learn robotics programming, AI applications, and machine learning through hands-on bootcamps, or take the fully online simulation course from anywhere in the country with no hardware needed. AI Academy goes deeper into ML and LLMs for educators and professionals.",
+      "Other Trainings":
+        "Need something specific? We run short courses on request, covering Arduino and Python coding for robotics and AI, Machine Learning certification, Generative AI, and API building, scheduled around your group.",
+      "Educational Robotics Kits":
+        "Modular kits for classrooms and competitions, from the entry-level miniAuto car and miniArm robotic arm to the SMORPHI family for advanced research and prototyping. Pair them with an AI Online License to bring AI and ML into your curriculum at scale.",
+      AIDrone:
+        "A programmable educational drone built on a Raspberry Pi Zero 2 W. Fly it with a transmitter or code it in blocks, Scratch, or Python, then add face tracking and real-time object detection using AI vision.",
+      "BANTAI Quadruped Robot":
+        "An agile quadruped robot with 3D LiDAR and an HD wide-angle camera, designed for research, automation, and inspection in challenging environments. The first of its kind in the Philippine market.",
+      "SentriCORE Industrial IoT":
+        "An industrial IoT monitoring platform that gives students, researchers, and factories a real-world environment to prototype and validate systems, with data sharing and benchmarking across academia and industry.",
+      "AI Automation Solutions":
+        "We build AI agents that handle tasks and workflows on their own, RAG chatbots that give accurate, context-aware answers, and predictive maintenance models that flag equipment issues early, all surfaced on real-time dashboards.",
+      "Need something custom?":
+        "Every operation is different. Tell us about the process you want to automate or the system you want to monitor, and we'll scope an IoT, AI, or software solution around it.",
+      "Custom Software & ERP Systems":
+        "From internal tools to full ERP systems, we connect inventory, payroll, sales, and accounting so every department works from the same data, with dashboards that show how the business is really running.",
+      "Website & Web Applications":
+        "Ecommerce platforms, client portals, booking systems, and admin dashboards, designed around your workflow rather than a template. Browse our Work section for sites we've shipped.",
+      "See what we've built":
+        "Explore our in-house HRIS, CRM, and accounting systems, plus client websites for organizations like AETECH Innovations and the Filipino Inventors Society.",
+    };
+    servicesData.forEach((s) => {
+      s.blurb = BLURBS[s.title] || s.short;
+    });
+
+    // Detail-page images, stacked in this order. Missing files are skipped.
+    const IMAGES = {
+      "IoT Training & Solutions": [
+        "assets/images/iot1.png",
+        "assets/images/iot2.png",
+      ],
+      "AI & Robotics Training": [
+        "assets/images/services/ai-training-1.jpg",
+        "assets/images/services/ai-training-2.jpg",
+      ],
+      "Other Trainings": [
+        "assets/images/others.jpg",
+        "assets/images/services/other-training-2.jpg",
+      ],
+      "Educational Robotics Kits": [
+        "assets/images/arduino2.png",
+        "assets/images/arduino1.jpg",
+      ],
+      AIDrone: [
+        "assets/images/services/aidrone-1.png",
+        "assets/images/services/aidrone-2.png",
+      ],
+      "BANTAI Quadruped Robot": [
+        "assets/images/services/bantai-1.png",
+        "assets/images/services/bantai-2.png",
+      ],
+      "SentriCORE Industrial IoT": [
+        "assets/images/services/sentricore-1.png",
+        "assets/images/services/sentricore-2.png",
+      ],
+      "AI Automation Solutions": [
+        "assets/images/services/ai-automation-1.png",
+        "assets/images/services/ai-automation-2.png",
+      ],
+      "Custom Software & ERP Systems": [
+        "assets/images/ui.jpg",
+        "assets/images/ui4.jpg",
+      ],
+      "Website & Web Applications": [
+        "assets/images/ui4.png",
+        "assets/images/ui5.png",
+      ],
+    };
+
+    const CTA_BY_CAT = {
+      training: "Ask about this program",
+      hardware: "Request a quote",
+      industrial: "Discuss your project",
+      software: "Start a project",
+    };
+
+    // Services whose images are landscape and should stack instead of sitting
+    // side by side. Titles must match servicesData exactly.
+    const STACKED = ["Educational Robotics Kits"];
+
+    // Only services that have BOTH a services side and a products side.
+    const SECTIONS = {
+      "IoT Training & Solutions": {
+        overview:
+          "A complete IoT pathway: hands-on training to build the skills, and School of IoT Philippines kits and dashboards to put them into practice.",
+        parts: [
+          {
+            label: "Training & Services",
+            text: "Programs that teach students and professionals how to design, build, and deploy IoT systems.",
+            features: [
+              "IoT Bootcamps (monthly, 3 days): hands-on workshops",
+              "Institutional programs: custom training aligned with your school or organization",
+              "Consulting & integration: IoT labs, smart projects, and pilot systems",
+            ],
+            images: ["assets/images/iot1.png", "assets/images/iot3.jpg"],
+
+            contain: true,
+            cta: "Enroll in a bootcamp",
+          },
+          {
+            label: "Products",
+            text: "School of IoT Philippines is a complete learning package, from skills training to practical tools.",
+            features: [
+              "IoT Learning Kits: affordable, modular kits for fundamentals and real-world projects",
+              "IoT Dashboards & Tools: software for monitoring, analyzing, and managing IoT data",
+            ],
+            images: ["assets/images/iot2.png"],
+            contain: true,
+            cta: "Request a kit quote",
+          },
+        ],
+      },
+      "AI & Robotics Training": {
+        overview:
+          "Learn robotics, AI, and machine learning in person or fully online, and equip your school with the kits and software to teach it at scale.",
+        parts: [
+          {
+            label: "Training & Services",
+            text: "Practical programs for educators, students, and professionals.",
+            features: [
+              "AI & Robotics Bootcamps: robotics programming, AI applications, machine learning",
+              "Online AI Robotics: fully virtual and nationwide, no hardware needed",
+              "AI Academy: Machine Learning, AI applications, and LLMs",
+            ],
+            images: ["assets/images/ai2.jpg", "assets/images/ai3.jpg"],
+            cta: "Enroll in a bootcamp",
+          },
+          {
+            label: "Products",
+            text: "Robotics kits and software that give institutions modern training infrastructure without heavy costs.",
+            features: [
+              "SMORPHI, SMORPHI 2 & SMORPHI Imaginary: educational and advanced robotics kits",
+              "AI Online License (SaaS): subscription access so schools can bring AI and ML into their curriculum at scale",
+            ],
+            images: ["assets/images/ai.png"],
+            contain: true,
+            cta: "Request a quote",
+            link: {
+              label: "See all robotics kits",
+              title: "Educational Robotics Kits",
+            },
+          },
+        ],
+      },
+    };
+
     let activeCat = categories[0].id;
+    let lastFocused = null;
 
     const renderTabs = () => {
       servicesTabs.innerHTML = categories
@@ -349,7 +498,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <article class="services__card${s.action ? " services__card--action" : ""}" role="listitem" data-index="${i}" tabindex="0">
               <span class="services__card-icon">${ICONS[s.icon]}</span>
               <h3 class="services__card-title">${s.title}</h3>
-              <p class="services__card-desc">${s.short}</p>
+              <p class="services__card-lead">${s.short}</p>
+              <p class="services__card-desc">${s.blurb}</p>
               <span class="services__card-link">${s.cta || "Learn more"} <span aria-hidden="true">→</span></span>
             </article>
           `,
@@ -357,37 +507,199 @@ document.addEventListener("DOMContentLoaded", () => {
         .join("");
     };
 
-    const detailImg = document.querySelector("#servicesDetailImg");
-    const detailIcon = document.querySelector("#servicesDetailIcon");
-    const detailTitle = document.querySelector("#servicesDetailTitle");
-    const detailDesc = document.querySelector("#servicesDetailDesc");
-    const detailList = document.querySelector("#servicesDetailList");
+    // ---- Detail "page" (full-screen overlay, never affects section height) ----
+    const page = document.querySelector("#servicePage");
+
+    const pageSections = document.querySelector("#servicePageSections");
+    const pageBackLabel = document.querySelector("#servicePageBackLabel");
+
+    let currentService = null;
+    let currentParts = [];
+
+    const buildSection = (part, idx, headHtml) => {
+      const sec = document.createElement("section");
+      sec.className = "service-page__section";
+      sec.id = `servicePart${idx}`;
+
+      const media = document.createElement("div");
+      media.className =
+        "service-page__media" + (part.stack ? " is-stacked" : "");
+      (part.images || []).forEach((src, n) => {
+        const fig = document.createElement("figure");
+        fig.className =
+          "service-page__shot" + (part.contain ? " is-contain" : "");
+        const img = document.createElement("img");
+        img.alt = `${currentService.title} photo ${n + 1}`;
+        img.loading = "lazy";
+        img.onerror = () => {
+          fig.remove();
+          if (!media.children.length) sec.classList.add("no-media");
+        };
+        img.src = src;
+        fig.appendChild(img);
+        media.appendChild(fig);
+      });
+      if (!part.images || !part.images.length) sec.classList.add("no-media");
+
+      const linkIndex = part.link
+        ? servicesData.findIndex((x) => x.title === part.link.title)
+        : -1;
+
+      const text = document.createElement("div");
+      text.className = "service-page__text";
+      text.innerHTML = `
+        ${headHtml || ""}
+        ${part.label ? `<p class="service-page__label">${part.label}</p>` : ""}
+        ${part.text ? `<p class="service-page__desc">${part.text}</p>` : ""}
+        <ul class="service-page__list">
+          ${part.features.map((f) => `<li>${f}</li>`).join("")}
+        </ul>
+        <div class="service-page__actions">
+          <button type="button" class="btn btn--primary" data-ask="${idx}">${part.cta}</button>
+          ${
+            linkIndex > -1
+              ? `<button type="button" class="btn btn--outline" data-open="${linkIndex}">${part.link.label}</button>`
+              : ""
+          }
+        </div>
+      `;
+
+      // Text on the left, images on the right
+      sec.append(text, media);
+      return sec;
+    };
 
     const openDetail = (index) => {
       const s = servicesData[index];
       const cat = categories.find((c) => c.id === s.cat);
-      detailImg.src = s.image;
-      detailImg.alt = `${s.title} illustration`;
-      detailIcon.innerHTML = ICONS[s.icon];
-      detailTitle.textContent = s.title;
-      detailDesc.textContent = s.desc;
-      detailList.innerHTML = s.features.map((f) => `<li>${f}</li>`).join("");
-      servicesBack.innerHTML = `<span aria-hidden="true">←</span> Back to ${cat.label}`;
+      const cfg = SECTIONS[s.title];
+      const alreadyOpen = page.classList.contains("is-open");
 
-      servicesStage.classList.add("is-detail");
-      servicesDetail.setAttribute("aria-hidden", "false");
-      servicesDetail.scrollTo(0, 0);
+      currentService = s;
+      currentParts = cfg
+        ? cfg.parts
+        : [
+            {
+              text: s.desc,
+              features: s.features,
+              images: IMAGES[s.title] || (s.image ? [s.image] : []),
+              cta: CTA_BY_CAT[s.cat] || "Ask about this service",
+              stack: STACKED.includes(s.title), // new
+            },
+          ];
+
+      // Title block lives at the top of the first text column
+      const headHtml = `
+        <header class="service-page__head">
+          <span class="service-page__icon">${ICONS[s.icon]}</span>
+          <div>
+            <p class="service-page__kicker">${cat.label}</p>
+            <h2 class="service-page__title" id="servicePageTitle">${s.title}</h2>
+          </div>
+        </header>
+        ${cfg ? `<p class="service-page__overview">${cfg.overview}</p>` : ""}
+        ${
+          currentParts.length > 1
+            ? `<nav class="service-page__jump" aria-label="Sections">${currentParts
+                .map(
+                  (p, i) =>
+                    `<button type="button" class="service-page__jump-btn" data-jump="${i}">${p.label}</button>`,
+                )
+                .join("")}</nav>`
+            : ""
+        }
+      `;
+
+      pageSections.innerHTML = "";
+      currentParts.forEach((p, i) =>
+        pageSections.appendChild(buildSection(p, i, i === 0 ? headHtml : "")),
+      );
+      pageBackLabel.textContent = `Back to ${cat.label}`;
+
+      if (!alreadyOpen) {
+        lastFocused = document.activeElement;
+        page.classList.add("is-open");
+        page.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        history.pushState({ svc: true }, "");
+      }
+      page.scrollTop = 0;
+      document.querySelector("#servicePageBack").focus({ preventScroll: true });
     };
 
+    // Jump pills, cross-links, and per-row contact buttons
+    page.addEventListener("click", (e) => {
+      const jump = e.target.closest("[data-jump]");
+      if (jump) {
+        const target = page.querySelector(`#servicePart${jump.dataset.jump}`);
+        if (target)
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      const open = e.target.closest("[data-open]");
+      if (open) {
+        openDetail(Number(open.dataset.open));
+        return;
+      }
+
+      const ask = e.target.closest("[data-ask]");
+      if (ask) {
+        const part = currentParts[Number(ask.dataset.ask)];
+        const msg = document.querySelector("#contactForm [name='message']");
+        if (msg && !msg.value.trim()) {
+          const what = part.label
+            ? `${currentService.title} (${part.label})`
+            : currentService.title;
+          msg.value = `Hi, I'd like to know more about ${what}.`;
+        }
+        const trigger = document.querySelector(
+          ".header__actions .js-contact-trigger",
+        );
+        if (trigger) trigger.click();
+      }
+    });
+
+    const hideDetail = () => {
+      page.classList.remove("is-open");
+      page.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (lastFocused) lastFocused.focus({ preventScroll: true });
+    };
+
+    // Closing goes through history so the browser/phone Back button works too.
     const closeDetail = () => {
-      servicesStage.classList.remove("is-detail");
-      servicesDetail.setAttribute("aria-hidden", "true");
+      if (history.state && history.state.svc) history.back();
+      else hideDetail();
     };
+
+    window.addEventListener("popstate", () => {
+      if (page.classList.contains("is-open")) hideDetail();
+    });
+
+    document
+      .querySelector("#servicePageBack")
+      .addEventListener("click", closeDetail);
+    document
+      .querySelector("#servicePageClose")
+      .addEventListener("click", closeDetail);
+
+    document.addEventListener("keydown", (e) => {
+      if (
+        e.key === "Escape" &&
+        page.classList.contains("is-open") &&
+        !document.querySelector("#contactModal.is-open")
+      ) {
+        closeDetail();
+      }
+    });
 
     const activateCard = (index) => {
       const s = servicesData[index];
       if (s.action === "contact") {
-        const trigger = document.querySelector(".header__actions .js-contact-trigger");
+        const trigger = document.querySelector(
+          ".header__actions .js-contact-trigger",
+        );
         if (trigger) trigger.click();
       } else if (s.action === "work") {
         const work = document.querySelector("#work");
@@ -399,18 +711,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const selectTab = (id, focusTab) => {
       activeCat = id;
-      closeDetail();
       renderTabs();
       renderCards();
       if (focusTab) servicesTabs.querySelector(`[data-cat="${id}"]`).focus();
     };
 
-    // Tabs
     servicesTabs.addEventListener("click", (e) => {
       const tab = e.target.closest("[data-cat]");
-      if (!tab) return;
-      if (tab.dataset.cat === activeCat) closeDetail();
-      else selectTab(tab.dataset.cat);
+      if (tab && tab.dataset.cat !== activeCat) selectTab(tab.dataset.cat);
     });
 
     servicesTabs.addEventListener("keydown", (e) => {
@@ -419,14 +727,20 @@ document.addEventListener("DOMContentLoaded", () => {
       const last = categories.length - 1;
       const i = categories.findIndex((c) => c.id === activeCat);
       const next =
-        e.key === "ArrowRight" ? (i === last ? 0 : i + 1)
-        : e.key === "ArrowLeft" ? (i === 0 ? last : i - 1)
-        : e.key === "Home" ? 0
-        : last;
+        e.key === "ArrowRight"
+          ? i === last
+            ? 0
+            : i + 1
+          : e.key === "ArrowLeft"
+            ? i === 0
+              ? last
+              : i - 1
+            : e.key === "Home"
+              ? 0
+              : last;
       selectTab(categories[next].id, true);
     });
 
-    // Cards (delegated, since they're re-rendered on every tab change)
     servicesGrid.addEventListener("click", (e) => {
       const card = e.target.closest(".services__card");
       if (card) activateCard(Number(card.dataset.index));
@@ -439,8 +753,6 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       activateCard(Number(card.dataset.index));
     });
-
-    if (servicesBack) servicesBack.addEventListener("click", closeDetail);
 
     renderTabs();
     renderCards();
