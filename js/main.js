@@ -374,21 +374,18 @@ document.addEventListener("DOMContentLoaded", () => {
         "assets/images/arduino2.png",
         "assets/images/arduino1.jpg",
       ],
-      AIDrone: [
-        "assets/images/services/aidrone-1.png",
-        "assets/images/services/aidrone-2.png",
-      ],
+      AIDrone: ["assets/images/drone.png"],
       "BANTAI Quadruped Robot": [
-        "assets/images/services/bantai-1.png",
+        "assets/images/bantai.png",
         "assets/images/services/bantai-2.png",
       ],
       "SentriCORE Industrial IoT": [
-        "assets/images/services/sentricore-1.png",
-        "assets/images/services/sentricore-2.png",
+        "assets/images/industrial.jpg",
+        "assets/images/industrial2.png",
       ],
       "AI Automation Solutions": [
-        "assets/images/services/ai-automation-1.png",
-        "assets/images/services/ai-automation-2.png",
+        "assets/images/automation1.png",
+        "assets/images/automation.png",
       ],
       "Custom Software & ERP Systems": [
         "assets/images/ui.jpg",
@@ -396,7 +393,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
       "Website & Web Applications": [
         "assets/images/ui4.png",
-        "assets/images/ui5.png",
+        "assets/images/ui6.png",
       ],
     };
 
@@ -409,8 +406,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Services whose images are landscape and should stack instead of sitting
     // side by side. Titles must match servicesData exactly.
-    const STACKED = ["Educational Robotics Kits"];
-
+    const STACKED = [
+      "Educational Robotics Kits",
+      "SentriCORE Industrial IoT",
+      "Custom Software & ERP Systems",
+      "Website & Web Applications",
+    ];
     // Only services that have BOTH a services side and a products side.
     const SECTIONS = {
       "IoT Training & Solutions": {
@@ -479,6 +480,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let activeCat = categories[0].id;
     let lastFocused = null;
+    // Service images open in the existing #imageLightbox (the same one the
+    // project showcase uses). The Work code is not touched.
+    const svcLightbox = document.querySelector("#imageLightbox");
+    const svcLightboxImg = document.querySelector("#imageLightboxImg");
+
+    const openServiceImage = (src, alt) => {
+      if (!svcLightbox || !svcLightboxImg) return;
+      svcLightboxImg.src = src;
+      svcLightboxImg.alt = alt || "";
+      svcLightbox.classList.add("is-open");
+      svcLightbox.setAttribute("aria-hidden", "false");
+    };
+
+    const closeServiceImage = () => {
+      if (!svcLightbox || !svcLightboxImg) return;
+      svcLightbox.classList.remove("is-open");
+      svcLightbox.setAttribute("aria-hidden", "true");
+      svcLightboxImg.src = "";
+    };
+
+    if (svcLightbox) {
+      svcLightbox.querySelectorAll("[data-close]").forEach((el) => {
+        el.addEventListener("click", closeServiceImage);
+      });
+
+      // Registered before the service page's own Escape handler, so Esc
+      // closes only the preview and not the service page behind it.
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && svcLightbox.classList.contains("is-open")) {
+          closeServiceImage();
+          e.stopImmediatePropagation();
+        }
+      });
+    }
 
     const renderTabs = () => {
       servicesTabs.innerHTML = categories
@@ -535,6 +570,9 @@ document.addEventListener("DOMContentLoaded", () => {
           fig.remove();
           if (!media.children.length) sec.classList.add("no-media");
         };
+        img.addEventListener("click", () =>
+          openServiceImage(img.currentSrc || img.src, img.alt),
+        );
         img.src = src;
         fig.appendChild(img);
         media.appendChild(fig);
@@ -1047,6 +1085,7 @@ document.addEventListener("DOMContentLoaded", () => {
           from_name: nameField.value.trim(),
           from_email: emailField.value.trim(),
           message: messageField.value.trim(),
+          time: new Date().toLocaleString(),
         })
         .then(() => {
           contactStatus.textContent =
@@ -1055,7 +1094,8 @@ document.addEventListener("DOMContentLoaded", () => {
           contactForm.reset();
           submitBtn.disabled = false;
         })
-        .catch(() => {
+        .catch((err) => {
+          console.error("EmailJS error:", err);
           contactStatus.textContent =
             "Something went wrong. Please try again or email us directly.";
           contactStatus.dataset.state = "error";

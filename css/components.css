@@ -930,6 +930,7 @@
   object-fit: cover;
   border-radius: 6px;
   background: var(--paper-100);
+  cursor: zoom-in;
 }
 .service-page__shot.is-contain img {
   object-fit: contain;
