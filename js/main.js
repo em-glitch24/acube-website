@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "IoT Training & Solutions",
         short: "Hands-on IoT education, from bootcamps to lab setups.",
         desc: "Monthly bootcamps, institutional training programs, and consulting services — paired with modular learning kits and dashboards that bring real IoT experience into the classroom or the workplace.",
-        image: "assets/images/iot-training.jpg",
+        image: "assets/images/training.png",
         features: [
           "Monthly IoT bootcamps for students & professionals",
           "Custom institutional IoT training programs",
@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "AI & Robotics Training & Solutions",
         short: "Practical robotics and AI training, in-person or online.",
         desc: "From in-person bootcamps to fully online simulation courses, backed by SMORPHI robotics kits and AI Online License subscriptions for schools building out a curriculum.",
-        image: "assets/images/ai-robotics.jpg",
+        image: "assets/images/ai.png",
         features: [
           "AI & robotics bootcamps: programming, robotics, ML",
           "Fully online AI robotics simulation courses",
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "Industrial IoT & AI Automation",
         short: "Industrial-grade IoT and AI automation for real operations.",
         desc: "SentriCORE monitoring systems, agentic AI workflows, RAG chatbots, and predictive maintenance models built around your operations, not a generic template.",
-        image: "assets/images/industrial-iot.jpg",
+        image: "assets/images/industrial.png",
         features: [
           "SentriCORE IoT solutions for industrial monitoring",
           "Agentic AI automation for tasks & workflows",
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "Robotics & AI Hardware",
         short: "Purpose-built hardware for learning and R&D.",
         desc: "From entry-level Arduino kits to the AIDrone and the BANTAI quadruped robot, for classrooms, competitions, and advanced robotics applications.",
-        image: "assets/images/robotics-hardware.jpg",
+        image: "assets/images/automation.png",
         features: [
           "Arduino learning kits: miniAuto & miniArm",
           "AIDrone — educational drone with AI vision",
