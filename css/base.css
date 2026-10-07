@@ -9,7 +9,7 @@
   --ink-900: #0b1526;
   --ink-800: #14263f;
   --ink-700: #1c3352;
-  --ink-600: #562553;
+  --ink-600: #3d4f68; /* was purple; used by About card descriptions */
   --paper-100: #f1f2f4;
   --paper-000: #ffffff;
   --text-body: #2b3542;
@@ -32,17 +32,16 @@
   --hero-tint-rgb: 11, 21, 26;
   --hero-tint: 0.72;
 
-  /* Services background tint — same idea, but light (paper-colored)
-     since Services sits on a light background. Raise --services-tint
-     toward 1 if your background image is busy and text gets hard to
-     read; lower it toward 0 to let more of the image show. */
-  --services-tint-rgb: 241, 242, 244;
-  --services-tint: 0.8;
+  /* Section background overlays: click the swatch to pick color + opacity */
+  --services-overlay: rgba(11, 21, 38, 0.7);
+  --work-overlay: rgba(232, 240, 250, 0);
 
-  /* Work background tint — same idea as hero, dark since work sits on
-     a dark background image. Adjust --work-tint (0–1) to taste. */
-  --work-tint-rgb: 11, 21, 26;
-  --work-tint: 0.72;
+  --work-frame-bg: #ffffff;
+
+  --hero-overlay: rgba(255, 255, 255, 0.55); /* click swatch: color + opacity */
+
+  --card-navy: #14263f; /* services cards, tabs, about cards */
+  --about-overlay: rgba(11, 21, 38, 0.92); /* about background tint */
 
   /* Footer background tint — same mechanism as hero/work. */
   --footer-tint-rgb: 11, 21, 26;

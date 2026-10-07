@@ -563,7 +563,7 @@
 
 .services {
   position: relative;
-  background-image: url("../assets/images/workbg.jpg");
+  background-image: url("../assets/images/servicebg3.jpg");
   background-size: cover;
   background-position: center;
   background-color: var(--paper-100);
@@ -573,7 +573,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(var(--services-tint-rgb), var(--services-tint));
+  background: var(--services-overlay);
   z-index: 1;
 }
 
@@ -1027,16 +1027,16 @@
 .work {
   position: relative;
   overflow: hidden;
-  background-image: url("../assets/images/workbg1.jpg");
   background-size: cover;
   background-position: center;
+  background-image: url("../assets/images/albumbg1.jpg");
 }
 
 .work::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(var(--work-tint-rgb), var(--work-tint));
+  background: var(--work-overlay);
   z-index: 1;
 }
 
@@ -1936,10 +1936,6 @@
 /* ---- Showcase: photo albums ---- */
 
 /* Photo rows drop the fake browser-window bar used for screenshots */
-.work__row-image.is-photo::before,
-.work__row-image.is-photo::after {
-  display: none;
-}
 
 .work__row-image.is-photo .work__main-img {
   flex: none;
@@ -2062,4 +2058,304 @@
   .about__facts {
     grid-template-columns: 1fr;
   }
+}
+
+/* ==========================================================================
+   Palette: white + navy
+   Services = navy, Showcase = light, About = white, Footer = navy
+   ========================================================================== */
+
+/* ---- Services (navy) ---- */
+.services__eyebrow {
+  color: var(--text-on-dark-muted);
+}
+.services__eyebrow-dot {
+  background: var(--accent-blue-bright);
+}
+.services__title {
+  color: var(--paper-000);
+}
+.services__desc {
+  color: var(--text-on-dark-muted);
+}
+.services__tab.is-active {
+  background: var(--accent-blue);
+}
+/* Action cards were navy, which would vanish on a navy section */
+.services__card--action {
+  background: var(--ink-700);
+  border-color: var(--accent-blue);
+}
+
+/* ---- Showcase (light) ---- */
+.work__eyebrow {
+  color: var(--ink-700);
+}
+.work__eyebrow-dot {
+  background: var(--accent-blue);
+}
+.work__title {
+  color: var(--ink-900);
+}
+.work__desc {
+  color: var(--text-body);
+}
+
+.work__timeline-track {
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--border-on-light) 0px,
+    var(--border-on-light) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+.work__timeline-progress {
+  background: linear-gradient(
+    to bottom,
+    var(--accent-blue-bright),
+    var(--ink-700)
+  );
+}
+
+.work__row-title {
+  color: var(--ink-900);
+}
+.work__row-desc,
+.work__row-features li {
+  color: var(--text-body);
+}
+.work__row-features li::before {
+  background: var(--accent-blue);
+}
+.work__tags li {
+  color: var(--accent-blue-dark);
+  border-color: var(--border-on-light);
+  background: var(--paper-000);
+}
+.work__visit {
+  color: var(--ink-700);
+}
+.work__visit:hover {
+  color: var(--paper-000);
+}
+
+/* Navy photo frames stay, with a soft shadow so they sit on the light bg */
+.work__row-image {
+  border-color: var(--border-on-light);
+  box-shadow: 0 14px 34px rgba(11, 21, 38, 0.14);
+}
+
+/* ---- About (white, no green) ---- */
+.about::before {
+  background: rgba(255, 255, 255, 0.95);
+}
+.about__eyebrow-dot {
+  background: var(--accent-blue);
+}
+.about__title {
+  color: var(--ink-900);
+}
+.about__slogan {
+  border-image: linear-gradient(to right, var(--accent-blue), var(--ink-700)) 1;
+}
+
+/* ---- Footer button (was purple) ---- */
+.btn--ghost-dark {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+}
+.btn--ghost-dark:hover {
+  background: var(--paper-000);
+  border-color: var(--paper-000);
+  color: var(--ink-900);
+}
+
+/* ---- Album frames: light version ---- */
+.work__row-image {
+  background: var(--work-frame-bg);
+  border-color: var(--border-on-light);
+}
+
+/* Browser-window bar (Software & Web row) and its dots */
+.work__row-image::before {
+  background: var(--paper-100);
+  border-bottom-color: var(--border-on-light);
+}
+.work__row-image::after {
+  background: rgba(11, 21, 38, 0.25);
+  box-shadow:
+    16px 0 0 rgba(11, 21, 38, 0.25),
+    32px 0 0 rgba(11, 21, 38, 0.25);
+}
+
+/* Thumbnail strip */
+.work__thumbs {
+  background: var(--work-frame-bg);
+  border-top-color: var(--border-on-light);
+}
+.work__thumb:hover,
+.work__thumb.is-active {
+  border-color: var(--accent-blue);
+}
+
+/* ==========================================================================
+   Navy cards: Services cards + tabs, About section
+   ========================================================================== */
+
+/* ---- Services tabs ---- */
+.services__tabs {
+  background: var(--card-navy);
+  border-color: var(--border-on-dark);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+.services__tab {
+  color: var(--text-on-dark-muted);
+}
+.services__tab:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-on-dark);
+}
+.services__tab.is-active {
+  background: var(--accent-blue);
+  color: var(--text-on-dark);
+}
+
+/* ---- Services cards ---- */
+.services__card {
+  background: var(--card-navy);
+  border-color: var(--border-on-dark);
+}
+.services__card:hover,
+.services__card:focus-visible {
+  border-color: var(--accent-blue-bright);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+.services__card-icon {
+  background: var(--accent-blue);
+}
+.services__card-title {
+  color: var(--text-on-dark);
+}
+.services__card-lead {
+  color: var(--accent-blue-bright);
+}
+.services__card-desc {
+  color: var(--text-on-dark-muted);
+}
+.services__card-link {
+  color: var(--accent-blue-bright);
+}
+
+/* Action cards ("Need something custom?", "See what we've built")
+   switch to blue so they still stand out from the navy cards */
+.services__card--action {
+  background: var(--accent-blue-dark);
+  border-color: var(--accent-blue);
+}
+.services__card--action .services__card-lead,
+.services__card--action .services__card-link {
+  color: var(--text-on-dark);
+}
+.services__card--action .services__card-icon {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ---- About (navy) ---- */
+.about {
+  background-color: var(--ink-900);
+}
+.about::before {
+  background: var(--about-overlay);
+}
+.about__eyebrow {
+  color: var(--text-on-dark-muted);
+}
+.about__eyebrow-dot {
+  background: var(--accent-blue-bright);
+}
+.about__title {
+  color: var(--text-on-dark);
+}
+.about__desc {
+  color: var(--text-on-dark-muted);
+}
+.about__group-label {
+  color: var(--text-on-dark-muted);
+}
+.about__slogan {
+  color: var(--text-on-dark);
+}
+
+/* Key factor cards */
+.about__fact {
+  background: var(--card-navy);
+  border-top-color: var(--accent-blue-bright);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+.about__fact-num {
+  background: var(--accent-blue);
+}
+.about__fact h3 {
+  color: var(--text-on-dark);
+}
+.about__fact p {
+  color: var(--text-on-dark-muted);
+}
+
+/* Our Network cards */
+.about__logo-card {
+  background: var(--card-navy);
+  border: 1px solid var(--border-on-dark);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+.about__logo-name {
+  color: var(--text-on-dark);
+}
+.about__logo-tag {
+  color: var(--text-on-dark-muted);
+}
+
+/* About and footer are both navy, so add a divider between them */
+.site-footer {
+  border-top: 1px solid var(--border-on-dark);
+}
+
+.about__logo-img {
+  background: #fff;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   Hero: no angled panels, no frame, background image slot
+   ========================================================================== */
+
+/* Background image. If the file is missing, the old gradient shows instead.
+   Change the filename to your image. */
+.hero {
+  background:
+    url("../assets/images/herobg1.jpg") center / cover no-repeat,
+    linear-gradient(135deg, #ffffff 0%, #f4f8fd 55%, #e8f0fa 100%);
+  outline: none; /* removes the red debug outline */
+}
+
+/* The old angled panel becomes a full-cover overlay, controlled by --hero-overlay */
+.hero::before {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: none;
+  background: var(--hero-overlay);
+}
+
+/* Remove the navy panel */
+.hero::after {
+  display: none;
+}
+
+/* Remove the corner-bracket frame around the portrait */
+.hero__visual::before,
+.hero__visual::after {
+  display: none;
 }
