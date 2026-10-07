@@ -2359,3 +2359,334 @@
 .hero__visual::after {
   display: none;
 }
+
+/* ---- Hero / Services split edge ---- */
+.services {
+  --split: 56px; /* how deep the step is */
+  --split-at: 55%; /* where the step starts, from the left */
+
+  margin-top: calc(
+    var(--split) * -1
+  ); /* pull up so the hero shows in the notch */
+  padding-top: calc(3rem + var(--split));
+  clip-path: polygon(
+    0 0,
+    var(--split-at) 0,
+    calc(var(--split-at) + var(--split)) var(--split),
+    100% var(--split),
+    100% 100%,
+    0 100%
+  );
+}
+
+/* Keep hero content clear of the overlapping corner */
+.hero {
+  padding-bottom: calc(2.5rem + 56px);
+}
+
+@media (max-width: 860px) {
+  .services {
+    --split: 32px;
+    --split-at: 40%;
+  }
+  .hero {
+    padding-bottom: calc(2.5rem + 32px);
+  }
+}
+
+/* ==========================================================================
+   Showcase polish: photo frames, project cards, numbering
+   ========================================================================== */
+
+/* ---- Photo frame ---- */
+.work__row-image {
+  border-radius: 14px;
+  border: 1px solid var(--border-on-light);
+  /* soft offset block behind the photo + the existing depth shadow */
+  box-shadow:
+    14px 14px 0 rgba(44, 123, 192, 0.12),
+    0 24px 50px rgba(11, 21, 38, 0.14);
+}
+.work__row--reverse .work__row-image {
+  box-shadow:
+    -14px 14px 0 rgba(44, 123, 192, 0.12),
+    0 24px 50px rgba(11, 21, 38, 0.14);
+}
+
+/* Photos don't need the fake browser bar (Software & Web keeps it) */
+.work__row-image.is-photo::before,
+.work__row-image.is-photo::after {
+  display: none;
+}
+
+/* Gentle zoom on hover; the frame clips it */
+.work__row-image.is-photo .work__main-img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.work__row-image.is-photo:hover .work__main-img {
+  transform: scale(1.035);
+}
+
+/* ---- Thumbnail strip ---- */
+.work__thumbs {
+  gap: 0.6rem;
+  padding: 0.75rem;
+  background: #f4f8fd;
+  scrollbar-width: thin;
+}
+.work__thumb {
+  flex: 0 0 84px;
+  height: 58px;
+  border-radius: 6px;
+  opacity: 0.55;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+.work__thumb:hover {
+  transform: translateY(-2px);
+}
+.work__thumb.is-active {
+  opacity: 1;
+  border-color: var(--accent-blue);
+  box-shadow: 0 6px 14px rgba(44, 123, 192, 0.3);
+}
+
+/* ---- Text side as a card, with project numbers ---- */
+.work__rows {
+  counter-reset: project;
+}
+.work__row {
+  counter-increment: project;
+}
+
+.work__row-body {
+  position: relative;
+  padding: 2rem 2.25rem;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-on-light);
+  border-left: 4px solid var(--accent-blue);
+  border-radius: 14px;
+  box-shadow: 0 14px 34px rgba(11, 21, 38, 0.08);
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    opacity 0.6s ease 0.15s,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+.work__row--reverse .work__row-body {
+  transform: translateX(-40px);
+  border-left: 1px solid var(--border-on-light);
+  border-right: 4px solid var(--accent-blue);
+}
+.work__row.is-inview .work__row-body {
+  opacity: 1;
+  transform: none;
+}
+
+.work__row-body::before {
+  content: "No. " counter(project, decimal-leading-zero);
+  display: block;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+}
+
+.work__row-title {
+  font-size: clamp(1.4rem, 2.4vw, var(--step-2));
+}
+
+/* ---- Check-style bullets ---- */
+.work__row-features li {
+  padding-left: 1.9rem;
+}
+.work__row-features li::before {
+  content: "✓";
+  top: 0.15em;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(44, 123, 192, 0.12);
+  color: var(--accent-blue);
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+/* ---- Tags ---- */
+.work__tags li {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.work__tags li:hover {
+  background: var(--accent-blue);
+  color: var(--paper-000);
+}
+
+/* ---- Mobile: no slide-in, lighter card ---- */
+@media (max-width: 860px) {
+  .work__row-image,
+  .work__row--reverse .work__row-image {
+    box-shadow: 0 14px 34px rgba(11, 21, 38, 0.14);
+  }
+  .work__row-body,
+  .work__row--reverse .work__row-body {
+    opacity: 1;
+    transform: none;
+    padding: 1.5rem;
+    border-left: 4px solid var(--accent-blue);
+    border-right: 1px solid var(--border-on-light);
+  }
+}
+
+/* ==========================================================================
+   Showcase background: minimal geometric (CSS only, no image)
+   ========================================================================== */
+
+.work {
+  /* Drops albumbg1.jpg. Soft light base with a faint diagonal band. */
+  background:
+    linear-gradient(
+      115deg,
+      transparent 0 58%,
+      rgba(44, 123, 192, 0.045) 58% 74%,
+      transparent 74%
+    ),
+    linear-gradient(180deg, #f7fafd 0%, #eef4fb 50%, #f7fafd 100%);
+}
+
+/* Layer 1: blueprint dot grid, fading out toward the top and bottom edges */
+.work::before {
+  z-index: 0;
+  background-image: radial-gradient(
+    circle,
+    rgba(44, 123, 192, 0.22) 1.2px,
+    transparent 1.6px
+  );
+  background-size: 28px 28px;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 18%,
+    #000 82%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 18%,
+    #000 82%,
+    transparent 100%
+  );
+}
+
+/* Layer 2: concentric rings in opposite corners */
+.work::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    /* top-right rings */
+    radial-gradient(
+      circle at 100% 4%,
+      transparent 0 140px,
+      rgba(44, 123, 192, 0.2) 140px 141.5px,
+      transparent 141.5px 200px,
+      rgba(44, 123, 192, 0.14) 200px 201.5px,
+      transparent 201.5px 260px,
+      rgba(44, 123, 192, 0.09) 260px 261.5px,
+      transparent 261.5px
+    ),
+    /* bottom-left rings */
+    radial-gradient(
+        circle at 0% 96%,
+        transparent 0 100px,
+        rgba(44, 123, 192, 0.18) 100px 101.5px,
+        transparent 101.5px 160px,
+        rgba(44, 123, 192, 0.12) 160px 161.5px,
+        transparent 161.5px 220px,
+        rgba(44, 123, 192, 0.07) 220px 221.5px,
+        transparent 221.5px
+      );
+  background-repeat: no-repeat;
+}
+
+/* Keep the content above both layers */
+.work .container {
+  z-index: 2;
+}
+
+@media (max-width: 860px) {
+  .work::before {
+    background-size: 22px 22px;
+  }
+  /* Rings are a little too busy on small screens, so soften them */
+  .work::after {
+    opacity: 0.55;
+  }
+}
+
+/* ==========================================================================
+   Showcase: lighter, smaller photo frames
+   ========================================================================== */
+
+.work__row-image {
+  width: 88%; /* size the frame, not the image */
+}
+
+/* Keep the frame anchored toward the timeline so rows stay balanced */
+.work__row .work__row-image {
+  justify-self: end;
+}
+.work__row--reverse .work__row-image {
+  justify-self: start;
+}
+
+/* Wider, shorter photo (was 16 / 10). The image always fills the frame. */
+.work__row-image.is-photo .work__main-img {
+  aspect-ratio: 16 / 9;
+}
+
+/* Slimmer thumbnail strip */
+.work__thumbs {
+  padding: 0.5rem 0.6rem;
+  gap: 0.5rem;
+}
+.work__thumb {
+  flex: 0 0 64px;
+  height: 44px;
+  border-radius: 5px;
+}
+
+/* Lighter floating effect */
+.work__row-image {
+  border-radius: 12px;
+  box-shadow:
+    10px 10px 0 rgba(44, 123, 192, 0.1),
+    0 16px 36px rgba(11, 21, 38, 0.12);
+}
+.work__row--reverse .work__row-image {
+  box-shadow:
+    -10px 10px 0 rgba(44, 123, 192, 0.1),
+    0 16px 36px rgba(11, 21, 38, 0.12);
+}
+
+/* Mobile: full width, no offset block */
+@media (max-width: 860px) {
+  .work__row-image,
+  .work__row .work__row-image,
+  .work__row--reverse .work__row-image {
+    width: 100%;
+    justify-self: stretch;
+    box-shadow: 0 14px 34px rgba(11, 21, 38, 0.14);
+  }
+}
