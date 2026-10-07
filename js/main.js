@@ -692,7 +692,7 @@ document.addEventListener("DOMContentLoaded", () => {
           msg.value = `Hi, I'd like to know more about ${what}.`;
         }
         const trigger = document.querySelector(
-          ".header__actions .js-contact-trigger",
+          ".site-footer .js-contact-trigger",
         );
         if (trigger) trigger.click();
       }
