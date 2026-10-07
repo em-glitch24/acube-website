@@ -147,7 +147,7 @@
 .hero {
   position: relative;
   overflow: hidden;
-  min-height: calc(100vh + var(--hero-extra)) !important;
+  min-height: calc(100svh - 250px) !important;
   display: flex;
   align-items: center;
   padding-top: calc(var(--header-h) + 1rem);
@@ -1029,7 +1029,7 @@
   overflow: hidden;
   background-size: cover;
   background-position: center;
-  background-image: url("../assets/images/albumbg1.jpg");
+  background-image: url("../assets/images/albumbg2.jpg");
 }
 
 .work::before {
@@ -1282,7 +1282,7 @@
 }
 
 .work__row-desc {
-  color: var(--text-on-dark-muted);
+  color: var(--text-dark);
   font-size: var(--step--1);
 }
 
@@ -1295,7 +1295,7 @@
 .work__row-features li {
   position: relative;
   padding-left: 1.4rem;
-  color: var(--text-on-dark-muted);
+  color: var(--text-dark);
   font-size: var(--step--1);
 }
 
@@ -1575,7 +1575,7 @@
 .about {
   position: relative;
   overflow: hidden;
-  background: url("../assets/images/aboutbg.jpg") center center / cover
+  background: url("../assets/images/albumbg2.jpg") center center / cover
     no-repeat;
 }
 
@@ -2019,7 +2019,6 @@
 .about__fact {
   padding: 1.75rem;
   background: rgba(255, 255, 255, 0.96);
-  border-top: 3px solid var(--accent-blue);
   border-radius: 8px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
@@ -2123,7 +2122,7 @@
 }
 .work__row-desc,
 .work__row-features li {
-  color: var(--text-body);
+  color: var(--text-dark);
 }
 .work__row-features li::before {
   background: var(--accent-blue);
@@ -2223,7 +2222,7 @@
 
 /* ---- Services cards ---- */
 .services__card {
-  background: var(--card-navy);
+  background: var(--ink-500);
   border-color: var(--border-on-dark);
 }
 .services__card:hover,
@@ -2266,7 +2265,7 @@
   background-color: var(--ink-900);
 }
 .about::before {
-  background: var(--about-overlay);
+  background: var(--ink-1000);
 }
 .about__eyebrow {
   color: var(--text-on-dark-muted);
@@ -2278,7 +2277,7 @@
   color: var(--text-on-dark);
 }
 .about__desc {
-  color: var(--text-on-dark-muted);
+  color: var(--text-on-dark);
 }
 .about__group-label {
   color: var(--text-on-dark-muted);
@@ -2289,7 +2288,7 @@
 
 /* Key factor cards */
 .about__fact {
-  background: var(--card-navy);
+  background: var(--ink-500);
   border-top-color: var(--accent-blue-bright);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
@@ -2381,7 +2380,7 @@
 
 /* Keep hero content clear of the overlapping corner */
 .hero {
-  padding-bottom: calc(2.5rem + 56px);
+  padding-bottom: calc(1rem + 41px);
 }
 
 @media (max-width: 860px) {
@@ -2464,12 +2463,10 @@
 .work__row-body {
   position: relative;
   padding: 2rem 2.25rem;
-  background: rgba(255, 255, 255, 0.72);
+  background: transparent;
   backdrop-filter: blur(8px);
-  border: 1px solid var(--border-on-light);
-  border-left: 4px solid var(--accent-blue);
+
   border-radius: 14px;
-  box-shadow: 0 14px 34px rgba(11, 21, 38, 0.08);
   opacity: 0;
   transform: translateX(40px);
   transition:
@@ -2478,8 +2475,6 @@
 }
 .work__row--reverse .work__row-body {
   transform: translateX(-40px);
-  border-left: 1px solid var(--border-on-light);
-  border-right: 4px solid var(--accent-blue);
 }
 .work__row.is-inview .work__row-body {
   opacity: 1;
@@ -2688,5 +2683,58 @@
     width: 100%;
     justify-self: stretch;
     box-shadow: 0 14px 34px rgba(11, 21, 38, 0.14);
+  }
+}
+
+/* ==========================================================================
+   Split edge: shared by every section after the hero
+   ========================================================================== */
+
+.services,
+.work,
+.about,
+.site-footer {
+  --split: 56px; /* how deep the step is */
+  --split-at: 55%; /* where the step starts, from the left */
+
+  margin-top: calc(var(--split) * -1); /* overlap the previous section */
+  clip-path: polygon(
+    0 0,
+    var(--split-at) 0,
+    calc(var(--split-at) + var(--split)) var(--split),
+    100% var(--split),
+    100% 100%,
+    0 100%
+  );
+}
+
+/* Push each section's own content below the notch */
+.work,
+.about {
+  padding-top: calc(3rem + var(--split));
+}
+.site-footer {
+  padding-top: var(--split);
+}
+
+/* Keep the bottom of each section clear of the next one's overlap */
+.services,
+.work,
+.about {
+  padding-bottom: calc(clamp(3rem, 8vw, 6rem) + var(--split));
+}
+
+/* The old divider line would be clipped by the notch, so remove it */
+.site-footer {
+  border-top: none;
+}
+
+@media (max-width: 860px) {
+  .services,
+  .work,
+  .about,
+  .site-footer {
+    --split: 32px;
+    --split-at: 40%;
   }
 }

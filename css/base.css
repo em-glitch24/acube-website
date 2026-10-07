@@ -6,16 +6,21 @@
 
 :root {
   /* Color */
+  --ink-1000: #0b1526ee;
+
   --ink-900: #0b1526;
   --ink-800: #14263f;
   --ink-700: #1c3352;
   --ink-600: #3d4f68; /* was purple; used by About card descriptions */
+  --ink-500: #000c1e; /* was purple; used by About card descriptions */
+
   --paper-100: #f1f2f4;
   --paper-000: #ffffff;
   --text-body: #2b3542;
   --text-muted: #5c6773;
   --text-on-dark: #ffffff;
   --text-on-dark-muted: #c3ccd6;
+  --text-dark: #04010f;
   /* Brand palette — sampled from the company logo */
   --accent-blue: #2c7bc0;
   --accent-blue-dark: #1d5c93;
