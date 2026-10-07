@@ -321,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: "layout",
         action: "work",
         title: "See what we've built",
-        short: "HRIS, CRM, accounting, and client websites in action.",
+        short: "Our training albums, robotics, and software in action.",
         cta: "View our work",
       },
     ];
@@ -350,7 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Website & Web Applications":
         "Ecommerce platforms, client portals, booking systems, and admin dashboards, designed around your workflow rather than a template. Browse our Work section for sites we've shipped.",
       "See what we've built":
-        "Explore our in-house HRIS, CRM, and accounting systems, plus client websites for organizations like AETECH Innovations and the Filipino Inventors Society.",
+        "Browse our training album and see how our bootcamps, robotics kits, automation, and software solutions look in real use.",
     };
     servicesData.forEach((s) => {
       s.blurb = BLURBS[s.title] || s.short;
@@ -836,81 +836,157 @@ document.addEventListener("DOMContentLoaded", () => {
   const workGrid = document.querySelector("#workGrid");
 
   if (workGrid) {
+    // photo: true  -> photo styling (no browser-window bar, cropped to fit)
+    // contain: true -> don't crop (use for product shots on white)
+    // images[0] is the large image; the rest become the thumbnail strip.
     const workProjects = [
+      // ---- Training album ----
       {
-        title: "HRIS — HR & Payroll System",
-        desc: "Our own HR platform, built to run company-wide. Payroll is fully automated, pulling directly from employee and attendance records, with dedicated payroll settings for automatic computation and bulk payroll draft generation.",
+        title: "Training Album: IoT Bootcamps",
+        desc: "Our monthly 3-day bootcamps, plus programs we run for schools and organizations, with students building real IoT systems hands-on.",
         features: [
-          "Automated payroll computation tied to attendance",
-          "Bulk payroll draft generation",
-          "Employee, attendance, and payroll fully integrated",
+          "Monthly 3-day bootcamps for students and professionals",
+          "Custom institutional programs on campus",
+          "Hands-on builds with School of IoT Philippines kits",
         ],
-        tags: ["ERP", "Automation", "Custom software"],
-        image: "assets/images/ui.jpg",
+        tags: ["Training", "IoT", "Bootcamp"],
+        photo: true,
+        images: [
+          "assets/images/album2.jpg",
+          "assets/images/album3.jpg",
+          "assets/images/album4.jpg",
+          "assets/images/album5.jpg",
+        ],
       },
       {
-        title: "Sales — CRM & Lead Pipeline",
-        desc: "Tracks every lead from first contact to close, with a staged pipeline (New, Follow-up, Qualified, Proposal, Won/Lost) that requires logged activity and proof of follow-up before a lead can advance.",
+        title: "Training Album: AI & Robotics",
+        desc: "In-person bootcamps and short courses in robotics programming, AI applications, and machine learning, from Arduino to Python.",
         features: [
-          "Staged pipeline: New → Follow-up → Qualified → Proposal → Won/Lost",
-          "Requires logged activity + proof of follow-up to advance a lead",
-          "Quotations, invoices, and stage-change history tied to each lead",
+          "Robotics programming and AI applications",
+          "Machine learning and Generative AI sessions",
+          "Short courses scheduled around your group",
         ],
-        tags: ["ERP", "CRM", "Sales pipeline"],
-        image: "assets/images/ui3.jpg",
+        tags: ["Training", "AI", "Robotics"],
+        photo: true,
+        images: [
+          "assets/images/arduino1.jpg",
+          "assets/images/album2-4.png",
+          "assets/images/album2-3.jpg",
+        ],
+      },
+
+      // ---- Acube services ----
+      {
+        title: "Educational Robotics Kits",
+        desc: "Modular kits for classrooms and competitions, from the entry-level miniAuto and miniArm to the SMORPHI family.",
+        features: [
+          "SMORPHI, SMORPHI 2 & SMORPHI Imaginary",
+          "miniAuto AI vision robot car with mecanum wheels",
+          "miniArm open-source robotic arm",
+        ],
+        tags: ["Hardware", "Education"],
+        photo: true,
+        images: [
+          "assets/images/arduino2.png",
+          "assets/images/album3-2.jpg",
+          "assets/images/album3-1.jpg",
+        ],
       },
       {
-        title: "Accounting — Financial Dashboard",
-        desc: "Company-wide financial visibility in one view — revenue, expenses, net income, and cash balance alongside AR/AP outstanding, overdue invoices, and pending approvals.",
+        title: "AIDrone",
+        desc: "An educational drone on a Raspberry Pi Zero 2 W that you can fly with a transmitter or program in blocks, Scratch, or Python.",
         features: [
-          "Live revenue, expenses, net income, and cash balance",
-          "AR/AP outstanding, overdue invoices, pending approvals",
-          "Cash flow, invoice status, and monthly revenue charted from the ledger",
+          "Face and object tracking with AI vision",
+          "Real-time object detection with deep learning",
+          "Available as Edu Drone and AI Drone versions",
         ],
-        tags: ["ERP", "Accounting", "Reporting"],
-        image: "assets/images/ui4.jpg",
+        tags: ["Hardware", "AI vision"],
+        photo: true,
+        contain: true,
+        images: ["assets/images/drone.png"],
       },
       {
-        title: "Filipino Inventors Society, Inc.",
-        desc: "Site for the Philippines' oldest organization of patent-holding inventors, established 1943.",
+        title: "BANTAI Quadruped Robot",
+        desc: "An agile quadruped robot for research, automation, and inspection, and the first of its kind in the Philippine market.",
         features: [
-          "Leadership profiles and organizational history",
-          "Events section featuring National Inventors Week",
-          "Contact form for membership inquiries",
+          "Up to 2.5 m/s with a 7 kg payload",
+          "3D LiDAR and HD wide-angle camera",
+          "Built for challenging environments",
         ],
-        tags: ["Web app", "Nonprofit site"],
-        image: "assets/images/ui4.png",
-        link: "https://zedtech79-png.github.io/fis-web/home.html",
+        tags: ["Robotics", "Research", "Inspection"],
+        photo: true,
+        images: ["assets/images/bantai.png", "assets/images/album4-1.jpg"],
       },
       {
-        title: "AETECH Innovations Singapore",
-        desc: "Corporate site for a Singapore-based technology and consulting firm working in smart cities, education, and digital transformation.",
+        title: "SentriCORE Industrial IoT",
+        desc: "An industrial IoT monitoring platform that gives students, researchers, and factories a real-world environment to prototype and validate systems.",
         features: [
-          "Video hero and corporate storytelling",
-          "Industry-partners section",
-          "Events showcase for conferences and forums",
+          "Real-world test environment for researchers",
+          "Faster prototyping for industry partners",
+          "Data sharing across academia and factories",
         ],
-        tags: ["Web app", "Corporate site"],
-        image: "assets/images/ui5.png",
-        link: "https://aetech-innovations-singapore-websit.vercel.app/",
+        tags: ["Industrial", "IoT"],
+        photo: true,
+        images: [
+          "assets/images/industrial.jpg",
+          "assets/images/industrial2.png",
+          "assets/images/album6-1.jpg",
+        ],
       },
       {
-        title: "Engr. Edwin Astorga — Portfolio",
-        desc: "Personal portfolio for a sustainability consultant and engineer.",
+        title: "AI Automation Solutions",
+        desc: "AI agents, RAG chatbots, and predictive maintenance models that take over repetitive work and flag problems early.",
         features: [
-          "Areas of expertise: ESG consulting, smart cities, green engineering",
-          "Running list of professional affiliations",
-          "Leadership roles and career highlights",
+          "Agentic AI for tasks and workflows",
+          "RAG chatbots with context-aware answers",
+          "Real-time AI dashboards",
         ],
-        tags: ["Web app", "Portfolio site"],
-        image: "assets/images/ui2.png",
-        link: "https://engr-edwin-astorga.github.io/portfolio/index.html",
+        tags: ["AI", "Automation"],
+        photo: true,
+        images: [
+          "assets/images/automation1.png",
+          "assets/images/automation.png",
+        ],
+      },
+
+      // ---- Software & Web (always last) ----
+      {
+        title: "Software & Web Development",
+        desc: "Custom ERP systems, internal tools, websites, and web apps built around how your business runs, including our own HRIS, CRM, and accounting platform.",
+        features: [
+          "HR and payroll, CRM, and accounting dashboards",
+          "Ecommerce, client portals, and booking systems",
+          "Corporate and organization websites",
+        ],
+        tags: ["ERP", "Web app", "Custom software"],
+        images: [
+          "assets/images/ui.jpg",
+          "assets/images/ui3.jpg",
+          "assets/images/ui4.png",
+          "assets/images/ui2.png",
+        ],
       },
     ];
 
     workGrid.innerHTML = workProjects
       .map((project, i) => {
         const reverseClass = i % 2 === 1 ? " work__row--reverse" : "";
+        const images = project.images || [];
+        const imageClass =
+          "work__row-image" +
+          (project.photo ? " is-photo" : "") +
+          (project.contain ? " is-contain" : "");
+
+        const thumbs =
+          images.length > 1
+            ? `<div class="work__thumbs">${images
+                .map(
+                  (src, n) =>
+                    `<button type="button" class="work__thumb${n === 0 ? " is-active" : ""}" data-src="${src}" aria-label="Show photo ${n + 1}"><img src="${src}" alt="" loading="lazy" onerror="this.closest('.work__thumb').remove()" /></button>`,
+                )
+                .join("")}</div>`
+            : "";
+
         const visitLink = project.link
           ? `<a class="work__visit" href="${project.link}" target="_blank" rel="noopener">
                Visit <i class="ti ti-external-link" aria-hidden="true" style="font-size:14px"></i>
@@ -920,8 +996,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return `
           <article class="work__row${reverseClass}">
             <span class="work__row-marker" aria-hidden="true"></span>
-            <div class="work__row-image">
-              <img src="${project.image}" alt="${project.title} screenshot" />
+            <div class="${imageClass}">
+              <img class="work__main-img" src="${images[0] || ""}" alt="${project.title}" />
+              ${thumbs}
             </div>
             <div class="work__row-body">
               <h3 class="work__row-title">${project.title}</h3>
@@ -940,6 +1017,17 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
       })
       .join("");
+
+    // Thumbnail click swaps the large image
+    workGrid.addEventListener("click", (e) => {
+      const thumb = e.target.closest(".work__thumb");
+      if (!thumb) return;
+      const box = thumb.closest(".work__row-image");
+      box.querySelector(".work__main-img").src = thumb.dataset.src;
+      box.querySelectorAll(".work__thumb").forEach((t) => {
+        t.classList.toggle("is-active", t === thumb);
+      });
+    });
 
     // Reveal each row (and its image) as it scrolls into view.
     const workRows = workGrid.querySelectorAll(".work__row");
@@ -998,7 +1086,7 @@ document.addEventListener("DOMContentLoaded", () => {
           lightboxImg.src = "";
         };
 
-        workGrid.querySelectorAll(".work__row-image img").forEach((img) => {
+        workGrid.querySelectorAll(".work__main-img").forEach((img) => {
           img.addEventListener("click", () => openLightbox(img.src, img.alt));
         });
 
