@@ -2334,7 +2334,7 @@
    Change the filename to your image. */
 .hero {
   background:
-    url("../assets/images/herobg1.jpg") center / cover no-repeat,
+    url("../assets/images/herobg6.jpg") center / cover no-repeat,
     linear-gradient(135deg, #ffffff 0%, #f4f8fd 55%, #e8f0fa 100%);
   outline: none; /* removes the red debug outline */
 }
@@ -2787,5 +2787,79 @@
   }
   .footer__social a {
     justify-content: flex-start;
+  }
+}
+/* ==========================================================================
+   Hero background: stepped geometric band (CSS only, no image)
+   Climbs to the right: mirror of the Services notch, same x-range and angle.
+   ========================================================================== */
+
+.hero {
+  /* ---- TUNE THIS ONE: vertical position of the band (left side) ---- */
+  --band-y: 43%; /* lower number = higher up, higher number = lower down */
+
+  --band-t: 22px; /* band thickness */
+  --band-rise: 56px; /* = --split on .services (45° angle) */
+  --band-x1: 55%; /* = --split-at on .services */
+  --band-x2: calc(var(--band-x1) + var(--band-rise));
+  --band-yr: calc(
+    var(--band-y) - var(--band-rise)
+  ); /* right side sits higher */
+  --trace-gap: 12px; /* space between band and thin line */
+
+  background: linear-gradient(135deg, #ffffff 0%, #f4f8fd 55%, #eaf1fa 100%);
+}
+
+/* Thick band: flat, steps UP to the right, flat */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  background: rgba(44, 123, 192, 0.1);
+  clip-path: polygon(
+    0 var(--band-y),
+    var(--band-x1) var(--band-y),
+    var(--band-x2) var(--band-yr),
+    100% var(--band-yr),
+    100% calc(var(--band-yr) + var(--band-t)),
+    var(--band-x2) calc(var(--band-yr) + var(--band-t)),
+    var(--band-x1) calc(var(--band-y) + var(--band-t)),
+    0 calc(var(--band-y) + var(--band-t))
+  );
+}
+
+/* Thin trace running parallel, just below the band */
+.hero::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  background: rgba(44, 123, 192, 0.32);
+  clip-path: polygon(
+    0 calc(var(--band-y) + var(--band-t) + var(--trace-gap)),
+    var(--band-x1) calc(var(--band-y) + var(--band-t) + var(--trace-gap)),
+    var(--band-x2) calc(var(--band-yr) + var(--band-t) + var(--trace-gap)),
+    100% calc(var(--band-yr) + var(--band-t) + var(--trace-gap)),
+    100% calc(var(--band-yr) + var(--band-t) + var(--trace-gap) + 2px),
+    var(--band-x2) calc(var(--band-yr) + var(--band-t) + var(--trace-gap) + 2px),
+    var(--band-x1) calc(var(--band-y) + var(--band-t) + var(--trace-gap) + 2px),
+    0 calc(var(--band-y) + var(--band-t) + var(--trace-gap) + 2px)
+  );
+}
+
+/* Tablet and phone: matches the smaller Services notch (32px, 40%) */
+@media (max-width: 860px) {
+  .hero {
+    --band-t: 14px;
+    --band-rise: 32px;
+    --band-x1: 40%;
   }
 }
