@@ -748,10 +748,25 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const selectTab = (id, focusTab) => {
+      const prevScroll = servicesTabs.scrollLeft;
       activeCat = id;
       renderTabs();
       renderCards();
-      if (focusTab) servicesTabs.querySelector(`[data-cat="${id}"]`).focus();
+
+      const active = servicesTabs.querySelector(".is-active");
+      if (active && window.matchMedia("(max-width: 860px)").matches) {
+        servicesTabs.scrollLeft = prevScroll; // keep position across the re-render
+        const offset =
+          active.getBoundingClientRect().left -
+          servicesTabs.getBoundingClientRect().left +
+          servicesTabs.scrollLeft;
+        servicesTabs.scrollTo({
+          left: offset - (servicesTabs.clientWidth - active.offsetWidth) / 2,
+          behavior: "smooth",
+        });
+      }
+
+      if (focusTab && active) active.focus({ preventScroll: true });
     };
 
     servicesTabs.addEventListener("click", (e) => {

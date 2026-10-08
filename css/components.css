@@ -3089,3 +3089,445 @@
     line-height: 1.3;
   }
 }
+
+/* ==========================================================================
+   Mobile hero v3: CTA buttons under the portrait, short labels
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  /* Short labels: hide the long part of each button text */
+  .hero__more {
+    display: none;
+  }
+
+  /* Paragraph spans two rows so it doesn't stretch the portrait's row */
+  .hero__lede {
+    grid-row: 3 / span 2;
+  }
+
+  /* Buttons: right column, directly under the portrait + caption */
+  .hero__actions {
+    grid-column: 2;
+    grid-row: 4;
+    align-self: start;
+    margin-top: 1.3rem; /* TUNE: space below the caption card */
+    gap: 0.3rem;
+    flex-wrap: nowrap;
+  }
+  .hero__actions .btn {
+    flex: 1 1 0; /* equal widths that fill the column */
+    min-width: 0;
+    padding: 0.4rem 0.2rem;
+    font-size: 0.6rem;
+  }
+}
+
+/* ==========================================================================
+   Mobile services: smaller type, 3 tabs in view, 3 cards in one row
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  /* ---- Section spacing + intro text ---- */
+  .services {
+    padding-top: calc(1.5rem + var(--split));
+    padding-bottom: calc(2rem + var(--split));
+  }
+  .services__intro {
+    margin-bottom: 1rem;
+  }
+  .services__eyebrow {
+    font-size: 0.62rem;
+    margin-bottom: 0.4rem;
+  }
+  .services__title {
+    font-size: 1.4rem;
+  }
+  .services__desc {
+    margin-top: 0.4rem;
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
+  /* ---- Tabs: 3 visible, the rest scroll in (4th peeks as a hint) ---- */
+  .services__tabs {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 3px;
+    gap: 3px;
+    justify-content: flex-start;
+    scroll-snap-type: x proximity;
+  }
+  .services__tab {
+    flex: 0 0 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0.3rem;
+    font-size: 0.58rem;
+    line-height: 1.2;
+    text-align: center;
+    white-space: normal;
+    scroll-snap-align: center;
+  }
+
+  /* ---- Cards: all 3 in one row ---- */
+  .services__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.4rem;
+  }
+  .services__card {
+    padding: 0.6rem;
+    border-radius: 10px;
+  }
+  .services__card-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    margin-bottom: 0.5rem;
+  }
+  .services__card-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+  .services__card-title {
+    margin-bottom: 0.3rem;
+    font-size: 0.64rem;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+  .services__card-lead {
+    margin-bottom: 0.3rem;
+    font-size: 0.54rem;
+    line-height: 1.35;
+  }
+  .services__card-desc {
+    font-size: 0.5rem;
+    line-height: 1.4;
+  }
+  .services__card-link {
+    padding-top: 0.5rem;
+    font-size: 0.52rem;
+    gap: 0.2rem;
+  }
+
+  /* ---- Long text gets cut with "..." ---- */
+  .services__card-lead,
+  .services__card-desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 0;
+  }
+  .services__card-lead {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+  .services__card-desc {
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+  }
+}
+
+/* ==========================================================================
+   Mobile work: same alternating timeline as desktop, scaled down
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  /* ---- Section spacing + intro ---- */
+  .work {
+    padding-top: calc(1.5rem + var(--split));
+    padding-bottom: calc(2rem + var(--split));
+  }
+  .work__intro {
+    margin-bottom: 1.25rem;
+  }
+  .work__eyebrow {
+    font-size: 0.62rem;
+    margin-bottom: 0.4rem;
+  }
+  .work__title {
+    font-size: 1.4rem;
+  }
+  .work__desc {
+    margin-top: 0.4rem;
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
+  /* ---- Two columns again, with the center timeline back ---- */
+  .work__rows {
+    gap: 2rem;
+  }
+  .work__row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.4rem; /* TUNE: space around the center line */
+  }
+  .work__row--reverse .work__row-image {
+    order: 2;
+  }
+  .work__row--reverse .work__row-body {
+    order: 1;
+  }
+
+  .work__timeline-track,
+  .work__timeline-progress,
+  .work__row-marker {
+    display: block;
+  }
+  .work__row-marker {
+    width: 14px;
+    height: 14px;
+  }
+  .work__row-marker::before {
+    width: 6px;
+    height: 6px;
+  }
+  .work__row-marker::after {
+    inset: -4px;
+  }
+
+  /* ---- Photo frame ---- */
+  .work__row .work__row-image,
+  .work__row--reverse .work__row-image {
+    width: 100%;
+    justify-self: stretch;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateX(-16px);
+    box-shadow:
+      5px 5px 0 rgba(44, 123, 192, 0.1),
+      0 8px 18px rgba(11, 21, 38, 0.12);
+  }
+  .work__row--reverse .work__row-image {
+    transform: translateX(16px);
+    box-shadow:
+      -5px 5px 0 rgba(44, 123, 192, 0.1),
+      0 8px 18px rgba(11, 21, 38, 0.12);
+  }
+
+  /* Browser bar (Software & Web row) shrinks too */
+  .work__row-image::before {
+    height: 14px;
+  }
+  .work__row-image::after {
+    top: 4px;
+    left: 7px;
+    width: 5px;
+    height: 5px;
+    box-shadow:
+      9px 0 0 rgba(11, 21, 38, 0.25),
+      18px 0 0 rgba(11, 21, 38, 0.25);
+  }
+
+  /* Thumbnails: all of them share one row */
+  .work__thumbs {
+    gap: 0.25rem;
+    padding: 0.3rem;
+  }
+  .work__thumb {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 26px;
+    border-width: 1.5px;
+    border-radius: 3px;
+  }
+
+  /* ---- Text side ---- */
+  .work__row-body,
+  .work__row--reverse .work__row-body {
+    padding: 0.2rem 0;
+    border: 0;
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  .work__row--reverse .work__row-body {
+    transform: translateX(-16px);
+  }
+
+  .work__row-body::before {
+    margin-bottom: 0.35rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+  .work__row-title {
+    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+  .work__row-desc {
+    font-size: 0.56rem;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    overflow: hidden;
+  }
+
+  .work__row-features {
+    gap: 0.3rem;
+    margin-top: 0.55rem;
+  }
+  .work__row-features li {
+    padding-left: 1.05rem;
+    font-size: 0.52rem;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+  }
+  .work__row-features li::before {
+    top: 0.05em;
+    width: 11px;
+    height: 11px;
+    font-size: 0.4rem;
+  }
+
+  .work__tags-row {
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+  }
+  .work__tags {
+    gap: 0.25rem;
+  }
+  .work__tags li {
+    padding: 0.12rem 0.4rem;
+    font-size: 0.46rem;
+  }
+  .work__visit {
+    padding: 0.12rem 0.5rem;
+    font-size: 0.46rem;
+  }
+}
+
+/* ==========================================================================
+   Mobile about: same layout as desktop, scaled down
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  /* ---- Section spacing ---- */
+  .about {
+    padding-top: calc(1.5rem + var(--split));
+    padding-bottom: calc(2rem + var(--split));
+  }
+
+  /* ---- Intro ---- */
+  .about__intro {
+    margin-bottom: 1rem;
+  }
+  .about__eyebrow {
+    font-size: 0.62rem;
+    margin-bottom: 0.4rem;
+  }
+  .about__title {
+    font-size: 1.4rem;
+  }
+  .about__desc {
+    margin: 0.6rem auto 0;
+    font-size: 0.68rem;
+    line-height: 1.55;
+  }
+
+  /* ---- Section labels ("What defines us", "Our Network") ---- */
+  .about__facts-head {
+    margin: 1.25rem auto 0.75rem;
+  }
+  .about__group-label {
+    margin: 0 0 0.75rem;
+    font-size: 0.62rem;
+  }
+  .about__facts-head .about__group-label {
+    margin: 0;
+  }
+
+  /* ---- Key factors: 3 columns, 2 rows ---- */
+  .about__facts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: none;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .about__fact {
+    padding: 0.6rem;
+    border-radius: 8px;
+    border-top-width: 2px;
+  }
+  .about__fact-num {
+    margin-bottom: 0.4rem;
+    padding: 0.12rem 0.35rem;
+    font-size: 0.5rem;
+    border-radius: 2px;
+  }
+  .about__fact h3 {
+    margin-bottom: 0.25rem;
+    font-size: 0.64rem;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+  .about__fact p {
+    font-size: 0.5rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+    overflow: hidden;
+  }
+
+  /* ---- Our Network: 3 cards in one row ---- */
+  .about__group {
+    padding: 1rem 0 0;
+  }
+  .about__logos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: none;
+    gap: 0.4rem;
+  }
+  .about__logo-card,
+  .about__logo-link {
+    min-height: 0;
+  }
+  .about__logo-card {
+    border-radius: 8px;
+  }
+  .about__logo-link {
+    flex-direction: column; /* logo on top, text below */
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: 0.6rem;
+  }
+  .about__logo-img {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    padding: 3px;
+    border-radius: 6px;
+  }
+  .about__logo-text {
+    gap: 0.25rem;
+  }
+  .about__logo-name {
+    font-size: 0.62rem;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+  .about__logo-tag {
+    font-size: 0.48rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+    overflow: hidden;
+  }
+
+  /* ---- Slogan ---- */
+  .about__slogan {
+    margin-top: 1.25rem;
+    padding-bottom: 0.5rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+}
