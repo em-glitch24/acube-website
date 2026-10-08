@@ -338,7 +338,7 @@
   object-fit: cover;
   object-position: center top;
   border-radius: 6px;
-  background: var(--paper-100);
+  background: transparent;
   box-shadow: 0 24px 50px rgba(11, 21, 38, 0.35);
 }
 
@@ -3584,4 +3584,9 @@
   .reveal {
     --rise: 16px;
   }
+}
+
+/* Restore the space before the long half of the CTA labels (flex items drop leading spaces) */
+.hero__more {
+  margin-left: 0.3em;
 }
