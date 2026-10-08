@@ -1206,4 +1206,50 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
   }
+  // Scroll reveal: Services + About entrance animations.
+  // Tags elements with .reveal, then adds .is-visible as they scroll into view.
+  const revealTargets = [];
+
+  const reveal = (
+    selector,
+    { step = 80, base = 0, cols = 0, zoom = false } = {},
+  ) => {
+    document.querySelectorAll(selector).forEach((el, i) => {
+      const slot = cols ? i % cols : i; // cols: stagger per row, not across rows
+      el.style.setProperty("--d", `${base + slot * step}ms`);
+      el.classList.add("reveal");
+      if (zoom) el.classList.add("reveal--zoom");
+      revealTargets.push(el);
+    });
+  };
+
+  // ---- Services ----
+  reveal(".services__intro > *", { step: 90 });
+  reveal(".services__tabs", { base: 250 });
+  reveal("#servicesStage"); // card stagger is handled in CSS
+
+  // ---- About ----
+  reveal(".about__intro > *", { step: 90 });
+  reveal(".about__facts-head");
+  reveal(".about__fact", { step: 90, cols: 3, zoom: true });
+  reveal(".about__group > .about__group-label");
+  reveal(".about__logo-card", { step: 100, cols: 3, zoom: true });
+  reveal(".about__slogan");
+
+  if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
+    );
+    revealTargets.forEach((el) => revealObserver.observe(el));
+  } else {
+    revealTargets.forEach((el) => el.classList.add("is-visible"));
+  }
 });

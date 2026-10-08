@@ -3531,3 +3531,57 @@
     line-height: 1.4;
   }
 }
+
+/* ==========================================================================
+   Scroll reveal: Services + About entrance animations
+   ========================================================================== */
+
+.reveal {
+  --rise: 28px;
+  opacity: 0;
+}
+
+/* Animation only (no forwards fill), so hover transforms still work afterward */
+.reveal.is-visible {
+  opacity: 1;
+  animation: reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Optional variant for cards: slight zoom instead of a plain rise */
+.reveal--zoom.is-visible {
+  animation-name: reveal-zoom;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rise));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes reveal-zoom {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rise)) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Service cards wait for the grid to scroll into view before they play */
+.services__stage:not(.is-visible) .services__card {
+  animation-play-state: paused;
+}
+
+/* Shorter travel on phones */
+@media (max-width: 860px) {
+  .reveal {
+    --rise: 16px;
+  }
+}
