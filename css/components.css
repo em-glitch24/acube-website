@@ -149,8 +149,8 @@
   overflow: hidden;
   min-height: calc(100svh - 250px) !important;
   display: flex;
-  align-items: center;
-  padding-top: calc(var(--header-h) + 1rem);
+  align-items: flex-start;
+  padding-top: calc(var(--header-h) - -10px);
   padding-bottom: 2.5rem;
   color: var(--ink-900);
   background: linear-gradient(135deg, #ffffff 0%, #f4f8fd 55%, #e8f0fa 100%);
@@ -220,7 +220,7 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   font-family: var(--font-mono);
   font-size: var(--step--1);
   color: var(--ink-700);
@@ -2796,16 +2796,15 @@
 
 .hero {
   /* ---- TUNE THIS ONE: vertical position of the band (left side) ---- */
-  --band-y: 43%; /* lower number = higher up, higher number = lower down */
-
-  --band-t: 22px; /* band thickness */
+  --band-y: 42%;
+  --band-t: 20px;
+  --trace-gap: 8px;
   --band-rise: 56px; /* = --split on .services (45° angle) */
   --band-x1: 55%; /* = --split-at on .services */
   --band-x2: calc(var(--band-x1) + var(--band-rise));
   --band-yr: calc(
     var(--band-y) - var(--band-rise)
   ); /* right side sits higher */
-  --trace-gap: 12px; /* space between band and thin line */
 
   background: linear-gradient(135deg, #ffffff 0%, #f4f8fd 55%, #eaf1fa 100%);
 }
@@ -2861,5 +2860,232 @@
     --band-t: 14px;
     --band-rise: 32px;
     --band-x1: 40%;
+  }
+}
+
+/* ==========================================================================
+   Hero: lift eyebrow + title independently (rest of the content stays put)
+   ========================================================================== */
+
+.hero {
+  --lift: 30px; /* TUNE THIS: how far the eyebrow + title move up */
+}
+
+.hero__eyebrow,
+.hero__title {
+  position: relative;
+  top: calc(var(--lift) * -1);
+}
+
+/* Stacked mobile layout: no band collision there, so keep them in place */
+@media (max-width: 860px) {
+  .hero {
+    --lift: 0px;
+  }
+}
+
+/* ==========================================================================
+   Mobile hero: same two-column layout as desktop, scaled down
+   (everything is inside the media query, desktop is untouched)
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  /* ---- Header: compact so the brand stays on one line ---- */
+  .site-header__bar {
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+  }
+  .brand {
+    gap: 0.45rem;
+  }
+  .brand__logo {
+    width: 28px;
+    height: 28px;
+  }
+  .brand__name {
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  .header__actions {
+    gap: 0.5rem;
+  }
+  .header__actions .btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.72rem;
+  }
+
+  /* ---- Hero shell ---- */
+  .hero {
+    --lift: 12px; /* eyebrow + title lift (tune) */
+    min-height: auto !important; /* hug the content on phones */
+    padding-top: calc(var(--header-h) + 6px);
+    padding-bottom: calc(1rem + 32px);
+  }
+
+  /* Two columns again: text left, portrait right */
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 36%);
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  /* ---- Text column ---- */
+  .hero__eyebrow {
+    font-size: 0.62rem;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+  }
+  .hero__title {
+    max-width: none;
+    font-size: clamp(1.25rem, 5.6vw, 2rem);
+  }
+  .hero__lede {
+    margin-top: 0.75rem;
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .hero__actions {
+    flex-direction: row; /* undo the stacked buttons from the 480px rule */
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .hero__actions .btn {
+    width: auto;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.68rem;
+  }
+
+  .hero__stats {
+    gap: 0.75rem 1rem;
+    margin-top: 1rem;
+  }
+  .hero__stats li {
+    padding-left: 0.5rem;
+  }
+  .hero__stats strong {
+    font-size: 0.85rem;
+  }
+  .hero__stats span {
+    font-size: 0.6rem;
+  }
+
+  /* ---- Portrait column ---- */
+  .hero__visual {
+    max-width: none;
+    margin-inline: 0;
+    order: 0; /* undo "portrait on top" */
+    padding: 6px;
+  }
+  .hero__portrait img {
+    border-radius: 4px;
+    box-shadow: 0 12px 26px rgba(11, 21, 38, 0.3);
+  }
+  .hero__caption {
+    left: -1.25rem;
+    right: 0.4rem;
+    bottom: -0.9rem;
+    padding: 0.4rem 0.5rem;
+    border-left-width: 3px;
+  }
+  .hero__caption strong {
+    font-size: 0.6rem;
+    line-height: 1.2;
+  }
+  .hero__caption span {
+    font-size: 0.5rem;
+    line-height: 1.25;
+  }
+  .hero__caption small {
+    display: none; /* too small to read; remove this line to show it */
+  }
+}
+
+/* ==========================================================================
+   Mobile hero v2: portrait up top-right, buttons + stats on rows below
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  /* Children of .hero__content become direct grid items */
+  .hero__content {
+    display: contents;
+  }
+
+  .hero {
+    --band-y: 39%; /* TUNE: lower number = band sits higher */
+    --band-t: 10px; /* thinner band on phones */
+    --trace-gap: 6px;
+  }
+
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 36%);
+    grid-template-rows: auto;
+    column-gap: 0.75rem;
+    row-gap: 0;
+    align-items: start;
+  }
+
+  /* ---- Left column, top rows ---- */
+  .hero__eyebrow {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .hero__title {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .hero__lede {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  /* ---- Portrait: top right, beside the text ---- */
+  .hero__visual {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: start;
+    margin-top: 0;
+  }
+  .hero__caption {
+    left: -0.4rem;
+    right: -0.4rem;
+    bottom: -0.9rem;
+  }
+
+  /* ---- Buttons: full-width row below the image ---- */
+  .hero__actions {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    margin-top: 1.5rem;
+    gap: 0.4rem;
+    flex-wrap: nowrap;
+  }
+  .hero__actions .btn {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.62rem;
+    border-radius: 2px;
+  }
+
+  /* ---- Stats: three compact badges in one row ---- */
+  .hero__stats {
+    grid-column: 1 / -1;
+    grid-row: 5;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+  }
+  .hero__stats li {
+    min-width: 0;
+    padding-left: 0.4rem;
+    border-left-width: 2px;
+  }
+  .hero__stats strong {
+    font-size: 0.75rem;
+  }
+  .hero__stats span {
+    font-size: 0.52rem;
+    line-height: 1.3;
   }
 }
