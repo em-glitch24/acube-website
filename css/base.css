@@ -38,7 +38,7 @@
   --hero-tint: 0.72;
 
   /* Section background overlays: click the swatch to pick color + opacity */
-  --services-overlay: rgba(11, 21, 38, 0.7);
+  --services-overlay: rgba(11, 21, 38, 0.867);
   --work-overlay: rgba(232, 240, 250, 0);
 
   --work-frame-bg: #ffffff;
