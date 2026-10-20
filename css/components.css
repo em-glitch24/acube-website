@@ -1,4 +1,4 @@
-/*components.css */
+/* components.css */
 
 /* ==========================================================================
    Nav
@@ -27,6 +27,14 @@
 .brand__mark {
   color: var(--paper-100);
 }
+
+.site-header .brand__name {
+  color: var(--ink-900);
+}
+.site-header .brand__mark {
+  color: var(--ink-700);
+}
+
 /* Center column: primary links */
 .nav__links-wrap {
   display: flex;
@@ -37,6 +45,14 @@
   display: flex;
   gap: clamp(1.25rem, 3vw, 2.25rem);
   font-size: var(--step--1);
+}
+
+.nav__links a {
+  color: var(--ink-700);
+  font-weight: 500;
+}
+.nav__links a:hover {
+  color: var(--accent-blue);
 }
 
 /* Right column: CTA + mobile toggle */
@@ -61,19 +77,52 @@
   margin: 5px 0;
 }
 
-.site-header .brand__name {
-  color: var(--ink-900);
-}
-.site-header .brand__mark {
-  color: var(--ink-700);
-}
+/* Tablet and down: collapse nav into a toggle */
+@media (max-width: 860px) {
+  .nav__links-wrap {
+    display: none;
+  }
+  .nav__links-wrap--open {
+    display: flex;
+    position: absolute;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    padding: 1.25rem var(--gutter);
+    background: var(--paper-000);
+    border-bottom: 1px solid var(--border-on-light);
+  }
+  .nav__links-wrap--open .nav__links {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .nav__toggle {
+    display: block;
+  }
 
-.nav__links a {
-  color: var(--ink-700);
-  font-weight: 500;
-}
-.nav__links a:hover {
-  color: var(--accent-blue);
+  /* Compact header so the brand stays on one line */
+  .site-header__bar {
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+  }
+  .brand {
+    gap: 0.45rem;
+  }
+  .brand__logo {
+    width: 28px;
+    height: 28px;
+  }
+  .brand__name {
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  .header__actions {
+    gap: 0.5rem;
+  }
+  .header__actions .btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.72rem;
+  }
 }
 
 /* ==========================================================================
@@ -97,35 +146,10 @@
 }
 
 .btn--primary {
-  background: transparent;
   border: 1px solid var(--ink-700);
   color: var(--paper-100);
   background: var(--ink-700);
 }
-
-.btn--ghost-dark {
-  border-color: var(--accent-purple);
-  color: var(--text-on-dark);
-  background-color: var(--accent-purple);
-}
-
-.btn--ghost-dark:hover {
-  background: var(--ink-700);
-  color: var(--text-on-dark);
-}
-
-.btn--text {
-  color: var(--ink-700);
-  border-bottom: 1px solid var(--accent-blue);
-  border-radius: 0;
-  padding: 0.25rem 0;
-}
-
-.btn--text:hover {
-  border-color: var(--ink-700);
-  color: var(--accent-blue);
-}
-
 .btn--primary:hover {
   background: var(--ink-900);
 }
@@ -140,70 +164,99 @@
   color: var(--paper-000);
 }
 
+.btn--ghost-dark {
+  border-color: var(--accent-blue);
+  color: var(--text-on-dark);
+  background: var(--accent-blue);
+}
+.btn--ghost-dark:hover {
+  background: var(--paper-000);
+  border-color: var(--paper-000);
+  color: var(--ink-900);
+}
+
+.btn--text {
+  color: var(--ink-700);
+  border-bottom: 1px solid var(--accent-blue);
+  border-radius: 0;
+  padding: 0.25rem 0;
+}
+.btn--text:hover {
+  border-color: var(--ink-700);
+  color: var(--accent-blue);
+}
+
 /* ==========================================================================
    Hero
    ========================================================================== */
 
 .hero {
+  /* Tune: vertical position of the stepped band (left side) */
+  --band-y: 42%;
+  --band-t: 20px;
+  --trace-gap: 8px;
+  --band-rise: 56px; /* = --split (45° angle, mirrors the Services notch) */
+  --band-x1: 55%; /* = --split-at */
+  --band-x2: calc(var(--band-x1) + var(--band-rise));
+  --band-yr: calc(var(--band-y) - var(--band-rise));
+
+  /* Tune: how far the eyebrow + title move up */
+  --lift: 30px;
+
   position: relative;
   overflow: hidden;
-  min-height: calc(100svh - 250px) !important;
   display: flex;
   align-items: flex-start;
-  padding-top: calc(var(--header-h) - -10px);
-  padding-bottom: 2.5rem;
+  min-height: calc(100svh - 250px) !important;
+  padding-top: calc(var(--header-h) + 10px);
+  padding-bottom: calc(1rem + 41px); /* clears the Services notch */
   color: var(--ink-900);
-  background: linear-gradient(135deg, #ffffff 0%, #f4f8fd 55%, #e8f0fa 100%);
-  outline: 3px solid red;
+  background: linear-gradient(135deg, #ffffff 0%, #f4f8fd 55%, #eaf1fa 100%);
 }
 
-@media (max-height: 700px) {
-  .hero {
-    min-height: auto;
-  }
-}
-
-.hero {
-  --hero-extra: 20px;
-}
-
-@media (max-width: 860px) {
-  .hero {
-    --hero-extra: 0px;
-  } /* tablet */
-}
-@media (max-width: 480px) {
-  .hero {
-    --hero-extra: 0px;
-  } /* phone */
-}
-@media (min-width: 1600px) {
-  .hero {
-    --hero-extra: 0px;
-  } /* large monitors */
-}
-
-/* Angled panels (echo the triangles in the company profile).
-   They start under the header so the nav stays on white. */
-.hero::before,
-.hero::after {
+/* Thick band: flat, steps UP to the right, flat */
+.hero::before {
   content: "";
   position: absolute;
-  top: var(--header-h);
-  right: 0;
-  bottom: 0;
-}
-.hero::before {
-  width: 58%;
-  background: #d6e5f6;
-  clip-path: polygon(32% 0, 100% 0, 100% 100%, 0 100%);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
+  pointer-events: none;
+  background: rgba(44, 123, 192, 0.1);
+  clip-path: polygon(
+    0 var(--band-y),
+    var(--band-x1) var(--band-y),
+    var(--band-x2) var(--band-yr),
+    100% var(--band-yr),
+    100% calc(var(--band-yr) + var(--band-t)),
+    var(--band-x2) calc(var(--band-yr) + var(--band-t)),
+    var(--band-x1) calc(var(--band-y) + var(--band-t)),
+    0 calc(var(--band-y) + var(--band-t))
+  );
 }
+
+/* Thin trace running parallel, just below the band */
 .hero::after {
-  width: 46%;
-  background: var(--ink-900);
-  clip-path: polygon(34% 0, 100% 0, 100% 100%, 0 100%);
-  z-index: 1;
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  background: rgba(44, 123, 192, 0.32);
+  clip-path: polygon(
+    0 calc(var(--band-y) + var(--band-t) + var(--trace-gap)),
+    var(--band-x1) calc(var(--band-y) + var(--band-t) + var(--trace-gap)),
+    var(--band-x2) calc(var(--band-yr) + var(--band-t) + var(--trace-gap)),
+    100% calc(var(--band-yr) + var(--band-t) + var(--trace-gap)),
+    100% calc(var(--band-yr) + var(--band-t) + var(--trace-gap) + 2px),
+    var(--band-x2) calc(var(--band-yr) + var(--band-t) + var(--trace-gap) + 2px),
+    var(--band-x1) calc(var(--band-y) + var(--band-t) + var(--trace-gap) + 2px),
+    0 calc(var(--band-y) + var(--band-t) + var(--trace-gap) + 2px)
+  );
 }
 
 .hero__grid {
@@ -233,8 +286,13 @@
   flex-shrink: 0;
 }
 
+.hero__eyebrow,
 .hero__title {
   position: relative;
+  top: calc(var(--lift) * -1);
+}
+
+.hero__title {
   max-width: 20ch;
   min-height: 2.3em;
   font-size: clamp(2rem, 4vw, 3.75rem);
@@ -279,6 +337,11 @@
   margin-top: 2.25rem;
 }
 
+/* Restore the space before the long half of the CTA labels (flex items drop leading spaces) */
+.hero__more {
+  margin-left: 0.3em;
+}
+
 .hero__stats {
   display: flex;
   flex-wrap: wrap;
@@ -305,27 +368,6 @@
 .hero__visual {
   position: relative;
   padding: 14px;
-}
-
-.hero__visual::before,
-.hero__visual::after {
-  content: "";
-  position: absolute;
-  width: 26px;
-  height: 26px;
-  border: 0 solid #8fb8e8;
-}
-.hero__visual::before {
-  top: 0;
-  left: 0;
-  border-top-width: 2px;
-  border-left-width: 2px;
-}
-.hero__visual::after {
-  bottom: 0;
-  right: 0;
-  border-bottom-width: 2px;
-  border-right-width: 2px;
 }
 
 .hero__portrait {
@@ -479,86 +521,132 @@
   }
 }
 
-/* ==========================================================================
-   Responsive
-   ========================================================================== */
-
-/* Tablet and down: stack the hero, collapse nav into a toggle */
+/* ---- Mobile hero: same two-column layout as desktop, scaled down.
+       Portrait top-right, short CTA labels under it, stats in one row. ---- */
 @media (max-width: 860px) {
-  .nav__links-wrap {
-    display: none;
+  .hero {
+    --lift: 12px;
+    --band-y: 39%;
+    --band-t: 10px;
+    --trace-gap: 6px;
+    --band-rise: 32px; /* = --split on phones */
+    --band-x1: 40%;
+    min-height: auto !important;
+    padding-top: calc(var(--header-h) + 6px);
+    padding-bottom: calc(1rem + 32px);
   }
-  .nav__links-wrap--open {
-    display: flex;
-    position: absolute;
-    top: var(--header-h);
-    left: 0;
-    right: 0;
-    .nav__links-wrap--open {
-      background: var(--paper-000);
-      border-bottom: 1px solid var(--border-on-light);
-    }
-    padding: 1.25rem var(--gutter);
+
+  /* Children of .hero__content become direct grid items */
+  .hero__content {
+    display: contents;
   }
-  .nav__links-wrap--open .nav__links {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .nav__toggle {
-    display: block;
-  }
+
   .hero__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 36%);
+    grid-template-rows: auto;
+    column-gap: 0.75rem;
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .hero__eyebrow {
+    grid-column: 1;
+    grid-row: 1;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.62rem;
   }
   .hero__title {
+    grid-column: 1;
+    grid-row: 2;
     max-width: none;
+    font-size: clamp(1.25rem, 5.6vw, 2rem);
   }
+  .hero__lede {
+    grid-column: 1;
+    grid-row: 3 / span 2; /* spans two rows so it doesn't stretch the portrait's row */
+    margin-top: 0.75rem;
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  /* Portrait: top right, beside the text */
   .hero__visual {
-    max-width: 300px;
-    margin-inline: auto;
-    order: -1;
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: start;
+    max-width: none;
+    margin: 0;
+    padding: 6px;
+  }
+  .hero__portrait img {
+    border-radius: 4px;
+    box-shadow: 0 12px 26px rgba(11, 21, 38, 0.3);
   }
   .hero__caption {
-    left: -0.5rem;
-    right: -0.5rem;
+    left: -0.4rem;
+    right: -0.4rem;
+    bottom: -0.9rem;
+    padding: 0.4rem 0.5rem;
+    border-left-width: 3px;
+  }
+  .hero__caption strong {
+    font-size: 0.6rem;
+    line-height: 1.2;
+  }
+  .hero__caption span {
+    font-size: 0.5rem;
+    line-height: 1.25;
+  }
+  .hero__caption small {
+    display: none;
   }
 
-  .hero::before,
-  .hero::after {
-    width: 100%;
-    height: 420px;
-    bottom: auto;
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-  }
-  .hero::before {
-    height: 450px;
-  }
-}
-
-/* Small phones: tighten spacing, full-width buttons */
-@media (max-width: 480px) {
-  .site-header__bar {
-    gap: 0.75rem;
-  }
-  .brand__name {
-    font-size: var(--step-0);
+  /* Buttons: right column, directly under the portrait. Short labels. */
+  .hero__more {
+    display: none;
   }
   .hero__actions {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
+    grid-column: 2;
+    grid-row: 4;
+    align-self: start;
+    flex-wrap: nowrap;
+    gap: 0.3rem;
+    margin-top: 1.3rem;
   }
   .hero__actions .btn {
-    width: 100%;
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    padding: 0.4rem 0.2rem;
+    border-radius: 2px;
+    font-size: 0.6rem;
   }
-  .hero__visual {
-    max-width: 100%;
-    padding: 8px;
+
+  /* Stats: three compact badges in one row */
+  .hero__stats {
+    grid-column: 1 / -1;
+    grid-row: 5;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+  }
+  .hero__stats li {
+    min-width: 0;
+    padding-left: 0.4rem;
+  }
+  .hero__stats strong {
+    font-size: 0.75rem;
+  }
+  .hero__stats span {
+    font-size: 0.52rem;
+    line-height: 1.3;
   }
 }
 
 /* ==========================================================================
-   Services
+   Services (main page). Cards, list, and video live in services.css.
    ========================================================================== */
 
 .services {
@@ -596,7 +684,7 @@
   gap: 0.5rem;
   font-family: var(--font-mono);
   font-size: var(--step--1);
-  color: var(--ink-900);
+  color: var(--text-on-dark-muted);
   margin: 0 auto 0.75rem;
   width: fit-content;
 }
@@ -605,121 +693,22 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--ink-700);
+  background: var(--accent-blue-bright);
   flex-shrink: 0;
 }
 
 .services__title {
   font-size: 40px;
-  color: var(--ink-700);
   font-weight: 800;
+  color: var(--paper-000);
 }
 
 .services__desc {
   margin: 0.75rem auto 0;
-  color: var(--ink-900);
+  color: var(--text-on-dark-muted);
 }
 
-/* Stage: grid + detail share the same grid cell, so the stage auto-sizes
-   to whichever is taller — no JS height measurement needed. */
-.services__stage {
-  position: relative;
-  display: grid;
-}
-
-.services__grid,
-.services__detail {
-  grid-column: 1;
-  grid-row: 1;
-}
-
-/* ---- Card grid ---- */
-.services__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s ease,
-    visibility 0.35s;
-}
-
-.services__card {
-  position: relative;
-  background: var(--paper-000);
-  border: 1px solid var(--border-on-light);
-  border-radius: var(--radius-sm1);
-  padding: 1.75rem;
-  cursor: pointer;
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    border-color 0.15s ease;
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-.services__card:hover,
-.services__card:focus-visible {
-  border-color: var(--accent-purple, var(--ink-700));
-  box-shadow: 0 18px 40px rgba(11, 21, 38, 0.12);
-}
-
-.services__card-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  background: var(--ink-900);
-  color: var(--paper-000);
-  margin-bottom: 1.25rem;
-}
-
-.services__card-icon svg {
-  width: 22px;
-  height: 22px;
-}
-
-.services__card-title {
-  font-size: var(--step-0);
-  color: var(--ink-900);
-  margin-bottom: 0.5rem;
-}
-
-.services__card-desc {
-  color: var(--text-muted);
-  font-size: var(--step--1);
-  line-height: 1.5;
-}
-
-.services__card-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-top: 1.25rem;
-  font-size: var(--step--1);
-  font-weight: 500;
-  color: var(--ink-700);
-}
-
-/* ---- Services: fixed-height card view that fills the screen (desktop) ---- */
-.services__card-lead {
-  font-size: var(--step-0);
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--ink-700);
-  margin-bottom: 0.6rem;
-}
-.services__card-desc {
-  font-size: var(--step--1);
-  line-height: 1.65;
-}
-.services__card--action .services__card-lead {
-  color: var(--paper-000);
-}
-
+/* Desktop: the section fills the screen */
 @media (min-width: 961px) {
   .services {
     min-height: 100vh;
@@ -733,289 +722,6 @@
   }
   .services__intro {
     margin-bottom: 2rem;
-  }
-  .services__tabs {
-    margin-bottom: 2rem;
-  }
-
-  /* Same card height on every tab. Tune the vh value to taste. */
-  .services__grid {
-    min-height: clamp(360px, 46vh, 500px);
-  }
-  .services__card {
-    padding: 2rem;
-  }
-}
-
-/* ---- Service detail page (full-screen overlay) ---- */
-.service-page {
-  position: fixed;
-  inset: 0;
-  z-index: 90; /* below the contact modal (100) so "Ask about this" can open it */
-  overflow-y: auto;
-  background: var(--paper-000);
-  visibility: hidden;
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0.35s;
-}
-.service-page.is-open {
-  visibility: visible;
-  opacity: 1;
-  transform: none;
-}
-
-.service-page__bar {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem var(--gutter);
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--border-on-light);
-}
-.service-page__back,
-.service-page__close {
-  background: none;
-  color: var(--ink-700);
-}
-.service-page__back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: var(--step--1);
-  font-weight: 500;
-}
-.service-page__back:hover,
-.service-page__close:hover {
-  color: var(--accent-blue);
-}
-.service-page__close {
-  font-size: 2rem;
-  line-height: 1;
-  padding: 0 0.25rem;
-}
-
-.service-page__body {
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: clamp(2rem, 5vw, 3.5rem) var(--gutter) 4rem;
-}
-
-/* ---- Header: icon beside the title ---- */
-.service-page__head {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-}
-.service-page__icon {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  background: var(--ink-900);
-  color: var(--paper-000);
-}
-.service-page__icon svg {
-  width: 26px;
-  height: 26px;
-}
-.service-page__kicker {
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
-  color: var(--accent-blue);
-  margin-bottom: 0.2rem;
-}
-.service-page__title {
-  margin: 0;
-  font-size: clamp(1.75rem, 3.5vw, var(--step-3));
-  color: var(--ink-900);
-}
-
-.service-page__overview {
-  max-width: 70ch;
-  margin-bottom: 1.5rem;
-  font-size: var(--step-1);
-  line-height: 1.6;
-  color: var(--text-body);
-}
-.service-page__overview:empty {
-  display: none;
-}
-
-/* ---- Services | Products jump pills ---- */
-.service-page__jump {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 2.5rem;
-}
-.service-page__jump:empty {
-  display: none;
-}
-.service-page__jump-btn {
-  padding: 0.55rem 1.15rem;
-  border: 1px solid var(--border-on-light);
-  border-radius: 999px;
-  background: var(--paper-000);
-  color: var(--ink-700);
-  font-size: var(--step--1);
-  font-weight: 500;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease;
-}
-.service-page__jump-btn:hover {
-  background: #e8f0fa;
-  border-color: var(--accent-blue);
-}
-
-/* ---- Rows: images + text, alternating sides ---- */
-.service-page__sections {
-  --section-gap: 2rem; /* space between Training & Services and Products */
-  --shot-gap: 1rem; /* space between side-by-side images */
-  --shot-ratio: 4 / 5; /* shape of each image when there are two */
-
-  display: grid; /* was missing */
-  gap: var(--section-gap);
-}
-
-/* Cancel the global `section { padding-block }` from layout.css */
-.service-page__section {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
-  padding-block: 0;
-  scroll-margin-top: 5.5rem;
-}
-.service-page__section.no-media {
-  grid-template-columns: minmax(0, 760px);
-}
-
-.service-page__media {
-  display: flex; /* images side by side */
-  gap: var(--shot-gap);
-  min-width: 0;
-}
-
-/* Only when there are 2+ images, use the shape set above */
-.service-page__media:has(.service-page__shot:nth-child(2))
-  .service-page__shot
-  img {
-  aspect-ratio: var(--shot-ratio);
-}
-.service-page__shot {
-  flex: 1 1 0; /* new: equal share of the row */
-  min-width: 0; /* new: lets it shrink instead of using the photo's pixel width */
-  margin: 0;
-  padding: 2px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, var(--ink-700), var(--ink-900));
-  overflow: hidden;
-}
-.service-page__shot img {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 6px;
-  background: var(--paper-100);
-  cursor: zoom-in;
-}
-.service-page__shot.is-contain img {
-  object-fit: contain;
-  background: var(--paper-000);
-}
-
-.service-page__label {
-  display: inline-block;
-  margin-bottom: 0.9rem;
-  padding: 0.25rem 0.8rem;
-  border: 1px solid var(--accent-blue);
-  border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--accent-blue);
-}
-.service-page__desc {
-  margin-bottom: 1.5rem;
-  font-size: var(--step-1);
-  line-height: 1.6;
-  color: var(--text-body);
-}
-.service-page__list {
-  display: grid;
-  gap: 0.7rem;
-  margin-bottom: 2rem;
-}
-.service-page__list li {
-  position: relative;
-  padding-left: 1.4rem;
-  color: var(--text-body);
-}
-.service-page__list li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-  background: var(--accent-blue);
-}
-.service-page__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-@media (max-width: 860px) {
-  .service-page__section {
-    grid-template-columns: 1fr;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .service-page {
-    transition: none;
-    transform: none;
-  }
-}
-
-.service-page__sections {
-  margin-top: 0;
-}
-.service-page__jump {
-  margin-bottom: 1.5rem;
-}
-.service-page__media {
-  align-self: center;
-}
-.service-page__section.no-media {
-  grid-template-columns: minmax(0, 760px);
-}
-
-@media (max-width: 960px) {
-  .services__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .services__detail-inner {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 600px) {
-  .services__grid {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -1389,7 +1095,7 @@
   }
 }
 
-/* Click-to-preview lightbox for project screenshots */
+/* Click-to-preview lightbox (Showcase + services page) */
 .image-lightbox {
   position: fixed;
   inset: 0;
@@ -1817,180 +1523,6 @@
   }
 }
 
-/* ---- Category tabs (segmented control) ---- */
-.services__tabs {
-  display: flex;
-  gap: 4px;
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto 2.5rem;
-  padding: 5px;
-  background: var(--paper-000);
-  border: 1px solid var(--border-on-light);
-  border-radius: 999px;
-  box-shadow: 0 6px 20px rgba(11, 21, 38, 0.06);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.services__tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.services__tab {
-  flex-shrink: 0;
-  padding: 0.65rem 1.25rem;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--ink-700);
-  font-size: var(--step--1);
-  font-weight: 500;
-  white-space: nowrap;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
-}
-.services__tab:hover {
-  background: #e8f0fa;
-}
-.services__tab.is-active {
-  background: var(--ink-700);
-  color: var(--paper-000);
-}
-
-/* ---- Cards: navy hover instead of purple, aligned links, fade-in on tab change ---- */
-.services__card {
-  display: flex;
-  flex-direction: column;
-  animation: services-card-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-}
-.services__card:nth-child(2) {
-  animation-delay: 0.06s;
-}
-.services__card:nth-child(3) {
-  animation-delay: 0.12s;
-}
-
-.services__card:hover,
-.services__card:focus-visible {
-  border-color: var(--accent-blue);
-}
-
-.services__card-link {
-  margin-top: auto;
-  padding-top: 1.25rem;
-}
-
-@keyframes services-card-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Call-to-action cards ("Need something custom?", "See what we've built") */
-.services__card--action {
-  background: var(--ink-900);
-  border-color: var(--ink-900);
-}
-.services__card--action .services__card-icon {
-  background: var(--accent-blue);
-}
-.services__card--action .services__card-title {
-  color: var(--paper-000);
-}
-.services__card--action .services__card-desc {
-  color: var(--text-on-dark-muted);
-}
-.services__card--action .services__card-link {
-  color: var(--accent-blue-bright);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .services__card {
-    animation: none;
-  }
-}
-
-/* Landscape images: stacked, each at its natural wide/short shape */
-.service-page__media.is-stacked {
-  flex-direction: column;
-  width: 100%;
-}
-
-.service-page__media.is-stacked .service-page__shot {
-  flex: 0 0 auto;
-  width: 70%;
-}
-
-/* Doubled class so this beats the side-by-side :has() rule */
-.service-page__media.is-stacked.is-stacked .service-page__shot img {
-  aspect-ratio: auto; /* use the photo's real proportions */
-  height: auto;
-  object-fit: contain;
-}
-
-/* ---- Showcase: photo albums ---- */
-
-/* Photo rows drop the fake browser-window bar used for screenshots */
-
-.work__row-image.is-photo .work__main-img {
-  flex: none;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  padding: 0;
-}
-
-/* Product shots on white: don't crop */
-.work__row-image.is-photo.is-contain .work__main-img {
-  object-fit: contain;
-  padding: 10px;
-  background: var(--paper-000);
-}
-
-/* Thumbnail strip */
-.work__thumbs {
-  display: flex;
-  gap: 0.5rem;
-  padding: 0.6rem;
-  overflow-x: auto;
-  background: var(--ink-900);
-  border-top: 1px solid var(--border-on-dark);
-}
-
-.work__thumb {
-  flex: 0 0 76px;
-  height: 54px;
-  padding: 0;
-  overflow: hidden;
-  background: none;
-  border: 2px solid transparent;
-  border-radius: 4px;
-  opacity: 0.6;
-  transition:
-    opacity 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.work__row-image .work__thumb img {
-  flex: none;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  object-fit: cover;
-}
-
-.work__thumb:hover,
-.work__thumb.is-active {
-  opacity: 1;
-  border-color: var(--accent-blue-bright);
-}
-
 /* ---- About: intro paragraphs + key factors ---- */
 .about__intro {
   max-width: 900px; /* slightly wider than before, still readable */
@@ -2059,32 +1591,68 @@
   }
 }
 
+/* ---- Showcase: photo albums ---- */
+
+/* Photo rows drop the fake browser-window bar used for screenshots */
+
+.work__row-image.is-photo .work__main-img {
+  flex: none;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  padding: 0;
+}
+
+/* Product shots on white: don't crop */
+.work__row-image.is-photo.is-contain .work__main-img {
+  object-fit: contain;
+  padding: 10px;
+  background: var(--paper-000);
+}
+
+/* Thumbnail strip */
+.work__thumbs {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  overflow-x: auto;
+  background: var(--ink-900);
+  border-top: 1px solid var(--border-on-dark);
+}
+
+.work__thumb {
+  flex: 0 0 76px;
+  height: 54px;
+  padding: 0;
+  overflow: hidden;
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  opacity: 0.6;
+  transition:
+    opacity 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.work__row-image .work__thumb img {
+  flex: none;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  object-fit: cover;
+}
+
+.work__thumb:hover,
+.work__thumb.is-active {
+  opacity: 1;
+  border-color: var(--accent-blue-bright);
+}
+
 /* ==========================================================================
    Palette: white + navy
-   Services = navy, Showcase = light, About = white, Footer = navy
+   Services = navy, Showcase = light, About = navy, Footer = navy
    ========================================================================== */
-
-/* ---- Services (navy) ---- */
-.services__eyebrow {
-  color: var(--text-on-dark-muted);
-}
-.services__eyebrow-dot {
-  background: var(--accent-blue-bright);
-}
-.services__title {
-  color: var(--paper-000);
-}
-.services__desc {
-  color: var(--text-on-dark-muted);
-}
-.services__tab.is-active {
-  background: var(--accent-blue);
-}
-/* Action cards were navy, which would vanish on a navy section */
-.services__card--action {
-  background: var(--ink-700);
-  border-color: var(--accent-blue);
-}
 
 /* ---- Showcase (light) ---- */
 .work__eyebrow {
@@ -2159,17 +1727,6 @@
   border-image: linear-gradient(to right, var(--accent-blue), var(--ink-700)) 1;
 }
 
-/* ---- Footer button (was purple) ---- */
-.btn--ghost-dark {
-  background: var(--accent-blue);
-  border-color: var(--accent-blue);
-}
-.btn--ghost-dark:hover {
-  background: var(--paper-000);
-  border-color: var(--paper-000);
-  color: var(--ink-900);
-}
-
 /* ---- Album frames: light version ---- */
 .work__row-image {
   background: var(--work-frame-bg);
@@ -2199,68 +1756,9 @@
 }
 
 /* ==========================================================================
-   Navy cards: Services cards + tabs, About section
+   About (navy)
    ========================================================================== */
 
-/* ---- Services tabs ---- */
-.services__tabs {
-  background: var(--card-navy);
-  border-color: var(--border-on-dark);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-}
-.services__tab {
-  color: var(--text-on-dark-muted);
-}
-.services__tab:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-on-dark);
-}
-.services__tab.is-active {
-  background: var(--accent-blue);
-  color: var(--text-on-dark);
-}
-
-/* ---- Services cards ---- */
-.services__card {
-  background: var(--ink-500);
-  border-color: var(--border-on-dark);
-}
-.services__card:hover,
-.services__card:focus-visible {
-  border-color: var(--accent-blue-bright);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
-}
-.services__card-icon {
-  background: var(--accent-blue);
-}
-.services__card-title {
-  color: var(--text-on-dark);
-}
-.services__card-lead {
-  color: var(--accent-blue-bright);
-}
-.services__card-desc {
-  color: var(--text-on-dark-muted);
-}
-.services__card-link {
-  color: var(--accent-blue-bright);
-}
-
-/* Action cards ("Need something custom?", "See what we've built")
-   switch to blue so they still stand out from the navy cards */
-.services__card--action {
-  background: var(--accent-blue-dark);
-  border-color: var(--accent-blue);
-}
-.services__card--action .services__card-lead,
-.services__card--action .services__card-link {
-  color: var(--text-on-dark);
-}
-.services__card--action .services__card-icon {
-  background: rgba(255, 255, 255, 0.18);
-}
-
-/* ---- About (navy) ---- */
 .about {
   background-color: var(--ink-900);
 }
@@ -2315,82 +1813,10 @@
   color: var(--text-on-dark-muted);
 }
 
-/* About and footer are both navy, so add a divider between them */
-.site-footer {
-  border-top: 1px solid var(--border-on-dark);
-}
-
 .about__logo-img {
   background: #fff;
   padding: 6px;
   border-radius: 8px;
-}
-
-/* ==========================================================================
-   Hero: no angled panels, no frame, background image slot
-   ========================================================================== */
-
-/* Background image. If the file is missing, the old gradient shows instead.
-   Change the filename to your image. */
-.hero {
-  background:
-    url("../assets/images/herobg6.jpg") center / cover no-repeat,
-    linear-gradient(135deg, #ffffff 0%, #f4f8fd 55%, #e8f0fa 100%);
-  outline: none; /* removes the red debug outline */
-}
-
-/* The old angled panel becomes a full-cover overlay, controlled by --hero-overlay */
-.hero::before {
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  clip-path: none;
-  background: var(--hero-overlay);
-}
-
-/* Remove the navy panel */
-.hero::after {
-  display: none;
-}
-
-/* Remove the corner-bracket frame around the portrait */
-.hero__visual::before,
-.hero__visual::after {
-  display: none;
-}
-
-/* ---- Hero / Services split edge ---- */
-.services {
-  --split: 56px; /* how deep the step is */
-  --split-at: 55%; /* where the step starts, from the left */
-
-  margin-top: calc(
-    var(--split) * -1
-  ); /* pull up so the hero shows in the notch */
-  padding-top: calc(3rem + var(--split));
-  clip-path: polygon(
-    0 0,
-    var(--split-at) 0,
-    calc(var(--split-at) + var(--split)) var(--split),
-    100% var(--split),
-    100% 100%,
-    0 100%
-  );
-}
-
-/* Keep hero content clear of the overlapping corner */
-.hero {
-  padding-bottom: calc(1rem + 41px);
-}
-
-@media (max-width: 860px) {
-  .services {
-    --split: 32px;
-    --split-at: 40%;
-  }
-  .hero {
-    padding-bottom: calc(2.5rem + 32px);
-  }
 }
 
 /* ==========================================================================
@@ -2546,7 +1972,7 @@
    ========================================================================== */
 
 .work {
-  /* Drops albumbg1.jpg. Soft light base with a faint diagonal band. */
+  /* Soft light base with a faint diagonal band. */
   background:
     linear-gradient(
       115deg,
@@ -2709,6 +2135,7 @@
 }
 
 /* Push each section's own content below the notch */
+.services,
 .work,
 .about {
   padding-top: calc(3rem + var(--split));
@@ -2722,11 +2149,6 @@
 .work,
 .about {
   padding-bottom: calc(clamp(3rem, 8vw, 6rem) + var(--split));
-}
-
-/* The old divider line would be clipped by the notch, so remove it */
-.site-footer {
-  border-top: none;
 }
 
 @media (max-width: 860px) {
@@ -2789,345 +2211,12 @@
     justify-content: flex-start;
   }
 }
-/* ==========================================================================
-   Hero background: stepped geometric band (CSS only, no image)
-   Climbs to the right: mirror of the Services notch, same x-range and angle.
-   ========================================================================== */
-
-.hero {
-  /* ---- TUNE THIS ONE: vertical position of the band (left side) ---- */
-  --band-y: 42%;
-  --band-t: 20px;
-  --trace-gap: 8px;
-  --band-rise: 56px; /* = --split on .services (45° angle) */
-  --band-x1: 55%; /* = --split-at on .services */
-  --band-x2: calc(var(--band-x1) + var(--band-rise));
-  --band-yr: calc(
-    var(--band-y) - var(--band-rise)
-  ); /* right side sits higher */
-
-  background: linear-gradient(135deg, #ffffff 0%, #f4f8fd 55%, #eaf1fa 100%);
-}
-
-/* Thick band: flat, steps UP to the right, flat */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  background: rgba(44, 123, 192, 0.1);
-  clip-path: polygon(
-    0 var(--band-y),
-    var(--band-x1) var(--band-y),
-    var(--band-x2) var(--band-yr),
-    100% var(--band-yr),
-    100% calc(var(--band-yr) + var(--band-t)),
-    var(--band-x2) calc(var(--band-yr) + var(--band-t)),
-    var(--band-x1) calc(var(--band-y) + var(--band-t)),
-    0 calc(var(--band-y) + var(--band-t))
-  );
-}
-
-/* Thin trace running parallel, just below the band */
-.hero::after {
-  content: "";
-  display: block;
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  background: rgba(44, 123, 192, 0.32);
-  clip-path: polygon(
-    0 calc(var(--band-y) + var(--band-t) + var(--trace-gap)),
-    var(--band-x1) calc(var(--band-y) + var(--band-t) + var(--trace-gap)),
-    var(--band-x2) calc(var(--band-yr) + var(--band-t) + var(--trace-gap)),
-    100% calc(var(--band-yr) + var(--band-t) + var(--trace-gap)),
-    100% calc(var(--band-yr) + var(--band-t) + var(--trace-gap) + 2px),
-    var(--band-x2) calc(var(--band-yr) + var(--band-t) + var(--trace-gap) + 2px),
-    var(--band-x1) calc(var(--band-y) + var(--band-t) + var(--trace-gap) + 2px),
-    0 calc(var(--band-y) + var(--band-t) + var(--trace-gap) + 2px)
-  );
-}
-
-/* Tablet and phone: matches the smaller Services notch (32px, 40%) */
-@media (max-width: 860px) {
-  .hero {
-    --band-t: 14px;
-    --band-rise: 32px;
-    --band-x1: 40%;
-  }
-}
 
 /* ==========================================================================
-   Hero: lift eyebrow + title independently (rest of the content stays put)
-   ========================================================================== */
-
-.hero {
-  --lift: 30px; /* TUNE THIS: how far the eyebrow + title move up */
-}
-
-.hero__eyebrow,
-.hero__title {
-  position: relative;
-  top: calc(var(--lift) * -1);
-}
-
-/* Stacked mobile layout: no band collision there, so keep them in place */
-@media (max-width: 860px) {
-  .hero {
-    --lift: 0px;
-  }
-}
-
-/* ==========================================================================
-   Mobile hero: same two-column layout as desktop, scaled down
-   (everything is inside the media query, desktop is untouched)
+   Mobile services (section spacing + intro; cards/list are in services.css)
    ========================================================================== */
 
 @media (max-width: 860px) {
-  /* ---- Header: compact so the brand stays on one line ---- */
-  .site-header__bar {
-    grid-template-columns: 1fr auto;
-    gap: 0.5rem;
-  }
-  .brand {
-    gap: 0.45rem;
-  }
-  .brand__logo {
-    width: 28px;
-    height: 28px;
-  }
-  .brand__name {
-    font-size: 0.8rem;
-    white-space: nowrap;
-  }
-  .header__actions {
-    gap: 0.5rem;
-  }
-  .header__actions .btn {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.72rem;
-  }
-
-  /* ---- Hero shell ---- */
-  .hero {
-    --lift: 12px; /* eyebrow + title lift (tune) */
-    min-height: auto !important; /* hug the content on phones */
-    padding-top: calc(var(--header-h) + 6px);
-    padding-bottom: calc(1rem + 32px);
-  }
-
-  /* Two columns again: text left, portrait right */
-  .hero__grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 36%);
-    gap: 0.75rem;
-    align-items: center;
-  }
-
-  /* ---- Text column ---- */
-  .hero__eyebrow {
-    font-size: 0.62rem;
-    gap: 0.4rem;
-    margin-bottom: 0.6rem;
-  }
-  .hero__title {
-    max-width: none;
-    font-size: clamp(1.25rem, 5.6vw, 2rem);
-  }
-  .hero__lede {
-    margin-top: 0.75rem;
-    font-size: 0.78rem;
-    line-height: 1.5;
-  }
-
-  .hero__actions {
-    flex-direction: row; /* undo the stacked buttons from the 480px rule */
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-  .hero__actions .btn {
-    width: auto;
-    padding: 0.5rem 0.75rem;
-    font-size: 0.68rem;
-  }
-
-  .hero__stats {
-    gap: 0.75rem 1rem;
-    margin-top: 1rem;
-  }
-  .hero__stats li {
-    padding-left: 0.5rem;
-  }
-  .hero__stats strong {
-    font-size: 0.85rem;
-  }
-  .hero__stats span {
-    font-size: 0.6rem;
-  }
-
-  /* ---- Portrait column ---- */
-  .hero__visual {
-    max-width: none;
-    margin-inline: 0;
-    order: 0; /* undo "portrait on top" */
-    padding: 6px;
-  }
-  .hero__portrait img {
-    border-radius: 4px;
-    box-shadow: 0 12px 26px rgba(11, 21, 38, 0.3);
-  }
-  .hero__caption {
-    left: -1.25rem;
-    right: 0.4rem;
-    bottom: -0.9rem;
-    padding: 0.4rem 0.5rem;
-    border-left-width: 3px;
-  }
-  .hero__caption strong {
-    font-size: 0.6rem;
-    line-height: 1.2;
-  }
-  .hero__caption span {
-    font-size: 0.5rem;
-    line-height: 1.25;
-  }
-  .hero__caption small {
-    display: none; /* too small to read; remove this line to show it */
-  }
-}
-
-/* ==========================================================================
-   Mobile hero v2: portrait up top-right, buttons + stats on rows below
-   ========================================================================== */
-
-@media (max-width: 860px) {
-  /* Children of .hero__content become direct grid items */
-  .hero__content {
-    display: contents;
-  }
-
-  .hero {
-    --band-y: 39%; /* TUNE: lower number = band sits higher */
-    --band-t: 10px; /* thinner band on phones */
-    --trace-gap: 6px;
-  }
-
-  .hero__grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 36%);
-    grid-template-rows: auto;
-    column-gap: 0.75rem;
-    row-gap: 0;
-    align-items: start;
-  }
-
-  /* ---- Left column, top rows ---- */
-  .hero__eyebrow {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  .hero__title {
-    grid-column: 1;
-    grid-row: 2;
-  }
-  .hero__lede {
-    grid-column: 1;
-    grid-row: 3;
-  }
-
-  /* ---- Portrait: top right, beside the text ---- */
-  .hero__visual {
-    grid-column: 2;
-    grid-row: 1 / span 3;
-    align-self: start;
-    margin-top: 0;
-  }
-  .hero__caption {
-    left: -0.4rem;
-    right: -0.4rem;
-    bottom: -0.9rem;
-  }
-
-  /* ---- Buttons: full-width row below the image ---- */
-  .hero__actions {
-    grid-column: 1 / -1;
-    grid-row: 4;
-    margin-top: 1.5rem;
-    gap: 0.4rem;
-    flex-wrap: nowrap;
-  }
-  .hero__actions .btn {
-    padding: 0.4rem 0.65rem;
-    font-size: 0.62rem;
-    border-radius: 2px;
-  }
-
-  /* ---- Stats: three compact badges in one row ---- */
-  .hero__stats {
-    grid-column: 1 / -1;
-    grid-row: 5;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin-top: 0.9rem;
-  }
-  .hero__stats li {
-    min-width: 0;
-    padding-left: 0.4rem;
-    border-left-width: 2px;
-  }
-  .hero__stats strong {
-    font-size: 0.75rem;
-  }
-  .hero__stats span {
-    font-size: 0.52rem;
-    line-height: 1.3;
-  }
-}
-
-/* ==========================================================================
-   Mobile hero v3: CTA buttons under the portrait, short labels
-   ========================================================================== */
-
-@media (max-width: 860px) {
-  /* Short labels: hide the long part of each button text */
-  .hero__more {
-    display: none;
-  }
-
-  /* Paragraph spans two rows so it doesn't stretch the portrait's row */
-  .hero__lede {
-    grid-row: 3 / span 2;
-  }
-
-  /* Buttons: right column, directly under the portrait + caption */
-  .hero__actions {
-    grid-column: 2;
-    grid-row: 4;
-    align-self: start;
-    margin-top: 1.3rem; /* TUNE: space below the caption card */
-    gap: 0.3rem;
-    flex-wrap: nowrap;
-  }
-  .hero__actions .btn {
-    flex: 1 1 0; /* equal widths that fill the column */
-    min-width: 0;
-    padding: 0.4rem 0.2rem;
-    font-size: 0.6rem;
-  }
-}
-
-/* ==========================================================================
-   Mobile services: smaller type, 3 tabs in view, 3 cards in one row
-   ========================================================================== */
-
-@media (max-width: 860px) {
-  /* ---- Section spacing + intro text ---- */
   .services {
     padding-top: calc(1.5rem + var(--split));
     padding-bottom: calc(2rem + var(--split));
@@ -3146,85 +2235,6 @@
     margin-top: 0.4rem;
     font-size: 0.72rem;
     line-height: 1.5;
-  }
-
-  /* ---- Tabs: 3 visible, the rest scroll in (4th peeks as a hint) ---- */
-  .services__tabs {
-    width: 100%;
-    margin-bottom: 1rem;
-    padding: 3px;
-    gap: 3px;
-    justify-content: flex-start;
-    scroll-snap-type: x proximity;
-  }
-  .services__tab {
-    flex: 0 0 30%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.4rem 0.3rem;
-    font-size: 0.58rem;
-    line-height: 1.2;
-    text-align: center;
-    white-space: normal;
-    scroll-snap-align: center;
-  }
-
-  /* ---- Cards: all 3 in one row ---- */
-  .services__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.4rem;
-  }
-  .services__card {
-    padding: 0.6rem;
-    border-radius: 10px;
-  }
-  .services__card-icon {
-    width: 26px;
-    height: 26px;
-    border-radius: 7px;
-    margin-bottom: 0.5rem;
-  }
-  .services__card-icon svg {
-    width: 14px;
-    height: 14px;
-  }
-  .services__card-title {
-    margin-bottom: 0.3rem;
-    font-size: 0.64rem;
-    line-height: 1.2;
-    overflow-wrap: anywhere;
-  }
-  .services__card-lead {
-    margin-bottom: 0.3rem;
-    font-size: 0.54rem;
-    line-height: 1.35;
-  }
-  .services__card-desc {
-    font-size: 0.5rem;
-    line-height: 1.4;
-  }
-  .services__card-link {
-    padding-top: 0.5rem;
-    font-size: 0.52rem;
-    gap: 0.2rem;
-  }
-
-  /* ---- Long text gets cut with "..." ---- */
-  .services__card-lead,
-  .services__card-desc {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    min-height: 0;
-  }
-  .services__card-lead {
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-  }
-  .services__card-desc {
-    -webkit-line-clamp: 4;
-    line-clamp: 4;
   }
 }
 
@@ -3574,19 +2584,9 @@
   }
 }
 
-/* Service cards wait for the grid to scroll into view before they play */
-.services__stage:not(.is-visible) .services__card {
-  animation-play-state: paused;
-}
-
 /* Shorter travel on phones */
 @media (max-width: 860px) {
   .reveal {
     --rise: 16px;
   }
-}
-
-/* Restore the space before the long half of the CTA labels (flex items drop leading spaces) */
-.hero__more {
-  margin-left: 0.3em;
 }

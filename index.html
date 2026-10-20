@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Acube Technologies Inc. . — IT &amp; Development</title>
+    <title>Acube Technologies Inc. . — AI &amp; Robotics</title>
     <link rel="icon" type="image/png" href="assets/images/acube2.png" />
     <link rel="apple-touch-icon" href="assets/images/acube2.png" />
     <meta
@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/services.css" />
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   </head>
   <body>
@@ -134,20 +135,42 @@
             </p>
             <h2 class="services__title">Our Services</h2>
             <p class="services__desc">
-              From IoT and AI robotics education to industrial automation and
-              custom software — here's where we help.
+              From IoT and AI robotics training to industrial automation and
+              custom software, watch our quick overview or pick a category to
+              explore what we offer.
             </p>
           </div>
 
-          <div
-            class="services__tabs"
-            id="servicesTabs"
-            role="tablist"
-            aria-label="Service categories"
-          ></div>
+          <div class="svc-home">
+            <div class="svc-video" id="svcVideo"></div>
+            <div class="svc-thumbs" id="svcThumbs"></div>
+            <div class="svc-caption">
+              <p>
+                See how Acube brings hands-on IoT, AI, and robotics training to
+                schools and professionals.
+              </p>
+              <a href="#" class="svc-caption__link js-contact-trigger"
+                >Not sure where to start? Talk to us →</a
+              >
+            </div>
 
-          <div class="services__stage" id="servicesStage">
-            <div class="services__grid" id="servicesGrid" role="list"></div>
+            <div class="svc-home__panel" id="svcHomePanel"></div>
+
+            <a href="services.html" class="btn btn--ghost-dark svc-home__all">
+              See all services
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </a>
           </div>
         </div>
       </section>
@@ -535,7 +558,8 @@
         </div>
       </div>
     </main>
-
+    <script src="js/services-data.js"></script>
+    <script src="js/services-home.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

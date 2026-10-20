@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Services — Acube Technologies Inc.</title>
+    <link rel="icon" type="image/png" href="assets/images/acube2.png" />
+    <link rel="apple-touch-icon" href="assets/images/acube2.png" />
+    <meta
+      name="description"
+      content="IoT, AI and robotics training, robotics hardware, industrial automation, and custom software from Acube Technologies Inc."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/services.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container site-header__bar">
+        <a href="index.html#top" class="brand">
+          <img
+            src="assets/images/acube3.png"
+            alt="Acube Technologies logo"
+            class="brand__logo"
+          />
+          <span class="brand__name"
+            >Acube<span class="brand__mark">Technologies Inc.</span></span
+          >
+        </a>
+
+        <nav class="nav__links-wrap" aria-label="Primary">
+          <ul class="nav__links">
+            <li><a href="index.html#top">Home</a></li>
+            <li><a href="services.html" aria-current="page">Services</a></li>
+            <li><a href="index.html#work">Work</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="header__actions">
+          <a href="#" class="btn btn--primary js-contact-trigger">Contact us</a>
+          <button
+            class="nav__toggle"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="svcpage">
+        <div class="container">
+          <div class="svcpage__intro">
+            <p class="svcpage__eyebrow">Everything we offer</p>
+            <h1 class="svcpage__title">All Services</h1>
+            <p class="svcpage__desc">
+              Pick a category to see every program, product, and solution in
+              detail.
+            </p>
+          </div>
+
+          <div class="svc-tabsbar">
+            <div
+              class="svc-tabs"
+              id="svcTabs"
+              role="tablist"
+              aria-label="Service categories"
+            ></div>
+          </div>
+          <nav
+            class="svc-jump"
+            id="svcJump"
+            aria-label="Services in this category"
+          ></nav>
+
+          <div class="svc-panel" id="svcPanel" aria-live="polite"></div>
+
+          <aside class="svc-cta">
+            <div>
+              <h2>Need something custom?</h2>
+              <p>Tell us the problem and we'll scope the solution.</p>
+            </div>
+            <div class="svc-cta__actions">
+              <a href="#" class="btn btn--ghost-dark js-contact-trigger"
+                >Contact us</a
+              >
+              <a href="index.html#work" class="btn btn--outline"
+                >See our work</a
+              >
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <footer class="site-footer" id="contact">
+        <div class="container site-footer__bar">
+          <a href="index.html#top" class="brand">
+            <img
+              src="assets/images/acube3.png"
+              alt="Acube Technologies logo"
+              class="brand__logo"
+            />
+            <span class="brand__name"
+              >Acube <span class="brand__mark">Technologies</span></span
+            >
+          </a>
+
+          <nav aria-label="Footer">
+            <ul class="footer__links">
+              <li><a href="index.html#top">Home</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="index.html#work">Work</a></li>
+            </ul>
+          </nav>
+
+          <div class="footer__contact">
+            <button class="btn btn--ghost-dark js-contact-trigger">
+              Contact us
+            </button>
+
+            <ul class="footer__social">
+              <li>
+                <a
+                  href="https://www.facebook.com/profile.php?id=100091752940122"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H8v3h2.5V21h3z"
+                    />
+                  </svg>
+                  <span>Acube Technologies Inc.</span>
+                </a>
+              </li>
+              <li>
+                <a href="viber://chat?number=(+63) 9766729778">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.8A8 8 0 1 1 21 12z"
+                    />
+                    <path
+                      d="M9 9.5c.4 2.2 2.3 4.1 4.5 4.5l1.2-1.2-1.8-1-.8.6c-.8-.4-1.5-1.1-1.9-1.9l.6-.8-1-1.8L9 9.5z"
+                    />
+                  </svg>
+                  <span>+63 9766729778</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:jasper.arana@acubetechinc.com">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <path d="M3 7l9 6 9-6" />
+                  </svg>
+                  <span>jasper.arana@acubetechinc.com</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="container footer__bottom">
+          <p>&copy; 2026 Acube Technologies Inc. All rights reserved.</p>
+        </div>
+      </footer>
+
+      <div class="contact-modal" id="contactModal" aria-hidden="true">
+        <div class="contact-modal__backdrop" data-close></div>
+        <div
+          class="contact-modal__dialog"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="contactModalTitle"
+        >
+          <button
+            class="contact-modal__close"
+            data-close
+            aria-label="Close contact form"
+          >
+            &times;
+          </button>
+          <h2 id="contactModalTitle" class="contact-modal__title">
+            Get in touch
+          </h2>
+          <p class="contact-modal__desc">
+            Tell us a bit about what you need — we'll get back to you by email.
+          </p>
+
+          <form id="contactForm" class="contact-form" novalidate>
+            <label class="contact-form__field">
+              <span>Name</span>
+              <input type="text" name="from_name" required />
+            </label>
+            <label class="contact-form__field">
+              <span>Email</span>
+              <input type="email" name="from_email" required />
+            </label>
+            <label class="contact-form__field">
+              <span>Message</span>
+              <textarea name="message" rows="4" required></textarea>
+            </label>
+
+            <p
+              class="contact-form__status"
+              id="contactFormStatus"
+              role="status"
+            ></p>
+
+            <button type="submit" class="btn btn--primary contact-form__submit">
+              Send message
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="image-lightbox" id="imageLightbox" aria-hidden="true">
+        <div class="image-lightbox__backdrop" data-close></div>
+        <button
+          class="image-lightbox__close"
+          data-close
+          aria-label="Close image preview"
+        >
+          &times;
+        </button>
+        <div class="image-lightbox__content" role="dialog" aria-modal="true">
+          <img id="imageLightboxImg" src="" alt="" />
+        </div>
+      </div>
+    </main>
+
+    <script src="js/services-data.js"></script>
+    <script src="js/services-page.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

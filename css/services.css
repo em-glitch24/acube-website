@@ -1,0 +1,757 @@
+/* services.css: main page services section + services.html. Load after components.css. */
+
+/* ==========================================================================
+   Main page: video (left) + category cards / list (right), same height.
+   Row 1 = video | cards. Row 2 = caption or thumbnails | "See all services".
+   ========================================================================== */
+
+.svc-home {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1.25rem clamp(1.5rem, 4vw, 3rem);
+  align-items: stretch;
+}
+
+/* The video fills its column and matches the height of the cards */
+.svc-video {
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
+  min-width: 0;
+  min-height: 20rem;
+  overflow: hidden;
+  background: var(--card-navy) center / cover no-repeat;
+  border: 1px solid var(--border-on-dark);
+  border-radius: var(--radius-sm1);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+.svc-video__play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  background: rgba(11, 21, 38, 0.4);
+  color: var(--text-on-dark);
+  transition: background-color 0.2s ease;
+}
+.svc-video__play:hover {
+  background: rgba(11, 21, 38, 0.25);
+}
+.svc-video__icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  transition: transform 0.2s ease;
+}
+.svc-video__play:hover .svc-video__icon {
+  transform: scale(1.08);
+}
+.svc-video__icon svg {
+  width: 28px;
+  height: 28px;
+  margin-left: 3px;
+}
+.svc-video__label {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+.svc-video video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  object-fit: cover; /* contain = show the whole frame with black bars */
+}
+.svc-video.is-playing .svc-video__play {
+  display: none;
+}
+
+/* ---- Video thumbnails (shown when there is more than one video) ---- */
+.svc-thumbs {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.svc-thumbs:empty {
+  display: none;
+}
+.svc-thumb {
+  flex: 0 0 86px;
+  height: 48px;
+  padding: 0;
+  overflow: hidden;
+  background: #000;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  opacity: 0.6;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+.svc-thumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none; /* clicks go to the button */
+}
+.svc-thumb:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+.svc-thumb.is-active {
+  opacity: 1;
+  border-color: var(--accent-blue-bright);
+}
+
+/* ---- Caption under the video (hidden when thumbnails are shown) ---- */
+.svc-caption {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.svc-caption p {
+  max-width: 52ch;
+  font-size: var(--step--1);
+  line-height: 1.5;
+  color: var(--text-on-dark-muted);
+}
+.svc-caption__link {
+  width: fit-content;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--accent-blue-bright);
+}
+.svc-caption__link:hover {
+  color: var(--text-on-dark);
+}
+.svc-thumbs:not(:empty) ~ .svc-caption {
+  display: none;
+}
+
+/* Right column: cards and list share one cell, so the height never changes */
+.svc-home__panel {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  min-width: 0;
+}
+
+.svc-home__all {
+  grid-column: 2;
+  grid-row: 2;
+  gap: 0.2rem;
+  max-width: fit-content;
+}
+.svc-home__all svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---- Category cards: 2x2, equal height ---- */
+.svc-cats {
+  grid-area: 1 / 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.9rem;
+}
+.svc-cat {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 1.25rem;
+  text-align: left;
+  color: var(--text-on-dark);
+  background: var(--ink-500);
+  border: 1px solid var(--border-on-dark);
+  border-radius: var(--radius-sm1);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.svc-cat:hover,
+.svc-cat:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--accent-blue-bright);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* White "Learn more" cover that slides up on hover */
+.svc-cat__more {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: var(--paper-000);
+  color: var(--ink-900);
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  transform: translateY(101%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.svc-cat__more svg {
+  width: 22px;
+  height: 22px;
+  color: var(--accent-blue);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.svc-cat:focus-visible .svc-cat__more {
+  transform: none; /* keyboard users get it too */
+}
+@media (hover: hover) {
+  .svc-cat:hover .svc-cat__more {
+    transform: none;
+  }
+  .svc-cat:hover .svc-cat__more svg {
+    transform: translateX(5px);
+  }
+}
+
+/* Icon and title sit on one line */
+.svc-cat__head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 15px;
+}
+.svc-cat__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--accent-blue);
+}
+.svc-cat__icon svg {
+  width: 20px;
+  height: 20px;
+}
+.svc-cat__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.svc-cat__desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-on-dark-muted);
+}
+.svc-cat__count {
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-blue-bright);
+}
+
+/* ---- Service list (after a card is clicked): rows share the height equally ---- */
+.svc-list {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fade between the two views. The hidden one still takes up space. */
+.svc-cats,
+.svc-list {
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    visibility 0s;
+}
+.svc-list,
+.svc-home__panel.is-list .svc-cats {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0s linear 0.3s;
+}
+.svc-home__panel.is-list .svc-list {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    visibility 0s;
+}
+
+.svc-list__back {
+  align-self: flex-start;
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0;
+  background: none;
+  font-size: var(--step--1);
+  color: var(--accent-blue-bright);
+}
+.svc-list__back:hover {
+  color: var(--text-on-dark);
+}
+.svc-list__title {
+  margin-bottom: 0.75rem;
+  font-size: var(--step-1);
+  color: var(--text-on-dark);
+}
+.svc-list__rows {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.svc-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  text-align: left;
+  color: var(--text-on-dark);
+  background: var(--ink-500);
+  border: 1px solid var(--border-on-dark);
+  border-radius: 12px;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+.svc-item:hover,
+.svc-item:focus-visible {
+  border-color: var(--accent-blue-bright);
+  transform: translateX(4px);
+}
+.svc-item__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--accent-blue);
+}
+.svc-item__icon svg {
+  width: 18px;
+  height: 18px;
+}
+.svc-item__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+.svc-item__text strong {
+  font-size: var(--step--1);
+  font-weight: 500;
+}
+.svc-item__text span {
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--text-on-dark-muted);
+}
+.svc-item__arrow {
+  margin-left: auto;
+  color: var(--accent-blue-bright);
+}
+.svc-item__arrow svg {
+  width: 18px;
+  height: 18px;
+}
+
+@keyframes svc-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Phones and tablets: video, caption/thumbnails, cards, then the button */
+@media (max-width: 860px) {
+  .svc-home {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .svc-video,
+  .svc-thumbs,
+  .svc-caption,
+  .svc-home__panel,
+  .svc-home__all {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .svc-video {
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
+  .svc-cat {
+    padding: 0.9rem;
+  }
+}
+
+/* ==========================================================================
+   services.html: all services on one page, tabs are shortcuts
+   ========================================================================== */
+
+.svcpage {
+  position: relative;
+  padding-top: calc(var(--header-h) + 2.5rem);
+  padding-bottom: calc(4rem + 56px); /* clears the footer's overlap notch */
+  background: linear-gradient(180deg, #f7fafd 0%, #eef4fb 50%, #f7fafd 100%);
+}
+
+.svcpage__intro {
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+.svcpage__eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 auto 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--ink-700);
+}
+.svcpage__eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+}
+.svcpage__title {
+  font-size: clamp(1.75rem, 3.5vw, var(--step-3));
+  color: var(--ink-900);
+}
+.svcpage__desc {
+  margin: 0.75rem auto 0;
+  color: var(--text-body);
+}
+
+/* ---- Tabs: stay on screen while you scroll ----
+   To make them scroll away with the page, change "sticky" to "static". */
+.svc-tabsbar {
+  position: sticky;
+  top: 0.75rem;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+.svc-tabs {
+  display: flex;
+  gap: 4px;
+  max-width: 100%;
+  padding: 5px;
+  background: var(--card-navy);
+  border: 1px solid var(--border-on-dark);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(11, 21, 38, 0.22);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.svc-tabs::-webkit-scrollbar {
+  display: none;
+}
+.svc-tab {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  color: var(--text-on-dark-muted);
+  font-size: var(--step--1);
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.svc-tab:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-on-dark);
+}
+.svc-tab.is-active {
+  background: var(--accent-blue);
+  color: var(--text-on-dark);
+}
+.svc-tab__count {
+  min-width: 1.4rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-align: center;
+}
+.svc-tab.is-active .svc-tab__count {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* ---- Category sections ---- */
+.svc-section {
+  padding-block: 0; /* cancel the global section padding */
+  scroll-margin-top: 6rem; /* clear the sticky tab bar (~68px) */
+}
+.svc-section + .svc-section {
+  margin-top: 3.5rem; /* replaces the -170px hack */
+}
+.svc-section__head {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-on-light);
+}
+.svc-section__num {
+  font-family: var(--font-mono);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--accent-blue);
+}
+.svc-section__title {
+  font-size: clamp(1.5rem, 3vw, var(--step-3));
+  color: var(--ink-900);
+}
+.svc-section__blurb {
+  max-width: 70ch;
+  margin-top: 0.35rem;
+  color: var(--text-body);
+}
+
+/* ---- Alternating rows (one photo per service) ---- */
+.svc-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+  padding-block: clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--border-on-light);
+  scroll-margin-top: 6rem;
+}
+.svc-row:last-child {
+  border-bottom: 0;
+}
+.svc-row--flip .svc-row__media {
+  order: 2;
+}
+.svc-row.no-media {
+  grid-template-columns: minmax(0, 760px);
+}
+/* Reserves the photo's space before it loads, so the page doesn't jump */
+.svc-row__media {
+  min-width: 0;
+  aspect-ratio: 16 / 10;
+}
+
+.svc-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.svc-head__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: var(--ink-900);
+  color: var(--paper-000);
+}
+.svc-head__icon svg {
+  width: 24px;
+  height: 24px;
+}
+.svc-head__title {
+  font-size: clamp(1.35rem, 2.4vw, var(--step-2));
+  color: var(--ink-900);
+}
+.svc-overview {
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+.svc-label {
+  display: inline-block;
+  margin-bottom: 0.8rem;
+  padding: 0.25rem 0.8rem;
+  border: 1px solid var(--accent-blue);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-blue);
+}
+.svc-desc {
+  margin-bottom: 1.25rem;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--text-body);
+}
+.svc-list-ul {
+  display: grid;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+}
+.svc-list-ul li {
+  position: relative;
+  padding-left: 1.4rem;
+  color: var(--text-body);
+}
+.svc-list-ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--accent-blue);
+}
+.svc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.svc-tags li {
+  padding: 0.25rem 0.75rem;
+  background: var(--paper-000);
+  border: 1px solid var(--border-on-light);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-blue-dark);
+}
+.svc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* ---- Photo ---- */
+.svc-gallery {
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper-000);
+  border: 1px solid var(--border-on-light);
+  border-radius: 14px;
+  box-shadow:
+    10px 10px 0 rgba(44, 123, 192, 0.1),
+    0 16px 36px rgba(11, 21, 38, 0.12);
+}
+.svc-row--flip .svc-gallery {
+  box-shadow:
+    -10px 10px 0 rgba(44, 123, 192, 0.1),
+    0 16px 36px rgba(11, 21, 38, 0.12);
+}
+.svc-gallery__main {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background: #f4f8fd;
+  cursor: zoom-in;
+}
+.svc-gallery__main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.svc-gallery.is-contain .svc-gallery__main img {
+  object-fit: contain;
+  padding: 10px;
+  background: var(--paper-000);
+}
+
+/* ---- Closing call-to-action ---- */
+.svc-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: clamp(3rem, 7vw, 5rem);
+  padding: 2rem;
+  background: var(--ink-900);
+  border-radius: 16px;
+  color: var(--text-on-dark);
+}
+.svc-cta h2 {
+  margin-bottom: 0.35rem;
+  font-size: var(--step-2);
+}
+.svc-cta p {
+  color: var(--text-on-dark-muted);
+}
+.svc-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.svc-cta .btn--outline {
+  border-color: var(--border-on-dark);
+  color: var(--text-on-dark);
+}
+.svc-cta .btn--outline:hover {
+  background: var(--paper-000);
+  color: var(--ink-900);
+}
+
+@media (max-width: 860px) {
+  .svc-tabsbar {
+    justify-content: flex-start;
+  }
+  .svc-row {
+    grid-template-columns: 1fr; /* photo on top, text below */
+  }
+  .svc-row--flip .svc-row__media {
+    order: 0;
+  }
+  .svc-gallery,
+  .svc-row--flip .svc-gallery {
+    box-shadow: 0 14px 34px rgba(11, 21, 38, 0.14);
+  }
+  .svc-desc {
+    font-size: var(--step-0);
+  }
+  .svc-section__head {
+    gap: 0.9rem;
+  }
+}
