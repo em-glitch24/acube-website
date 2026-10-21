@@ -2679,7 +2679,7 @@
   color: var(--text-on-dark);
 }
 .abt__lede {
-  max-width: 52ch;
+  max-width: 100ch;
   margin-top: 1rem;
   font-size: var(--step-1);
   line-height: 1.55;
@@ -2833,7 +2833,7 @@
 
 /* ---- Centered header, same pattern as Services and Work ---- */
 .abt__intro {
-  max-width: 640px;
+  max-width: 900px;
   margin-inline: auto;
   margin-bottom: 3rem;
   text-align: center;
