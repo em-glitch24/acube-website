@@ -3048,7 +3048,7 @@
 
 .abt__photo--polaroid {
   padding: 14px 14px 56px; /* TUNE: bottom number = thickness of the white strip */
-  background: var(--paper-000);
+  background: var(--card-navy);
   border-radius: 4px;
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
   transform: rotate(-2deg); /* TUNE: tilt angle, use 0deg for straight */
