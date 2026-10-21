@@ -46,7 +46,7 @@
   --hero-overlay: rgba(255, 255, 255, 0.55); /* click swatch: color + opacity */
 
   --card-navy: #14263f; /* services cards, tabs, about cards */
-  --about-overlay: rgba(11, 21, 38, 0.92); /* about background tint */
+  --about-overlay: rgba(11, 21, 38, 0.821); /* about background tint */
 
   /* Footer background tint — same mechanism as hero/work. */
   --footer-tint-rgb: 11, 21, 26;

@@ -516,12 +516,9 @@ document.addEventListener("DOMContentLoaded", () => {
   reveal(".svc-home"); // card stagger is handled in CSS
 
   // ---- About ----
-  reveal(".about__intro > *", { step: 90 });
-  reveal(".about__facts-head");
-  reveal(".about__fact", { step: 90, cols: 3, zoom: true });
-  reveal(".about__group > .about__group-label");
-  reveal(".about__logo-card", { step: 100, cols: 3, zoom: true });
-  reveal(".about__slogan");
+  reveal(".abt__intro > *", { step: 90 });
+  reveal(".abt__media");
+  reveal(".abt__block", { step: 0 });
 
   if ("IntersectionObserver" in window) {
     const revealObserver = new IntersectionObserver(

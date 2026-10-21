@@ -46,6 +46,7 @@ window.ACUBE = (() => {
       label: "Training & Education",
       blurb:
         "Hands-on IoT, AI, and robotics bootcamps for students and professionals, custom programs for schools, and short courses on request.",
+      short: "Bootcamps, school programs, and short courses.",
     },
     {
       id: "hardware",
@@ -53,6 +54,7 @@ window.ACUBE = (() => {
       label: "Robotics & Hardware",
       blurb:
         "Educational robotics kits, programmable AI drones, and the BANTAI quadruped robot, built for classrooms, labs, and research.",
+      short: "Robotics kits, AI drones, and the BANTAI quadruped.",
     },
     {
       id: "industrial",
@@ -60,6 +62,7 @@ window.ACUBE = (() => {
       label: "Industrial & AI Automation",
       blurb:
         "SentriCORE IoT monitoring and AI automation that put agents, chatbots, and predictive maintenance to work in real operations.",
+      short: "IoT monitoring and AI automation for real operations.",
     },
     {
       id: "software",
@@ -67,6 +70,7 @@ window.ACUBE = (() => {
       label: "Software & Web",
       blurb:
         "Custom ERP systems, internal tools, websites, and web apps designed around how your business actually runs.",
+      short: "Custom ERP, internal tools, and web apps.",
     },
   ];
 

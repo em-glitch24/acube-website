@@ -142,8 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <span class="svc-cat__icon">${ICONS[c.icon]}</span>
           <span class="svc-cat__title">${c.label}</span>
         </span>
-        <span class="svc-cat__desc">${c.blurb}</span>
-        <span class="svc-cat__count">${count} services <span aria-hidden="true">→</span></span>
+        <span class="svc-cat__desc svc-cat__desc--full">${c.blurb}</span>
+        <span class="svc-cat__desc svc-cat__desc--short">${c.short || c.blurb}</span>        <span class="svc-cat__count">${count} services <span aria-hidden="true">→</span></span>
         <span class="svc-cat__more" aria-hidden="true">Learn more ${ICONS.arrow}</span>
       </button>`;
     })

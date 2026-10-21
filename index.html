@@ -203,175 +203,127 @@
 
       <section id="about" class="about">
         <div class="container">
-          <div class="about__intro">
-            <p class="about__eyebrow">
-              <span class="about__eyebrow-dot" aria-hidden="true"></span>
-              About us
-            </p>
-
-            <h2 class="about__title">About Acube Technologies Inc.</h2>
-
-            <p class="about__desc">
-              At Acube Technologies Inc., we bridge education and innovation by
-              developing cutting-edge IoT and AI solutions for both learning and
-              industry applications. We are committed to making technology
-              education hands-on, accessible, and future-ready, empowering
-              students, educators, and professionals with practical skills that
-              meet the demands of the modern world.
-            </p>
-            <p class="about__desc">
-              Beyond our renowned training programs and bootcamps, Acube also
-              delivers AI automation systems and IoT-based industrial solutions,
-              helping organizations integrate smart technologies into their
-              operations. Our growing portfolio combines education, innovation,
-              and real-world impact, positioning us at the forefront of emerging
-              technology transformation in the Philippines.
+          <!-- Centered header, same pattern as Services and Work -->
+          <div class="abt__intro">
+            <p class="abt__eyebrow">About us</p>
+            <h2 class="abt__title">About Acube Technologies Inc.</h2>
+            <p class="abt__lede">
+              Acube bridges education and industry. We teach hands-on IoT, AI,
+              and robotics, then build the automation and software that put
+              those skills to work across the Philippines.
             </p>
           </div>
 
-          <div class="about__facts-head">
-            <p class="about__group-label">What defines us</p>
-          </div>
+          <div class="abt">
+            <!-- Left: founders photo (stays pinned) with the slogan below it -->
+            <aside class="abt__media">
+              <figure class="abt__photo abt__photo--polaroid">
+                <img
+                  src="assets/images/founders.jpg"
+                  alt="The founders of Acube Technologies Inc."
+                  loading="lazy"
+                />
+                <!-- Founders badge hidden for now. To bring it back, remove
+                     these comment markers and put the real names in.
+                <figcaption class="abt__caption">
+                  <strong>Our founders</strong>
+                  <span>Name 1 · Name 2 · Name 3</span>
+                </figcaption>
+                -->
+              </figure>
 
-          <div class="about__facts">
-            <article class="about__fact">
-              <span class="about__fact-num">01</span>
-              <h3>Hands-on Learning</h3>
-              <p>Every program is designed around real-world applications.</p>
-            </article>
-            <article class="about__fact">
-              <span class="about__fact-num">02</span>
-              <h3>Innovation-Centered</h3>
-              <p>
-                From IoT kits to AI robotics, we constantly evolve to match
-                industry trends.
+              <p class="abt__slogan">
+                Connected by expertise, strengthened by partnerships, trusted
+                worldwide.
               </p>
-            </article>
-            <article class="about__fact">
-              <span class="about__fact-num">03</span>
-              <h3>Industry Solutions</h3>
-              <p>
-                We design and deploy AI-powered automation systems and IoT
-                monitoring solutions tailored for industrial and commercial use.
-              </p>
-            </article>
-            <article class="about__fact">
-              <span class="about__fact-num">04</span>
-              <h3>Trusted Network</h3>
-              <p>
-                Partnered with universities, professional organizations, and
-                government agencies.
-              </p>
-            </article>
-            <article class="about__fact">
-              <span class="about__fact-num">05</span>
-              <h3>Accessible &amp; Affordable</h3>
-              <p>
-                Bootcamps start from ₱1,500, making training widely available.
-              </p>
-            </article>
-            <article class="about__fact">
-              <span class="about__fact-num">06</span>
-              <h3>Ecosystem Approach</h3>
-              <p>
-                Training, products, SaaS, and R&amp;D services work together to
-                create a seamless learning-to-application pipeline.
-              </p>
-            </article>
-          </div>
+            </aside>
 
-          <div class="about__group">
-            <p class="about__group-label">Our Network</p>
-
-            <div class="about__logos">
-              <!-- Integritech Builders -->
-              <div class="about__logo-card">
-                <a
-                  class="about__logo-link"
-                  href="https://integritechbuilders.com/"
-                  target="_blank"
-                  rel="noopener"
-                  aria-label="Visit Integritech Builders Solutions website"
-                >
-                  <img
-                    src="assets/images/logo.jpg"
-                    alt="Integritech Builders Solutions logo"
-                    class="about__logo-img"
-                  />
-
-                  <span class="about__logo-text">
-                    <span class="about__logo-name">
-                      Integritech Builders Solutions
-                    </span>
-                    <span class="about__logo-tag">
-                      Providing comprehensive construction and engineering
-                      solutions, from design and planning through implementation
-                      and maintenance.
-                    </span>
-                  </span>
-                </a>
+            <!-- Right: 4 value cards, then the 3 partners side by side -->
+            <div class="abt__flow">
+              <div class="abt__block">
+                <h3 class="abt__label">What defines us</h3>
+                <div class="abt-values">
+                  <article class="abt-value">
+                    <span class="abt-value__num">01</span>
+                    <h3>Hands-on learning</h3>
+                    <p>
+                      Every program is built around real projects, with kits and
+                      curriculum that keep pace with industry.
+                    </p>
+                  </article>
+                  <article class="abt-value">
+                    <span class="abt-value__num">02</span>
+                    <h3>Learning to application</h3>
+                    <p>
+                      Training, products, SaaS, and R&amp;D work as one
+                      pipeline, from classroom to factory floor.
+                    </p>
+                  </article>
+                  <article class="abt-value">
+                    <span class="abt-value__num">03</span>
+                    <h3>Accessible and affordable</h3>
+                    <p>
+                      Bootcamps start from ₱1,500, so training is within reach.
+                    </p>
+                  </article>
+                  <article class="abt-value">
+                    <span class="abt-value__num">04</span>
+                    <h3>Trusted by institutions</h3>
+                    <p>
+                      Partnered with universities, professional organizations,
+                      and government agencies.
+                    </p>
+                  </article>
+                </div>
               </div>
 
-              <!-- AETECH -->
-              <div class="about__logo-card">
-                <a
-                  class="about__logo-link"
-                  href="https://www.aetechinnovations.sg/"
-                  target="_blank"
-                  rel="noopener"
-                  aria-label="Visit AETECH Innovations website"
-                >
-                  <img
-                    src="assets/images/aetech.jpg"
-                    alt="AETECH Innovations logo"
-                    class="about__logo-img"
-                  />
+              <div class="abt__block">
+                <h3 class="abt__label">Our network</h3>
+                <div class="abt-partners abt-partners--shine">
+                  <a
+                    class="abt-partner"
+                    href="https://integritechbuilders.com/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <img
+                      src="assets/images/logo.jpg"
+                      alt="Integritech Builders Solutions logo"
+                    />
+                    <strong>Integritech Builders Solutions</strong>
+                  </a>
 
-                  <span class="about__logo-text">
-                    <span class="about__logo-name">
-                      AETECH Innovations Singapore
-                    </span>
-                    <span class="about__logo-tag">
-                      Driving smart technology and digital transformation
-                      through AI innovation, intelligent solutions, and
-                      forward-thinking strategies.
-                    </span>
-                  </span>
-                </a>
-              </div>
+                  <a
+                    class="abt-partner"
+                    href="https://www.aetechinnovations.sg/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <img
+                      src="assets/images/aetech.jpg"
+                      alt="AETECH Innovations logo"
+                    />
+                    <strong>AETECH Innovations Singapore</strong>
+                  </a>
 
-              <!-- Acube -->
-              <div class="about__logo-card">
-                <a
-                  class="about__logo-link"
-                  href="https://sites.google.com/view/mrsp-national/home?pli=1&authuser=0"
-                  target="_blank"
-                  rel="noopener"
-                  aria-label="Visit MRSP-National website"
-                >
-                  <img
-                    src="assets/images/mrsp.jpg"
-                    alt="Acube Technologies Inc. logo"
-                    class="about__logo-img"
-                  />
-
-                  <span class="about__logo-text">
-                    <span class="about__logo-name">
-                      Mechatronics and Robotics Society of the Philippines.
-                    </span>
-                    <span class="about__logo-tag">
-                      Global Synergy in Automation and Robotics: Innovating for
-                      a Smarter and Sustainable Future
-                    </span>
-                  </span>
-                </a>
+                  <a
+                    class="abt-partner"
+                    href="https://sites.google.com/view/mrsp-national/home?pli=1&authuser=0"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <img
+                      src="assets/images/mrsp.jpg"
+                      alt="Mechatronics and Robotics Society of the Philippines logo"
+                    />
+                    <strong
+                      >Mechatronics and Robotics Society of the
+                      Philippines</strong
+                    >
+                  </a>
+                </div>
               </div>
             </div>
-
-            <p class="about__slogan">
-              Connected by expertise, strengthened by partnerships, trusted
-              worldwide.
-            </p>
           </div>
         </div>
       </section>

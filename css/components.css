@@ -2590,3 +2590,647 @@
     --rise: 16px;
   }
 }
+/* ==========================================================================
+   About: sticky founders photo + scrolling text
+   ========================================================================== */
+
+/* overflow:hidden on .about would stop position:sticky from working */
+.about {
+  overflow: visible;
+}
+
+.abt {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start; /* needed so the photo column isn't stretched and can stick */
+}
+
+/* ---- Left: pinned photo ---- */
+.abt__media {
+  position: sticky;
+  top: 1.5rem; /* TUNE: distance from the top of the screen while pinned */
+}
+.abt__photo {
+  position: relative;
+  margin: 0;
+}
+.abt__photo img {
+  width: 100%;
+  height: min(78vh, 680px); /* TUNE: photo height */
+  height: min(78svh, 680px);
+  min-height: 420px;
+  object-fit: cover;
+  object-position: center top; /* keeps faces in frame on a tall photo */
+  border: 1px solid var(--border-on-dark);
+  border-radius: 14px;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+}
+.abt__caption {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.85rem 1rem;
+  background: rgba(11, 21, 38, 0.82);
+  backdrop-filter: blur(6px);
+  border-left: 4px solid var(--accent-blue-bright);
+  border-radius: 4px;
+  color: var(--text-on-dark);
+}
+.abt__caption strong {
+  font-family: var(--font-display);
+}
+.abt__caption span {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--text-on-dark-muted);
+}
+
+/* ---- Right: scrolling flow ---- */
+.abt__flow {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  min-width: 0;
+}
+
+.abt__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--text-on-dark-muted);
+}
+.abt__eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-blue-bright);
+}
+.abt__title {
+  font-size: clamp(1.75rem, 3.5vw, var(--step-3));
+  color: var(--text-on-dark);
+}
+.abt__lede {
+  max-width: 52ch;
+  margin-top: 1rem;
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--text-on-dark-muted);
+}
+.abt__label {
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--accent-blue-bright);
+}
+
+/* Mission + vision */
+.abt-mv {
+  display: grid;
+  gap: 1rem;
+}
+.abt-card {
+  padding: 1.5rem 1.75rem;
+  background: var(--card-navy);
+  border: 1px solid var(--border-on-dark);
+  border-radius: 12px;
+}
+.abt-card h3 {
+  margin-bottom: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--accent-blue-bright);
+}
+.abt-card p {
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--text-on-dark);
+}
+
+/* Values */
+.abt-values {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.abt-value {
+  padding: 1.25rem;
+  background: var(--ink-500);
+  border: 1px solid var(--border-on-dark);
+  border-radius: 12px;
+}
+.abt-value__num {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-blue-bright);
+}
+.abt-value h3 {
+  margin-bottom: 0.35rem;
+  font-size: 1.05rem;
+  color: var(--text-on-dark);
+}
+.abt-value p {
+  font-size: var(--step--1);
+  line-height: 1.55;
+  color: var(--text-on-dark-muted);
+}
+
+/* Partners */
+.abt-partners {
+  display: grid;
+  gap: 0.9rem;
+}
+.abt-partner {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--card-navy);
+  border: 1px solid var(--border-on-dark);
+  border-radius: 12px;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+.abt-partner:hover,
+.abt-partner:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--accent-blue-bright);
+}
+.abt-partner img {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  padding: 6px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 8px;
+}
+.abt-partner strong {
+  display: block;
+  font-size: 0.98rem;
+  line-height: 1.25;
+  color: var(--text-on-dark);
+}
+.abt-partner span span {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--text-on-dark-muted);
+}
+
+.abt__slogan {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-on-dark);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-on-dark);
+}
+
+/* Phones and tablets: stack photo, then text. No pinning. */
+@media (max-width: 860px) {
+  .abt {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .abt__media {
+    position: static;
+  }
+  .abt__photo img {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 5;
+    max-height: 70vh;
+    max-height: 70svh;
+  }
+  .abt__lede,
+  .abt-card p {
+    font-size: var(--step-0);
+  }
+  .abt-values {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   About: adjustments (centered header, slogan under photo, side-by-side partners)
+   ========================================================================== */
+
+/* ---- Centered header, same pattern as Services and Work ---- */
+.abt__intro {
+  max-width: 640px;
+  margin-inline: auto;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+.abt__eyebrow {
+  justify-content: center;
+}
+.abt__lede {
+  margin-inline: auto;
+}
+
+/* ---- Photo is a little shorter to leave room for the slogan below it ---- */
+.abt__photo img {
+  height: min(64vh, 600px); /* TUNE: photo height */
+  height: min(64svh, 600px);
+}
+
+/* ---- Slogan under the photo ---- */
+.abt__slogan {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  font-size: 1.05rem;
+}
+
+/* ---- Partners: three side by side, logo on top, text below ---- */
+.abt-partners {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+.abt-partner {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+.abt-partner img {
+  width: 48px;
+  height: 48px;
+}
+.abt-partner strong {
+  font-size: 0.88rem;
+}
+.abt-partner span span {
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+/* Tablet and down */
+@media (max-width: 860px) {
+  .abt__intro {
+    margin-bottom: 1.5rem;
+  }
+  .abt__photo img {
+    height: auto;
+  }
+}
+
+/* Small phones: partners stack as rows so the text stays readable */
+@media (max-width: 600px) {
+  .abt-partners {
+    grid-template-columns: 1fr;
+  }
+  .abt-partner {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* ==========================================================================
+   About: partner cards (logo + name on one row) and founders photo frame
+   ========================================================================== */
+
+/* ---- Partners: logo left, name right ---- */
+.abt-partner {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 0.9rem;
+}
+.abt-partner img {
+  width: 44px;
+  height: 44px;
+}
+.abt-partner strong {
+  min-width: 0;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+/* ==========================================================================
+   About: partner card hover animations
+   Default = lift + glow + logo pop + arrow. Alternates are classes on .abt-partners.
+   ========================================================================== */
+
+.abt-partner {
+  position: relative;
+  overflow: hidden;
+  padding-right: 1.5rem; /* keeps long names clear of the arrow */
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.abt-partner img {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.abt-partner strong {
+  transition: color 0.25s ease;
+}
+
+/* Arrow in the top-right corner, hidden until hover */
+.abt-partner::after {
+  content: "↗";
+  position: absolute;
+  top: 0.45rem;
+  right: 0.6rem;
+  z-index: 2;
+  font-size: 0.85rem;
+  color: var(--accent-blue-bright);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.abt-partner:hover,
+.abt-partner:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--accent-blue-bright);
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(95, 168, 224, 0.35);
+}
+.abt-partner:hover img,
+.abt-partner:focus-visible img {
+  transform: scale(1.1) rotate(-4deg);
+}
+.abt-partner:hover strong,
+.abt-partner:focus-visible strong {
+  color: var(--accent-blue-bright);
+}
+.abt-partner:hover::after,
+.abt-partner:focus-visible::after {
+  opacity: 1;
+  transform: none;
+}
+
+/* Alternate B: blue fill slides in from the left */
+.abt-partners--fill .abt-partner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--accent-blue);
+  transform: translateX(-101%);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.abt-partners--fill .abt-partner > * {
+  position: relative;
+  z-index: 1;
+}
+.abt-partners--fill .abt-partner:hover::before,
+.abt-partners--fill .abt-partner:focus-visible::before {
+  transform: none;
+}
+.abt-partners--fill .abt-partner:hover strong,
+.abt-partners--fill .abt-partner:focus-visible strong,
+.abt-partners--fill .abt-partner::after {
+  color: #fff;
+}
+
+/* Alternate C: a diagonal light sweep crosses the card */
+.abt-partners--shine .abt-partner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+.abt-partners--shine .abt-partner:hover::before,
+.abt-partners--shine .abt-partner:focus-visible::before {
+  left: 130%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .abt-partner,
+  .abt-partner img,
+  .abt-partner::before,
+  .abt-partner::after {
+    transition: none;
+  }
+  .abt-partner:hover,
+  .abt-partner:focus-visible,
+  .abt-partner:hover img {
+    transform: none;
+  }
+}
+/* ==========================================================================
+   About: polaroid photo frame
+   ========================================================================== */
+
+.abt__photo--polaroid {
+  padding: 14px 14px 56px; /* TUNE: bottom number = thickness of the white strip */
+  background: var(--paper-000);
+  border-radius: 4px;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
+  transform: rotate(-2deg); /* TUNE: tilt angle, use 0deg for straight */
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.abt__photo--polaroid:hover {
+  transform: rotate(0deg); /* straightens on hover */
+}
+
+/* The white border replaces the old image border and shadow */
+.abt__photo--polaroid img {
+  height: min(
+    56vh,
+    540px
+  ); /* shorter than before to make room for the border */
+  height: min(56svh, 540px);
+  border: 0;
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+/* Optional caption, written in the white strip (see the HTML note below) */
+.abt__photo--polaroid .abt__caption {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 56px;
+  padding: 0 14px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: transparent;
+  backdrop-filter: none;
+  border-left: 0;
+  border-radius: 0;
+}
+.abt__photo--polaroid .abt__caption strong {
+  color: var(--ink-900);
+}
+.abt__photo--polaroid .abt__caption span {
+  color: var(--text-muted);
+}
+
+@media (max-width: 860px) {
+  .abt__photo--polaroid {
+    padding: 10px 10px 40px;
+    transform: rotate(-1.5deg);
+  }
+  .abt__photo--polaroid img {
+    height: auto; /* the mobile photo uses its own 4 / 5 ratio */
+  }
+  .abt__photo--polaroid .abt__caption {
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .abt__photo--polaroid {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   Mobile about: same layout as desktop, scaled down
+   Photo left, value cards right, partners full width underneath
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  /* ---- Header ---- */
+  .abt__intro {
+    margin-bottom: 1rem;
+  }
+  .abt__eyebrow {
+    margin-bottom: 0.4rem;
+    font-size: 0.62rem;
+  }
+  .abt__title {
+    font-size: 1.4rem;
+  }
+  .abt__lede {
+    margin-top: 0.5rem;
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
+  /* ---- Grid: photo | values on row 1, partners across row 2 ---- */
+  .abt {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); /* TUNE: photo vs cards width */
+    column-gap: 0.7rem;
+    row-gap: 1.1rem;
+    align-items: start;
+  }
+  .abt__flow {
+    display: contents; /* its two blocks become grid items */
+  }
+  .abt__media {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .abt__flow > .abt__block:first-child {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .abt__flow > .abt__block:last-child {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .abt__label {
+    margin-bottom: 0.5rem;
+    font-size: 0.62rem;
+  }
+
+  /* ---- Photo + slogan ---- */
+  .abt__photo--polaroid {
+    padding: 6px 6px 22px;
+    border-radius: 3px;
+    transform: rotate(-1.5deg);
+  }
+  .abt__photo img {
+    aspect-ratio: 4 / 5; /* TUNE: try 1 / 1 or 4 / 3 to show more of the group */
+    max-height: none;
+    border-radius: 2px;
+    object-position: center 20%;
+  }
+  .abt__slogan {
+    margin-top: 0.9rem;
+    padding-top: 0.5rem;
+    font-size: 0.62rem;
+    line-height: 1.4;
+  }
+
+  /* ---- Value cards: 2 x 2 ---- */
+  .abt-values {
+    grid-template-columns: repeat(
+      2,
+      minmax(0, 1fr)
+    ); /* use 1fr for bigger text */
+    gap: 0.35rem;
+  }
+  .abt-value {
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+  .abt-value__num {
+    margin-bottom: 0.25rem;
+    font-size: 0.5rem;
+  }
+  .abt-value h3 {
+    margin-bottom: 0.2rem;
+    font-size: 0.62rem;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+  .abt-value p {
+    font-size: 0.5rem;
+    line-height: 1.4;
+  }
+
+  /* ---- Partners: three across, logo on top ---- */
+  .abt-partners {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.4rem;
+  }
+  .abt-partner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: 0.6rem;
+    border-radius: 8px;
+  }
+  .abt-partner img {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+    border-radius: 6px;
+  }
+  .abt-partner strong {
+    font-size: 0.6rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+  .abt-partner::after {
+    display: none; /* hover arrow isn't needed on touch screens */
+  }
+}

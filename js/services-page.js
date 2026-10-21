@@ -37,32 +37,46 @@ document.addEventListener("DOMContentLoaded", () => {
     const media = row.querySelector(".svc-row__media");
     if (!src) {
       row.classList.add("no-media");
-      media.remove();
+      row.querySelector(".svc-row__side").remove();
       return;
     }
     media.innerHTML = `<div class="svc-gallery${contain ? " is-contain" : ""}">
       <button type="button" class="svc-gallery__main" aria-label="Enlarge photo: ${alt}"><img src="${src}" alt="${alt}"></button></div>`;
   };
 
-  // ---- Sections: one per category, rows alternate image side inside each ----
+  const actionsHtml = (s, p, i, extra) => `<div class="svc-actions ${extra}">
+      <button type="button" class="btn btn--primary" data-ask="${s.slug}|${i}">${p.cta}</button>
+      ${p.link ? `<button type="button" class="btn btn--outline" data-go="${p.link.slug}">${p.link.label}</button>` : ""}
+    </div>`;
+
+  const tagsHtml = (tags, extra) =>
+    tags
+      ? `<ul class="svc-tags ${extra}">${tags.map((t) => `<li>${t}</li>`).join("")}</ul>`
+      : "";
+
   const rowHtml = ({ s, p, i, flip }) => {
     const tags = p.tags || (i === 0 ? s.tags : null);
     return `<article class="svc-row${flip ? " svc-row--flip" : ""}" id="${i === 0 ? s.slug : `${s.slug}-${i + 1}`}">
-      <div class="svc-row__media"></div>
+      <div class="svc-row__side">
+        <div class="svc-row__media"></div>
+        ${tagsHtml(tags, "svc-tags--mobile")}
+        ${actionsHtml(s, p, i, "svc-actions--mobile")}
+      </div>
       <div class="svc-row__text">
         ${
           i === 0
-            ? `<header class="svc-head"><span class="svc-head__icon">${ICONS[s.icon]}</span><h3 class="svc-head__title">${s.title}</h3></header>
-               ${s.overview ? `<p class="svc-overview">${s.overview}</p>` : ""}`
+            ? `<div class="svc-row__top">
+                <header class="svc-head"><span class="svc-head__icon">${ICONS[s.icon]}</span><h3 class="svc-head__title">${s.title}</h3></header>
+                ${s.overview ? `<p class="svc-overview">${s.overview}</p>` : ""}
+              </div>`
             : ""
         }
-        ${p.label ? `<p class="svc-label">${p.label}</p>` : ""}
-        <p class="svc-desc">${p.text}</p>
-        <ul class="svc-list-ul">${p.features.map((f) => `<li>${f}</li>`).join("")}</ul>
-        ${tags ? `<ul class="svc-tags">${tags.map((t) => `<li>${t}</li>`).join("")}</ul>` : ""}
-        <div class="svc-actions">
-          <button type="button" class="btn btn--primary" data-ask="${s.slug}|${i}">${p.cta}</button>
-          ${p.link ? `<button type="button" class="btn btn--outline" data-go="${p.link.slug}">${p.link.label}</button>` : ""}
+        <div class="svc-row__body">
+          ${p.label ? `<p class="svc-label">${p.label}</p>` : ""}
+          <p class="svc-desc">${p.text}</p>
+          <ul class="svc-list-ul">${p.features.map((f) => `<li>${f}</li>`).join("")}</ul>
+          ${tagsHtml(tags, "svc-tags--desk")}
+          ${actionsHtml(s, p, i, "svc-actions--desk")}
         </div>
       </div>
     </article>`;
@@ -99,6 +113,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const mounts = allRows.map(({ s, p }, k) =>
     mountImage(rowEls[k], p.images, s.title, p.contain),
   );
+
+  // ---- Reveal each service as it reaches the reading zone ----
+  // The bottom 35% of the screen is ignored, so a row only animates in once it
+  // is well inside the viewport. The next service stays hidden until you get there.
+  // Rows you scrolled past (or jumped past via a deep link) show instantly.
+  const revealEls = panelEl.querySelectorAll(".svc-row, .svc-section__head");
+  revealEls.forEach((el) => el.classList.add("is-reveal"));
+
+  if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
+            entry.target.classList.add("is-inview");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0, rootMargin: "0px 0px -35% 0px" },
+    );
+    revealEls.forEach((el) => revealObserver.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add("is-inview"));
+  }
 
   // ---- Highlight the tab of the category you are reading ----
   const sections = [...panelEl.querySelectorAll(".svc-section")];
