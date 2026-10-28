@@ -15,7 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const thumbsEl = document.querySelector("#svcThumbs");
   const videos = window.ACUBE.videos || [];
   const PREVIEW_AT = 0.5; // seconds into the video, used for the preview frame
-
+  const SHOW_THUMBS = false; // the "Up next" card replaces the thumbnail strip
+  const nextEl = document.querySelector("#svcNext"); // "Up next" card slot, under the video
   if (stage && videos.length) {
     const previewAt = (v) => (v.preview !== undefined ? v.preview : PREVIEW_AT);
     const srcAt = (v) => `${v.src}#t=${previewAt(v)}`;
@@ -38,7 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const showVideo = (i, autoplay) => {
       const v = videos[i];
-      userPaused = false;
+      const hasNext = i + 1 < videos.length; // true = there is a video after this one
+      const next = videos.length > 1 ? videos[(i + 1) % videos.length] : null; // wraps back to video 1 after the last      userPaused = false;
       autoPaused = false;
       stage.classList.remove("is-playing");
       stage.innerHTML = `
@@ -48,6 +50,20 @@ document.addEventListener("DOMContentLoaded", () => {
           <span class="svc-video__label">${v.title}</span>
         </button>`;
 
+      // "Up next" card lives under the video, outside the player
+      if (nextEl) {
+        nextEl.innerHTML = next
+          ? `<button type="button" class="svc-next" aria-label="Play ${hasNext ? "next" : "again"}: ${next.title}">
+              <span class="svc-next__thumb"><video src="${srcAt(next)}" preload="auto" muted playsinline tabindex="-1"></video></span>
+              <span class="svc-next__text"><small>${hasNext ? "Up next" : "Watch again"}</small><strong>${next.title}</strong></span>
+            </button>`
+          : "";
+        nextEl
+          .querySelector(".svc-next")
+          ?.addEventListener("click", () =>
+            showVideo((i + 1) % videos.length, true),
+          );
+      }
       const el = stage.querySelector("video");
 
       // Clicking the play button plays with sound
@@ -56,7 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
         el.muted = false;
         el.controls = true;
         el.currentTime = 0;
-        el.play().catch(() => {});
+        el.play().catch(() => {
+          // browser blocked sound (no click yet), so play muted instead
+          el.muted = true;
+          el.play().catch(() => {});
+        });
       };
       stage.querySelector(".svc-video__play").addEventListener("click", play);
 
@@ -69,8 +89,13 @@ document.addEventListener("DOMContentLoaded", () => {
         else userPaused = true;
       });
 
-      // When it finishes, go back to the preview frame + play button
+      // When it finishes: autoplay the next video, or reset if this is the last one
       el.addEventListener("ended", () => {
+        if (hasNext) {
+          showVideo(i + 1, true); // autoplay the next video
+          return;
+        }
+        // last video: back to its preview frame + play button (no endless loop)
         el.controls = false;
         el.muted = true;
         el.currentTime = previewAt(v);
@@ -87,8 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    // Thumbnails (only when there is more than one video)
-    if (thumbsEl && videos.length > 1) {
+    // Thumbnails (off by default now, set SHOW_THUMBS to true to bring them back)
+    if (SHOW_THUMBS && thumbsEl && videos.length > 1) {
       thumbsEl.innerHTML = videos
         .map(
           (

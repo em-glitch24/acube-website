@@ -3234,3 +3234,8 @@
     display: none; /* hover arrow isn't needed on touch screens */
   }
 }
+
+.site-header .brand__name {
+  font-family: "Tenorite", "Lexend", "Roboto", sans-serif;
+  font-weight: 500;
+}

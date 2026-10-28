@@ -323,9 +323,10 @@ window.ACUBE = (() => {
   //   poster:  your own image instead of the auto preview (optional)
   const videos = [
     { src: "assets/images/acubevid.mp4", title: "Watch our overview" },
-
-    // { src: "assets/videos/iot-bootcamp.mp4", title: "IoT bootcamp", preview: 3 },
-    // { src: "assets/videos/robotics-kits.mp4", title: "Robotics kits" },
+    {
+      src: "assets/images/video2.mp4",
+      title: "BUILDING WATER RESILIENCE FOR THE PHILIPPINES",
+    },
   ];
 
   // Single-part services get one default part built from their own fields.

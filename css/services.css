@@ -146,6 +146,95 @@
   display: none;
 }
 
+/* ---- Row under the video: "Up next" card + caption ---- */
+.svc-under {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-width: 0;
+}
+.svc-under .svc-caption {
+  flex: 1;
+  min-width: 0;
+}
+.svc-next-slot {
+  flex: none;
+  margin-left: auto; /* keeps the card on the right edge of the video */
+}
+.svc-next-slot:empty {
+  display: none; /* last video: no next card, caption takes the row */
+}
+
+.svc-next {
+  display: flex;
+  align-items: stretch;
+  width: 250px;
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+  color: var(--text-on-dark);
+  background: var(--ink-500);
+  border: 1px solid var(--border-on-dark);
+  border-radius: 8px;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+.svc-next:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-blue-bright);
+}
+.svc-next__thumb {
+  flex: 0 0 42%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+.svc-next__thumb video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.svc-next__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.15rem;
+  min-width: 0;
+  padding: 0.4rem 0.65rem;
+}
+.svc-next__text small {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent-blue-bright);
+}
+.svc-next__text strong {
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+@media (max-width: 860px) {
+  .svc-under {
+    grid-column: 1;
+    grid-row: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .svc-next {
+    width: 200px;
+  }
+  .svc-next__text small {
+    font-size: 0.55rem;
+  }
+  .svc-next__text strong {
+    font-size: 0.68rem;
+  }
+}
 /* Right column: cards and list share one cell, so the height never changes */
 .svc-home__panel {
   grid-column: 2;
