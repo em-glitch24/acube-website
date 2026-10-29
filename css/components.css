@@ -345,7 +345,7 @@
 .hero__stats {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem 2.5rem;
+  gap: 1rem 1.5rem;
   margin-top: 2.5rem;
 }
 .hero__stats li {
