@@ -1320,3 +1320,94 @@
     display: flex;
   }
 }
+
+/* ==========================================================================
+   Mobile services fix (iOS Safari): reliable video height + cleaner stack
+   ========================================================================== */
+@media (max-width: 860px) {
+  /* Plain vertical stack instead of a grid, so Safari can't mis-size rows */
+  .svc-home {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Video box: height comes from a spacer, not aspect-ratio */
+  .svc-video {
+    width: 100%;
+    min-height: 0;
+    aspect-ratio: auto;
+    align-self: stretch;
+    flex: none;
+  }
+  .svc-video::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%; /* 16:9 */
+  }
+  .svc-video video,
+  .svc-video__play {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; /* fallback for browsers without `inset` */
+    width: 100%;
+    height: 100%;
+  }
+  .svc-video__icon {
+    width: 52px;
+    height: 52px;
+  }
+  .svc-video__icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Caption + "Up next" card: stacked, full width, left aligned */
+  .svc-under {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  .svc-caption p {
+    font-size: 0.8rem;
+    max-width: none;
+  }
+  .svc-caption__link {
+    font-size: 0.8rem;
+  }
+  .svc-next-slot {
+    margin-left: 0;
+    width: 100%;
+  }
+  .svc-next {
+    width: 100%;
+  }
+  .svc-next__thumb {
+    flex: 0 0 38%;
+  }
+
+  /* Category cards */
+  .svc-home__panel {
+    width: 100%;
+  }
+  .svc-cat__title {
+    font-size: 0.8rem;
+  }
+  .svc-cat__desc--short {
+    font-size: 0.7rem;
+  }
+  .svc-cat__count {
+    font-size: 0.65rem;
+  }
+
+  /* Full-width button */
+  .svc-home__all {
+    width: 100%;
+    max-width: none;
+    justify-content: center;
+    padding-block: 0.9rem;
+  }
+}

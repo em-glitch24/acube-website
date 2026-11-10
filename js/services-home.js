@@ -40,7 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const showVideo = (i, autoplay) => {
       const v = videos[i];
       const hasNext = i + 1 < videos.length; // true = there is a video after this one
-      const next = videos.length > 1 ? videos[(i + 1) % videos.length] : null; // wraps back to video 1 after the last      userPaused = false;
+      const next = videos.length > 1 ? videos[(i + 1) % videos.length] : null; // wraps back to video 1 after the last
+      userPaused = false;
       autoPaused = false;
       stage.classList.remove("is-playing");
       stage.innerHTML = `
